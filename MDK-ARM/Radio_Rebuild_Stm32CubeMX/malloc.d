@@ -1,0 +1,10 @@
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\malloc.c
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\malloc.h
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\Source\Factory\inc\../inc/basic_function.h
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\Source\Factory\inc\../inc/../basic_header.h
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\Source\Factory\inc\../inc/../basic_macro.h
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\Source\Factory\inc\../inc/../basic_type.h
+radio_rebuild_stm32cubemx\malloc.o: ..\SelfCode\malloc.h
+radio_rebuild_stm32cubemx\malloc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+radio_rebuild_stm32cubemx\malloc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+radio_rebuild_stm32cubemx\malloc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
