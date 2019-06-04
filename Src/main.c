@@ -162,6 +162,12 @@ int main(void)
   MX_TIM3_Init();
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
+	
+	retSD = f_mount(&SDFatFS, "0:", 1);
+	//BYTE work[_MAX_SS];
+  //f_mkfs("", FM_ANY, 0, work, sizeof work);
+
+	
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,1);
@@ -170,17 +176,17 @@ int main(void)
 	Speex_Init();
 	
 
-//  retSD = f_mount(&SDFatFS, "0:", 1);
-//	initial_recoder("0:/12345",8000);
-//	start_recoder();
-//	i = 0x7fffffff;
-//	while(i--)
-//	{
-//		//HAL_Delay(1);
-//		tick_recoder();
-//	}
-//	stop_recoder();
-
+  //retSD = f_mount(&SDFatFS, "0:", 1);
+	initial_recoder("0:/12345",8000);
+	start_recoder();
+	i = 10*1000;
+	while(i--)
+	{
+		HAL_Delay(1);
+		tick_recoder();
+	}
+	stop_recoder();
+	
 
 
   /* USER CODE END 2 */

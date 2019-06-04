@@ -264,7 +264,7 @@ int8_t STORAGE_IsWriteProtected_FS(uint8_t lun)
 int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
 {
   /* USER CODE BEGIN 6 */
-	HAL_SD_ReadBlocks(&hsd, buf, (blk_addr * SDCardInfo.BlockSize), SDCardInfo.BlockSize, blk_len);
+	HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, 10);
   return (USBD_OK);
   /* USER CODE END 6 */
 }
@@ -277,7 +277,7 @@ int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t bl
 int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
 {
   /* USER CODE BEGIN 7 */
-	HAL_SD_WriteBlocks(&hsd, buf, (blk_addr * SDCardInfo.BlockSize), SDCardInfo.BlockSize, blk_len);
+	HAL_SD_WriteBlocks(&hsd, buf, blk_addr, blk_len, 10);
   return (USBD_OK);
   /* USER CODE END 7 */
 }
@@ -290,7 +290,7 @@ int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t b
 int8_t STORAGE_GetMaxLun_FS(void)
 {
   /* USER CODE BEGIN 8 */
-  return (STORAGE_LUN_NBR - 1);
+  return (SDCardInfo.BlockNbr - 1);
   /* USER CODE END 8 */
 }
 

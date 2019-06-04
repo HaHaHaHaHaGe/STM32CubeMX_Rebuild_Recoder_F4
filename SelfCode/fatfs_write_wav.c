@@ -122,10 +122,12 @@ void start_recoder()
 
 u8 stop_recoder()
 {
+	u8 wav_res,speex_res;
 	HAL_ADC_Stop_DMA(&hadc1);
 	HAL_TIM_Base_Stop(&htim3);
-	close_wav_file();
-	return close_speex_file();
+	wav_res = close_wav_file();
+	speex_res = close_speex_file();
+	return wav_res || speex_res;
 }
 
 
@@ -143,13 +145,19 @@ unsigned char Encoder_Flag = 0;
 
 void tick_recoder()
 {
+		u16 wav16bits;
 		__disable_irq();
 		get_unread_ptr(&buffer,&data_1,&data_2,&data1_len,&data2_len,NO);
 		__enable_irq();
 		if(data1_len != 0)
 		{
-			for(rd_i = 0;rd_i<data1_len;rd_i++)
+			for(rd_i = 0;rd_i<data1_len;rd_i+=2)
+			{
+				wav16bits = data_1[rd_i] | (data_1[rd_i + 1] << 8);
+				*(u16*)&data_1[rd_i] = (wav16bits - 1894) << 4;
 				rdata[wdata_len++] = data_1[rd_i];
+				rdata[wdata_len++] = data_1[rd_i + 1];
+			}
 //			/* Flush all the bits in the struct so we can encode a new frame */
 //			speex_bits_reset(&bits);
 //			/* Encode the frame */
@@ -160,8 +168,13 @@ void tick_recoder()
 		}
 		if(data2_len != 0)
 		{
-			for(rd_i = 0;rd_i<data2_len;rd_i++)
+			for(rd_i = 0;rd_i<data2_len;rd_i+=2)
+			{
+				wav16bits = data_2[rd_i] | (data_2[rd_i + 1] << 8);
+				*(u16*)&data_2[rd_i] = (wav16bits - 1984) << 4;
 				rdata[wdata_len++] = data_2[rd_i];
+				rdata[wdata_len++] = data_2[rd_i + 1];
+			}
 //			/* Flush all the bits in the struct so we can encode a new frame */
 //			speex_bits_reset(&bits);
 //			/* Encode the frame */
