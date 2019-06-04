@@ -104,11 +104,9 @@ unsigned char initial_recoder(char*filename,unsigned int fs)
 	if(retSD != FR_OK)
 		return retSD;
 	file_ptr -= 3;
-	*(file_ptr++) = 's';
-	*(file_ptr++) = 'p';
-	*(file_ptr++) = 'e';
-	*(file_ptr++) = 'e';
-	*(file_ptr++) = 'x';
+	*(file_ptr++) = 'w';
+	*(file_ptr++) = 'z';
+	*(file_ptr++) = 'r';
 	*(file_ptr) = 0;
 	return create_speex_file(init_file);
 }
