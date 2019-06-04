@@ -50,6 +50,8 @@
 "radio_rebuild_stm32cubemx\basic_function.o"
 "radio_rebuild_stm32cubemx\ringbuffer.o"
 "radio_rebuild_stm32cubemx\malloc.o"
+"radio_rebuild_stm32cubemx\oled.o"
+"radio_rebuild_stm32cubemx\stmflash.o"
 "radio_rebuild_stm32cubemx\bits.o"
 "radio_rebuild_stm32cubemx\buffer.o"
 "radio_rebuild_stm32cubemx\exc_10_32_table.o"

@@ -62,3 +62,5 @@ radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\include\speex/speex.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\include\speex/speex_bits.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\include\speex/speex_types.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\STM32\include\speex/speex_config_types.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\OLED\oled.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\STMFLASH\stmflash.h

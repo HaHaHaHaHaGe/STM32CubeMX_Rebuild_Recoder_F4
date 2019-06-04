@@ -49,6 +49,8 @@
 #include "../inc/ringbuffer.h"
 #include "malloc.h"	   
 #include <speex/speex.h>
+#include "oled.h"
+#include "stmflash.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,37 +98,69 @@ HAL_SD_CardInfoTypeDef sdinf;
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-char filename4[] = "0:/hahaha.wav";
-
-unsigned int i = 16*1024*1;
-
-
-
-
-SpeexBits bits;/* Holds bits so they can be read and written by the Speex routines */
-void *enc_state, *dec_state;/* Holds the states of the encoder & the decoder */
-int quality = 4, complexity=1, vbr=0, enh=1;/* SPEEX PARAMETERS, MUST REMAINED UNCHANGED */
-int frame_size;
-void Speex_Init(void)
+typedef struct FLASH_SAVE
 {
-  /* Speex encoding initializations */ 
-  speex_bits_init(&bits);
-  enc_state = speex_encoder_init(&speex_nb_mode);
-  speex_encoder_ctl(enc_state, SPEEX_SET_VBR, &vbr);
-  speex_encoder_ctl(enc_state, SPEEX_SET_QUALITY,&quality);
-  speex_encoder_ctl(enc_state, SPEEX_SET_COMPLEXITY, &complexity);
+	unsigned char WIFI_NAME[20];
+	unsigned char WIFI_PASS[20];
+	unsigned char SERVER_IP[20];
+	unsigned char SERVER_PORT[20];
+	unsigned char BIND_NAME[20];
+	unsigned char DEVICE_ID[28];
+	int check;
+}FLASH_SAVE;
+
+
+FLASH_SAVE FLASH_DATA;
+
+void check_firstrun()
+{
+	uint32_t uid[3];
+	uint32_t rand_i = 0;
+	STMFLASH_Read((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	
-	speex_encoder_ctl(enc_state,SPEEX_GET_SAMPLING_RATE,&frame_size);
+	if(FLASH_DATA.check != 0x12345678)
+	{
+		OLED_Init( );	 
+		OLED_Clear( );
+		OLED_ShowString(0,0,"Initialization..",16);
+		OLED_ShowString(0,2,"Do Not Turn off",16);
+		
 
-  /* speex decoding intilalization */
-  dec_state = speex_decoder_init(&speex_nb_mode);
-  speex_decoder_ctl(dec_state, SPEEX_SET_ENH, &enh);
+		HAL_GetUID(uid);
+		srand(uid[0]);
+		rand_i += rand();
+		srand(uid[1]);
+		rand_i += rand();
+		srand(uid[2]);
+		rand_i += rand();
+		srand(rand_i);
+		
+		FLASH_DATA.check = 0x12345678;
+		FLASH_DATA.DEVICE_ID[0] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[1] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[2] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[3] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[4] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[5] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[6] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[7] = (rand() % 26) + 'A';
+		FLASH_DATA.DEVICE_ID[8] = 0;
+		
+		
+		HAL_Delay(200);
+		STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
+		
+		
+		//uart_init(115200/6.25);		//初始化串口波特率为115200
+		HAL_Delay(2000);	
+		//printf("AT+UART=921600,8,1,0,0\r\n");
+		HAL_Delay(2000);	
+		HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,0);
+		OLED_Clear( );
+		OLED_ShowString(0,0,"Please turn off",16);
+		while(1);
+	}
 }
-
-
-
-
 /* USER CODE END 0 */
 
 /**
@@ -177,17 +211,17 @@ int main(void)
 	
 
   //retSD = f_mount(&SDFatFS, "0:", 1);
-	initial_recoder("0:/12345",8000);
-	start_recoder();
-	i = 10*1000;
-	while(i--)
-	{
-		HAL_Delay(1);
-		tick_recoder();
-	}
-	stop_recoder();
+//	initial_recoder("0:/12345",8000);
+//	start_recoder();
+//	i = 10*1000;
+//	while(i--)
+//	{
+//		HAL_Delay(1);
+//		tick_recoder();
+//	}
+//	stop_recoder();
 	
-
+	check_firstrun();
 
   /* USER CODE END 2 */
 

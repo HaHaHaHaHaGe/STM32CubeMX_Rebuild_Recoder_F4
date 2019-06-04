@@ -22,8 +22,31 @@ char out_bytes[ENCODED_FRAME_SIZE];
 
 extern TIM_HandleTypeDef htim3;
 extern ADC_HandleTypeDef hadc1;
-extern SpeexBits bits;
-extern void *enc_state;
+
+
+
+SpeexBits bits;/* Holds bits so they can be read and written by the Speex routines */
+void *enc_state, *dec_state;/* Holds the states of the encoder & the decoder */
+int quality = 4, complexity=1, vbr=0, enh=1;/* SPEEX PARAMETERS, MUST REMAINED UNCHANGED */
+int frame_size;
+void Speex_Init(void)
+{
+  /* Speex encoding initializations */ 
+  speex_bits_init(&bits);
+  enc_state = speex_encoder_init(&speex_nb_mode);
+  speex_encoder_ctl(enc_state, SPEEX_SET_VBR, &vbr);
+  speex_encoder_ctl(enc_state, SPEEX_SET_QUALITY,&quality);
+  speex_encoder_ctl(enc_state, SPEEX_SET_COMPLEXITY, &complexity);
+	
+	speex_encoder_ctl(enc_state,SPEEX_GET_SAMPLING_RATE,&frame_size);
+
+  /* speex decoding intilalization */
+  dec_state = speex_decoder_init(&speex_nb_mode);
+  speex_decoder_ctl(dec_state, SPEEX_SET_ENH, &enh);
+}
+
+
+
 unsigned char close_wav_file()
 {
 	retSD = f_lseek(&wav_file,0);

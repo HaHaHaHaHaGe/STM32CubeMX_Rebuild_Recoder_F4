@@ -8,3 +8,4 @@ unsigned char initial_recoder(char*filename,unsigned int fs);
 void start_recoder(void);
 unsigned char stop_recoder(void);
 void tick_recoder(void);
+void Speex_Init(void);
