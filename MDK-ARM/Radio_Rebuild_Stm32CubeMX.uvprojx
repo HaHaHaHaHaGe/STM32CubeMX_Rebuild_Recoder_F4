@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE,HAVE_CONFIG_H</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FatFs/src;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc;..\SelfCode;..\SelfCode\Source\Factory;..\SelfCode\Source\Factory\inc;..\SelfCode\Source\BasicDataStream\inc;..\SelfCode\Speex_Lib\include;..\SelfCode\Speex_Lib\libspeex;..\SelfCode\Speex_Lib\STM32;..\SelfCode\Speex_Lib\STM32\include;..\SelfCode\Speex_Lib\STM32\libspeex;..\SelfCode\Speex_Lib\STM32\libspeex\arm;..\SelfCode\OLED;..\SelfCode\STMFLASH</IncludePath>
+              <IncludePath>../Inc;          ../Drivers/STM32F4xx_HAL_Driver/Inc;          ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;          ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;          ../Drivers/CMSIS/Include;          ../Middlewares/Third_Party/FatFs/src;          ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;          ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc;          ..\SelfCode;          ..\SelfCode\Source\Factory;          ..\SelfCode\Source\Factory\inc;          ..\SelfCode\Source\BasicDataStream\inc;          ..\SelfCode\Speex_Lib\include;          ..\SelfCode\Speex_Lib\libspeex;          ..\SelfCode\Speex_Lib\STM32;          ..\SelfCode\Speex_Lib\STM32\include;          ..\SelfCode\Speex_Lib\STM32\libspeex;          ..\SelfCode\Speex_Lib\STM32\libspeex\arm;          ..\SelfCode\OLED;          ..\SelfCode\STMFLASH</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -496,6 +496,11 @@
               <FileName>stm32f4xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_rcc.c</FileName>

@@ -20,6 +20,7 @@
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_sd.o"
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_tim.o"
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_tim_ex.o"
+"radio_rebuild_stm32cubemx\stm32f4xx_hal_uart.o"
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc.o"
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc_ex.o"
 "radio_rebuild_stm32cubemx\stm32f4xx_hal_flash.o"

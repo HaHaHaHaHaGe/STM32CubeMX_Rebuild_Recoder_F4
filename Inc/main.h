@@ -86,10 +86,15 @@ void Error_Handler(void);
 #define MIC_GPIO_Port GPIOA
 #define PWR_CTL_Pin GPIO_PIN_0
 #define PWR_CTL_GPIO_Port GPIOB
+#define PWR_FLAG_Pin GPIO_PIN_1
+#define PWR_FLAG_GPIO_Port GPIOB
+#define PWR_FLAG_EXTI_IRQn EXTI1_IRQn
 #define OLED_SCL_Pin GPIO_PIN_12
 #define OLED_SCL_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_13
 #define OLED_SDA_GPIO_Port GPIOB
+#define KEY_FLAG_Pin GPIO_PIN_15
+#define KEY_FLAG_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
