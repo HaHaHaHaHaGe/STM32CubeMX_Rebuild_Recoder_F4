@@ -31,6 +31,7 @@ radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h
+radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 radio_rebuild_stm32cubemx\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
@@ -65,3 +66,8 @@ radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\include\speex/speex_type
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\Speex_Lib\STM32\include\speex/speex_config_types.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\OLED\oled.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\STMFLASH\stmflash.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\NRF24L01\24l01.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\mpu6050.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\IIC\myiic.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\eMPL\inv_mpu.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\eMPL\inv_mpu_dmp_motion_driver.h

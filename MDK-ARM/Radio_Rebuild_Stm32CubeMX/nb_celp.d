@@ -32,6 +32,7 @@ radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h
+radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 radio_rebuild_stm32cubemx\nb_celp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h

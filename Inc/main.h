@@ -84,17 +84,33 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOC
 #define MIC_Pin GPIO_PIN_1
 #define MIC_GPIO_Port GPIOA
+#define NRF_SCK_Pin GPIO_PIN_5
+#define NRF_SCK_GPIO_Port GPIOA
+#define NRF_MOSI_Pin GPIO_PIN_7
+#define NRF_MOSI_GPIO_Port GPIOA
 #define PWR_CTL_Pin GPIO_PIN_0
 #define PWR_CTL_GPIO_Port GPIOB
 #define PWR_FLAG_Pin GPIO_PIN_1
 #define PWR_FLAG_GPIO_Port GPIOB
 #define PWR_FLAG_EXTI_IRQn EXTI1_IRQn
+#define NRF_IRQ_Pin GPIO_PIN_2
+#define NRF_IRQ_GPIO_Port GPIOB
+#define NRF_CE_Pin GPIO_PIN_10
+#define NRF_CE_GPIO_Port GPIOB
 #define OLED_SCL_Pin GPIO_PIN_12
 #define OLED_SCL_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_13
 #define OLED_SDA_GPIO_Port GPIOB
 #define KEY_FLAG_Pin GPIO_PIN_15
 #define KEY_FLAG_GPIO_Port GPIOA
+#define NRF_MISO_Pin GPIO_PIN_4
+#define NRF_MISO_GPIO_Port GPIOB
+#define NRF_CSN_Pin GPIO_PIN_6
+#define NRF_CSN_GPIO_Port GPIOB
+#define I2C_SCL_Pin GPIO_PIN_8
+#define I2C_SCL_GPIO_Port GPIOB
+#define I2C_SDA_Pin GPIO_PIN_9
+#define I2C_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

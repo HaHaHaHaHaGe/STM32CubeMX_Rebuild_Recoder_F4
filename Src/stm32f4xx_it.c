@@ -362,12 +362,33 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		while(1);
 	}
 }
-
+extern unsigned char Real_Time_Year,Real_Time_Month,Real_Time_Day,Real_Time_Hour,Real_Time_Minute,Real_Time_Second;
+extern unsigned int Real_Time_Millise;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM2)
 	{
-		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+		Real_Time_Millise+=100;
+		if(Real_Time_Millise >= 1000)
+		{
+			Real_Time_Millise-=1000;
+			Real_Time_Second++;
+			if(Real_Time_Second >= 60)
+			{
+				Real_Time_Second = 0;
+				Real_Time_Minute++;
+				if(Real_Time_Minute>=60)
+				{
+					Real_Time_Minute = 0;
+					Real_Time_Hour++;
+					if(Real_Time_Hour >= 24)
+					{
+						Real_Time_Hour = 0;
+						Real_Time_Day++;
+					}
+				}
+			}
+		}
 	}
 }
 
