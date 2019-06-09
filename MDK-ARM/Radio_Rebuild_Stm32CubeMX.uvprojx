@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE,HAVE_CONFIG_H</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;  ../Drivers/CMSIS/Include;  ../Middlewares/Third_Party/FatFs/src;  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;  ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc;  ..\SelfCode;  ..\SelfCode\Source\Factory;  ..\SelfCode\Source\Factory\inc;  ..\SelfCode\Source\BasicDataStream\inc;  ..\SelfCode\Speex_Lib\include;  ..\SelfCode\Speex_Lib\libspeex;  ..\SelfCode\Speex_Lib\STM32;  ..\SelfCode\Speex_Lib\STM32\include;  ..\SelfCode\Speex_Lib\STM32\libspeex;  ..\SelfCode\Speex_Lib\STM32\libspeex\arm;  ..\SelfCode\OLED;  ..\SelfCode\STMFLASH;  ..\SelfCode\NRF24L01;  ..\SelfCode\MPU6050;  ..\SelfCode\MPU6050\eMPL;  ..\SelfCode\IIC</IncludePath>
+              <IncludePath>../Inc;         ../Drivers/STM32F4xx_HAL_Driver/Inc;         ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;         ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;         ../Drivers/CMSIS/Include;         ../Middlewares/Third_Party/FatFs/src;         ..\SelfCode;         ..\SelfCode\Source\Factory;         ..\SelfCode\Source\Factory\inc;         ..\SelfCode\Source\BasicDataStream\inc;         ..\SelfCode\Speex_Lib\include;         ..\SelfCode\Speex_Lib\libspeex;         ..\SelfCode\Speex_Lib\STM32;         ..\SelfCode\Speex_Lib\STM32\include;         ..\SelfCode\Speex_Lib\STM32\libspeex;         ..\SelfCode\Speex_Lib\STM32\libspeex\arm;         ..\SelfCode\OLED;         ..\SelfCode\STMFLASH;         ..\SelfCode\NRF24L01;         ..\SelfCode\MPU6050;         ..\SelfCode\MPU6050\eMPL;         ..\SelfCode\IIC;   ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;   ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -567,6 +567,11 @@
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_hal_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -606,46 +611,6 @@
               <FileName>cc950.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Middlewares/Third_Party/FatFs/src/option/cc950.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Middlewares/USB_Device_Library</GroupName>
-          <Files>
-            <File>
-              <FileName>usbd_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_ctlreq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_ioreq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_bot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_bot.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_data.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_scsi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_scsi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -811,6 +776,46 @@
               <FileName>lsp_tables_nb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SelfCode\Speex_Lib\libspeex\lsp_tables_nb.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/USB_Device_Library</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ctlreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ioreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_bot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_bot.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_scsi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_scsi.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -161,6 +161,13 @@ static void USART2_UART_Init(int baud)
   }
 }
 
+int fputc(int ch, FILE *f)
+{
+	uint8_t data = ch;
+	HAL_UART_Transmit(&huart2,&data,1,100);
+	return ch;
+}
+
 void UARTSendData(u8 *data,u16 len)
 {
 	HAL_UART_Transmit(&huart2,data,len,100);
@@ -209,7 +216,7 @@ void ClearBuffer(unsigned char *target,int targetlen)
 
 void check_firstrun()
 {
-	uint32_t uid[3];
+
 	uint32_t rand_i = 0;
 	STMFLASH_Read((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	
@@ -217,16 +224,14 @@ void check_firstrun()
 	{
 		OLED_Init( );	 
 		OLED_Clear( );
-		OLED_ShowString(0,0,"Initialization..",16);
-		OLED_ShowString(0,2,"Do Not Turn off",16);
+		OLED_ShowString(0,0,(unsigned char*)"Initialization..",16);
+		OLED_ShowString(0,2,(unsigned char*)"Do Not Turn off",16);
 		
-
-		HAL_GetUID(uid);
-		srand(uid[0]);
+		srand(HAL_GetUIDw0());
 		rand_i += rand();
-		srand(uid[1]);
+		srand(HAL_GetUIDw1());
 		rand_i += rand();
-		srand(uid[2]);
+		srand(HAL_GetUIDw2());
 		rand_i += rand();
 		srand(rand_i);
 		
@@ -249,12 +254,12 @@ void check_firstrun()
 		USART2_UART_Init(115200);
 		HAL_UART_Receive_IT(&huart2,UART_BUFFER,sizeof(UART_BUFFER));
 		HAL_Delay(2000);	
-		HAL_UART_Transmit(&huart2,"AT+UART=921600,8,1,0,0\r\n",24,100);
+		HAL_UART_Transmit(&huart2,(unsigned char*)"AT+UART=921600,8,1,0,0\r\n",24,100);
 		//printf("AT+UART=921600,8,1,0,0\r\n");
 		HAL_Delay(2000);	
 		HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,0);
 		OLED_Clear( );
-		OLED_ShowString(0,0,"Please turn off",16);
+		OLED_ShowString(0,0,(unsigned char*)"Please turn off",16);
 		while(1);
 	}
 }
@@ -304,6 +309,7 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_TIM2_Init();
   MX_SPI1_Init();
+  MX_USB_DEVICE_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
@@ -322,7 +328,7 @@ int main(void)
 	//HAL_UART_Transmit(&huart2,"AT+CIPSTATUS\r\n",14,100);
 	OLED_Init( );	 
 	OLED_Clear( );
-	OLED_ShowString(0,0,"Check NRF24L01..",16);
+	OLED_ShowString(0,0,(unsigned char*)"Check NRF24L01..",16);
 	NRF24L01_Init();
 	while(NRF24L01_Check())
 	{
@@ -334,7 +340,7 @@ int main(void)
 	HAL_Delay(100);
 	
 	
-	OLED_ShowString(0,2,"Check MPU6050..",16);
+	OLED_ShowString(0,2,(unsigned char*)"Check MPU6050..",16);
 	MPU_Init();
 	HAL_Delay(200);
 	while(mpu_dmp_init())
@@ -345,7 +351,7 @@ int main(void)
 	
 	
 	
-	OLED_ShowString(0,4,"Check SDCard..",16);
+	OLED_ShowString(0,4,(unsigned char*)"Check SDCard..",16);
 	MX_FATFS_Init();
 	if(retSD != FR_OK)
 		while(1);
@@ -358,11 +364,11 @@ int main(void)
 		f_mkdir("0:/RECORDER");				//创建该目录   
 	}
 	
-	OLED_ShowString(0,6,"Check Over!",16);
+	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
 	HAL_Delay(2000);
 	OLED_Clear( );
 	HAL_Delay(500);
-	OLED_ShowString(0,0,"Waiting Network",16);
+	OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
 		//////////////////////////////////////////////////
 	//binding
 	binding:
@@ -386,12 +392,12 @@ int main(void)
 			timecnt=0;
 			OLED_Clear( );
 			HAL_Delay(10);
-			OLED_ShowString(0,0,"Waiting Binding",16);
+			OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 		}
 		
 		if(NRF24L01_RxPacket(Buffer)!=0)
 			continue;
-		RecvComLoc3 = StrEqual(Buffer,"SERCH:Begin_",32,strlen("SERCH:Begin_"));
+		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"SERCH:Begin_",32,strlen("SERCH:Begin_"));
 		if(connectstate < 2 && RecvComLoc3 != -1)
 		{
 			sum = 0;
@@ -410,9 +416,9 @@ int main(void)
 					//sum = Send24L01Data("AB","00000000");
 					continue;
 				}
-				OLED_ShowString(0,2,"Request from:",16);
+				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
 				OLED_ShowString(0,4,(u8*)SoftID,16);
-				OLED_ShowString(0,6,"Connect?",16);
+				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
 				if(PressKey() == 0)
 				{
 					//sum = Send24L01Data("AB","00000000");
@@ -420,13 +426,13 @@ int main(void)
 					
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,"Connection",16);
-					OLED_ShowString(0,2,"Succeeded!",16);
+					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
+					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
 					OLED_ShowString(0,4,(u8*)SoftID,16);
 					HAL_Delay(2000);
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,"Waiting WIFI",16);
+					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
 					break;
 				}
 				else
@@ -441,7 +447,7 @@ int main(void)
 					
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,"Waiting Network",16);
+					OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
 				}
 				continue;
 				
@@ -499,10 +505,10 @@ int main(void)
 	{
 			OLED_Clear( );
 			HAL_Delay(10);
-			OLED_ShowString(0,0,"WiFi Server:",16);
+			OLED_ShowString(0,0,(unsigned char*)"WiFi Server:",16);
 			OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
 			OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
-			OLED_ShowString(0,6,"Connect?",16);
+			OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
 			if(PressKey() == 0)
 			{
 				for(i = 0; i< 20;i++)
@@ -519,7 +525,7 @@ int main(void)
 			{
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,"Waiting WIFI",16);
+				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
 			}
 	}
 	
@@ -559,13 +565,13 @@ int main(void)
 		
 		if(NRF24L01_RxPacket(Buffer)!=0)
 			continue;
-		RecvComLoc1 = StrEqual(Buffer,"$WIFI",32,strlen("$WIFI"));
-		RecvComLoc2 = StrEqual(Buffer,"$PASS",32,strlen("$PASS"));
-		RecvComLoc3 = StrEqual(Buffer,"$IPAD",32,strlen("$IPAD"));
-		RecvComLoc4 = StrEqual(Buffer,"$PORT",32,strlen("$PORT"));
+		RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"$WIFI",32,strlen("$WIFI"));
+		RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"$PASS",32,strlen("$PASS"));
+		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"$IPAD",32,strlen("$IPAD"));
+		RecvComLoc4 = StrEqual(Buffer,(unsigned char*)"$PORT",32,strlen("$PORT"));
 		if(RecvComLoc1 != -1)
 		{
-			RecvComLoc2 = StrEqual(Buffer,"\n",32,strlen("\n"));
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
 			if(RecvComLoc2 < RecvComLoc1)
 				continue;
 			
@@ -584,7 +590,7 @@ int main(void)
 		}
 		else if (RecvComLoc2 != -1)
 		{
-			RecvComLoc1 = StrEqual(Buffer,"\n",32,strlen("\n"));
+			RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
 			if(RecvComLoc1 < RecvComLoc2)
 				continue;
 			
@@ -603,7 +609,7 @@ int main(void)
 		}
 		else if (RecvComLoc3 != -1)
 		{
-			RecvComLoc2 = StrEqual(Buffer,"\n",32,strlen("\n"));
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
 			if(RecvComLoc2 < RecvComLoc3)
 				continue;
 			
@@ -622,7 +628,7 @@ int main(void)
 		}
 		else if (RecvComLoc4 != -1)
 		{
-			RecvComLoc2 = StrEqual(Buffer,"\n",32,strlen("\n"));
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
 			if(RecvComLoc2 < RecvComLoc4)
 				continue;
 			
@@ -660,8 +666,8 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,"Connect WIFI",16);
-	OLED_ShowString(0,2,"...",16);
+	OLED_ShowString(0,0,(unsigned char*)"Connect WIFI",16);
+	OLED_ShowString(0,2,(unsigned char*)"...",16);
 	
 	///////////////////////////////////////////////////
 	//ESP8266 Init
@@ -686,8 +692,8 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,"Connect Server",16);
-	OLED_ShowString(0,2,"...",16);
+	OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
+	OLED_ShowString(0,2,(unsigned char*)"...",16);
 	
 	
 	do
@@ -718,10 +724,10 @@ int main(void)
 	{
 			OLED_Clear( );
 			HAL_Delay(10);
-			OLED_ShowString(0,0,"Bind Name:",16);
+			OLED_ShowString(0,0,(unsigned char*)"Bind Name:",16);
 			OLED_ShowString(0,2,(u8*)FLASH_DATA.BIND_NAME,16);
 			//OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
-			OLED_ShowString(0,6,"Bind?",16);
+			OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
 			if(PressKey() == 0)
 			{
 				for(i = 0;i<8;i++)
@@ -745,8 +751,8 @@ int main(void)
 					{
 						OLED_Clear( );
 						HAL_Delay(10);
-						OLED_ShowString(0,0,"Binding",16);
-						OLED_ShowString(0,2,"Succeeded!",16);
+						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
+						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
 						HAL_Delay(2000);
 						break;
 					}
@@ -774,7 +780,7 @@ int main(void)
 					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData(BordID,8);
+					UARTSendData((unsigned char*)BordID,8);
 					UARTSendData(&initfilename[8],RecvComLoc2);
 				}
 				
@@ -803,13 +809,13 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,"Waiting Binding",16);
+	OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 	while(1)
 	{
 		HAL_Delay(200);
 		presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
 		//Synchronous Device Info\r\n
-		RecvComLoc3 = StrEqual(UART_BUFFER,"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
+		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
 		if(RecvComLoc3 != -1)
 		{
 			printf("Synchronous Device Info\r\n");
@@ -825,11 +831,11 @@ int main(void)
 			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-			UARTSendData(BordID,8);
+			UARTSendData((unsigned char*)BordID,8);
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 			continue;
 		}
-		RecvComLoc3 = StrEqual(UART_BUFFER,"Request Binding\r\n",sizeof(UART_BUFFER),strlen("Request Binding\r\n"));
+		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Request Binding\r\n",sizeof(UART_BUFFER),strlen("Request Binding\r\n"));
 		if(RecvComLoc3 != -1)
 		{
 			
@@ -865,10 +871,10 @@ int main(void)
 				}
 				FLASH_DATA.BIND_NAME[i] = 0;
 				timecnt = 0;
-				OLED_ShowString(0,4,"                ",16);
-				OLED_ShowString(0,2,"Request from:",16);
+				OLED_ShowString(0,4,(unsigned char*)"                ",16);
+				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
 				OLED_ShowString(0,4,(u8*)&initfilename[8],16);
-				OLED_ShowString(0,6,"Bind?",16);
+				OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
 				ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 				if(presskeyvalue == 1)
 				{
@@ -879,7 +885,7 @@ int main(void)
 				
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,"Binding...",16);
+				OLED_ShowString(0,0,(unsigned char*)"Binding...",16);
 				OLED_ShowString(0,2,(u8*)&initfilename[8],16);
 				
 				
@@ -901,13 +907,13 @@ int main(void)
 					
 					
 					
-					RecvComLoc3 = StrEqual(UART_BUFFER,"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
+					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
 					if(RecvComLoc3 != -1)
 					{
 						OLED_Clear( );
 						HAL_Delay(10);
-						OLED_ShowString(0,0,"Binding",16);
-						OLED_ShowString(0,2,"Succeeded!",16);
+						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
+						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
 						HAL_Delay(2000);
 						break;
 					}
@@ -934,7 +940,7 @@ int main(void)
 					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData(BordID,8);
+					UARTSendData((unsigned char*)BordID,8);
 					UARTSendData(&initfilename[8],RecvComLoc2);
 				}
 				break;
@@ -948,7 +954,7 @@ int main(void)
 				Binding_Bool = 0;
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,"Waiting Binding",16);
+				OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 			}
 					printf("Device is Idle\r\n");
 					RecvComLoc3 = 1;
@@ -966,7 +972,7 @@ int main(void)
 					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData(BordID,8);
+					UARTSendData((unsigned char*)BordID,8);
 					RecvComLoc3 = 2;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 		}
@@ -985,11 +991,11 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,"Wait Recording",16);
-	OLED_ShowString(0,2,"SoftID:",16);
-	OLED_ShowString(56,2,SoftID,16);
-	OLED_ShowString(0,4,"HardID:",16);
-	OLED_ShowString(56,4,BordID,16);
+	OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
+	OLED_ShowString(0,2,(unsigned char*)"SoftID:",16);
+	OLED_ShowString(56,2,(unsigned char*)SoftID,16);
+	OLED_ShowString(0,4,(unsigned char*)"HardID:",16);
+	OLED_ShowString(56,4,(unsigned char*)BordID,16);
 	
 	
 	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
@@ -1029,11 +1035,11 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /**Configure the main internal regulator output voltage 
+  /** Configure the main internal regulator output voltage 
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /**Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -1047,7 +1053,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /**Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -1090,7 +1096,7 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 1 */
 
   /* USER CODE END ADC1_Init 1 */
-  /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
+  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
@@ -1108,7 +1114,7 @@ static void MX_ADC1_Init(void)
   {
     Error_Handler();
   }
-  /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
   */
   sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = 1;
@@ -1212,6 +1218,7 @@ static void MX_TIM2_Init(void)
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -1256,6 +1263,7 @@ static void MX_TIM3_Init(void)
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 11999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
@@ -1362,6 +1370,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : KEY_FLAG_Pin */
+  GPIO_InitStruct.Pin = KEY_FLAG_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(KEY_FLAG_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PWR_CTL_Pin OLED_SCL_Pin OLED_SDA_Pin */
   GPIO_InitStruct.Pin = PWR_CTL_Pin|OLED_SCL_Pin|OLED_SDA_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -1387,12 +1401,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : KEY_FLAG_Pin */
-  GPIO_InitStruct.Pin = KEY_FLAG_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(KEY_FLAG_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);

@@ -82,6 +82,8 @@ void Error_Handler(void);
 #define LED1_GPIO_Port GPIOC
 #define LED2_Pin GPIO_PIN_14
 #define LED2_GPIO_Port GPIOC
+#define KEY_FLAG_Pin GPIO_PIN_0
+#define KEY_FLAG_GPIO_Port GPIOA
 #define MIC_Pin GPIO_PIN_1
 #define MIC_GPIO_Port GPIOA
 #define NRF_SCK_Pin GPIO_PIN_5
@@ -101,8 +103,6 @@ void Error_Handler(void);
 #define OLED_SCL_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_13
 #define OLED_SDA_GPIO_Port GPIOB
-#define KEY_FLAG_Pin GPIO_PIN_15
-#define KEY_FLAG_GPIO_Port GPIOA
 #define NRF_MISO_Pin GPIO_PIN_4
 #define NRF_MISO_GPIO_Port GPIOB
 #define NRF_CSN_Pin GPIO_PIN_6
