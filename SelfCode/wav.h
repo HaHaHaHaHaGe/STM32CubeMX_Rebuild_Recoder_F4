@@ -1,7 +1,5 @@
-
-
-
-
+#ifndef __WAV_H__
+#define __WAV_H__
 
 //RIFF¿é
 typedef __packed struct
@@ -74,3 +72,4 @@ void recoder_wav_init(__WaveHeader* wavhead , unsigned int fs) ;
 void recoder_wav_update(__WaveHeader* wavhead , unsigned int datalen);
 
 
+#endif

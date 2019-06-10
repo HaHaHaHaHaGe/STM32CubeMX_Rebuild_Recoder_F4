@@ -79,6 +79,90 @@ DMA_HandleTypeDef hdma_adc1;
 SD_HandleTypeDef hsd;
 DMA_HandleTypeDef hdma_sdio_rx;
 DMA_HandleTypeDef hdma_sdio_tx;
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  ** This notice applies to any and all portions of this file
+  * that are not between comment pairs USER CODE BEGIN and
+  * USER CODE END. Other portions of this file, whether 
+  * inserted by the user or by software development tools
+  * are owned by their respective copyright owners.
+  *
+  * COPYRIGHT(c) 2018 STMicroelectronics
+  *
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "fatfs.h"
+#include "usb_device.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "fatfs_write_wav.h"
+#include "../inc/ringbuffer.h"
+#include "malloc.h"	   
+#include <speex/speex.h>
+#include "oled.h"
+#include "stmflash.h"
+#include "24l01.h"
+#include "mpu6050.h"
+#include "inv_mpu.h"
+#include "inv_mpu_dmp_motion_driver.h" 
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define COMMAND_Blink  0x01
+#define COMMAND_Begin 0x02
+#define COMMAND_End 0x04
+#define COMMAND_Init 0x08
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+DMA_HandleTypeDef hdma_adc1;
+
+SD_HandleTypeDef hsd;
+DMA_HandleTypeDef hdma_sdio_rx;
+DMA_HandleTypeDef hdma_sdio_tx;
 
 SPI_HandleTypeDef hspi1;
 
@@ -102,9 +186,12 @@ typedef struct FLASH_SAVE
 
 FLASH_SAVE FLASH_DATA;
 uint8_t UART_BUFFER[1024];
+u8 String_Windows_Time[64] = {0};
 uint8_t isPowerOn = 0;
 unsigned char Real_Time_Year=0,Real_Time_Month=0,Real_Time_Day=0,Real_Time_Hour=0,Real_Time_Minute=0,Real_Time_Second=0;
 unsigned int Real_Time_Millise=0;
+unsigned char Real_Time_Year_STOP=0,Real_Time_Month_STOP=0,Real_Time_Day_STOP=0,Real_Time_Hour_STOP=0,Real_Time_Minute_STOP=0,Real_Time_Second_STOP=0;
+unsigned int Real_Time_Millise_STOP=0;
 char SoftID[9] = {"12345678"};
 char SessID[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char BordID[9] = {0,0,0,0,0,0,0,0,0};
@@ -277,6 +364,11 @@ int main(void)
 	u8 Buffer[64];
 	u8 connectstate = 0;
 	u8 i,sum = 0;
+	u8 *str1;
+	u8 WavFlag = 0xff;
+	u8 GadFlag = 0xff;
+	u32 FS = 0,GADFS = 0;
+	u8 state = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -1018,6 +1110,267 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		if(NRF24L01_RxPacket(Buffer)==0)
+		{
+			str1 = (u8*)strstr((char *)Buffer,(char *)"CALIB");
+			if(str1)
+			{
+				sum = 0;
+				for(i = 0;i<21;i++)
+				{
+					sum += *(str1 + i);
+				}
+				if(sum == *(str1 + 21))
+				{
+					sum = 0;
+					for(i = 0;i<8;i++)
+						if(*(str1 + i + 5) != SoftID[i])
+							sum = 1;
+					if(sum == 0)
+					{
+						HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+						HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+						Real_Time_Year = *(str1 + 13);
+						Real_Time_Month = *(str1 + 14);
+						Real_Time_Day = *(str1 + 15);
+						Real_Time_Hour = *(str1 + 16);
+						Real_Time_Minute = *(str1 + 17);
+						Real_Time_Second = *(str1 + 18);
+						Real_Time_Millise = 0;
+						Real_Time_Millise = *(str1 + 19) << 8;
+						Real_Time_Millise |= *(str1 + 20);
+					}
+				}
+			}
+			
+			
+			str1 = (u8*)strstr((char *)Buffer,(char *)"BEGIN:");
+			if(str1)
+			{
+				sum = 0;
+				for(i = 0;i<8;i++)
+					if(*(str1 + i - 8) != SoftID[i])
+						sum = 1;
+			}
+			if(str1 && sum == 0)
+			{
+				if(*(str1 + 6)=='B' && *(str1 + 7)=='l' && *(str1 + 8)=='i' && *(str1 + 9)=='n' && *(str1 + 10)=='k')
+				{
+					state = (~state & COMMAND_Blink) | (state & ~COMMAND_Blink);
+					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+					HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+				}
+				if(*(str1 + 6)=='I' && *(str1 + 7)=='n' && *(str1 + 8)=='i' && *(str1 + 9)=='t')
+				{
+					FS = atoi((char *)(str1 + 10));
+					//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
+					if(*(str1 + 15) == '-')
+					{
+						GADFS = atoi((char *)(str1 + 16));
+						if((GADFS / 100) == 0)
+						{
+							AM_Factor = atoi((char *)(str1 + 18));
+						}
+					}
+					else if(*(str1 + 14) == '-')
+					{
+						GADFS = atoi((char *)(str1 + 15));
+						if((GADFS / 100) == 0)
+						{
+							AM_Factor = atoi((char *)(str1 + 17));
+						}
+					}
+					else
+						continue;
+					
+					
+					
+					
+					if(FS > 36000 || FS < 8000 || GADFS == 0)
+						continue;
+					if(GadFlag == 0xff && WavFlag == 0xff)
+					{
+						state &= ~COMMAND_Blink;
+						state |= COMMAND_Init;
+						HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+						
+						OLED_Clear( );
+						HAL_Delay(10);
+						OLED_ShowString(0,0,"Recording...",16);
+						OLED_ShowString(0,2,"SoftID:",16);
+						OLED_ShowString(56,2,SoftID,16);
+						OLED_ShowString(0,4,"HardID:",16);
+						OLED_ShowString(56,4,BordID,16);
+
+					}
+				}
+				if(*(str1 + 6)=='B' && *(str1 + 7)=='e' && *(str1 + 8)=='g' && *(str1 + 9)=='i' && *(str1 + 10)=='n')
+				{
+					if(GadFlag == 0xab && WavFlag == 0xab)
+					{
+						state &= ~COMMAND_Blink;
+						state |= COMMAND_Begin;
+						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+					}
+				}
+				if(*(str1 + 6)=='E' && *(str1 + 7)=='n' && *(str1 + 8)=='d')
+				{
+					if(GadFlag == 0x80 && WavFlag == 0x80)
+					{
+						state &= ~COMMAND_Blink;
+						state |= COMMAND_End;
+						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+					}
+				}
+				*str1 = 0x30;
+			}
+		}
+		
+		if(GadFlag==0x80 && WavFlag==0x80)
+		{
+			gad_recorder(3,0,0);   //获得数据 
+			wav_recorder(3,0);
+		}
+		
+		if(state & COMMAND_Init)
+		{
+			state &= ~COMMAND_Init;
+			if(GadFlag == 0xff && WavFlag == 0xff)
+			{
+				GadFlag = gad_recorder(2,GADFS,FS);//初始化，采样频率
+				WavFlag = wav_recorder(2,FS);//初始化
+			}
+		}
+				
+		if(state & COMMAND_Begin)
+		{
+			state &= ~COMMAND_Begin;
+			if(GadFlag == 0xab && WavFlag == 0xab)
+			{
+				Real_Time_Year_STOP = Real_Time_Year;
+				Real_Time_Month_STOP = Real_Time_Month;
+				Real_Time_Day_STOP = Real_Time_Day;
+				Real_Time_Hour_STOP = Real_Time_Hour;
+				Real_Time_Minute_STOP = Real_Time_Minute;
+				Real_Time_Second_STOP = Real_Time_Second;
+				Real_Time_Millise_STOP = Real_Time_Millise;
+
+				GadFlag = gad_recorder(4,0,0); //开始
+				WavFlag = wav_recorder(4,0);//开始
+			}
+		}
+			
+		if(state & COMMAND_End)
+		{
+			state &= ~COMMAND_End;
+			if(GadFlag == 0x80 && WavFlag == 0x80)
+			{
+				GadFlag = gad_recorder(1,0,0);       //停止
+				WavFlag = wav_recorder(1,0);       //停止
+				OLED_Clear( );
+				HAL_Delay(10);
+				OLED_ShowString(0,0,"Wait Recording",16);
+				OLED_ShowString(0,2,"SoftID:",16);
+				OLED_ShowString(56,2,SoftID,16);
+				OLED_ShowString(0,4,"HardID:",16);
+				OLED_ShowString(56,4,BordID,16);
+			}
+		}
+
+
+		if((state&COMMAND_Blink) && (GadFlag == 0xff) && (WavFlag == 0xff))
+		{
+			HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+			HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+			HAL_Delay(250);
+			//printf("State"); //告诉服务器目前待机
+		}
+		if(WavFlag == 0xab && GadFlag == 0xab)    //可以录音提示
+		{
+			HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+			HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+			HAL_Delay(100);
+			//printf("State"); //告诉服务器目前待机
+			//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
+			printf("Ready To Start Recoder\r\n");
+			RecvComLoc3 = 0;
+			UARTSendData((u8*)&RecvComLoc3,4);
+			for(i = 0;i<strlen("Ready To Start Recoder\r\n");i++)
+				RecvComLoc3+="Ready To Start Recoder\r\n"[i];
+			for(i = 0;i<8;i++)
+				RecvComLoc3+=BordID[i];
+			
+			
+			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+			UARTSendData(BordID,8);
+		}
+		else if(WavFlag == 0x80 && GadFlag == 0x80)    //正在录音提示
+		{
+			timecnt++;
+			if((timecnt%8000)==0)
+			{
+					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+
+					//printf("State is Idle!"); //告诉服务器目前待机
+			}
+		}
+		else
+		{
+			timecnt++;
+			if((timecnt%32000)==0) //告诉服务器目前待机
+			{
+				
+				
+					sprintf(String_Windows_Time,"%0.2d",Real_Time_Month);
+					OLED_ShowString(0,6,String_Windows_Time,16);
+				OLED_ShowString(16,6,"-",16);
+				
+				sprintf(String_Windows_Time,"%0.2d",Real_Time_Day);
+					OLED_ShowString(24,6,String_Windows_Time,16);
+				OLED_ShowString(40,6," ",16);
+				
+				sprintf(String_Windows_Time,"%0.2d",Real_Time_Hour);
+					OLED_ShowString(48,6,String_Windows_Time,16);
+				
+				OLED_ShowString(64,6,":",16);
+				
+				sprintf(String_Windows_Time,"%0.2d",Real_Time_Minute);
+					OLED_ShowString(72,6,String_Windows_Time,16);
+				OLED_ShowString(88,6,":",16);
+				
+				sprintf(String_Windows_Time,"%0.2d",Real_Time_Second);
+					OLED_ShowString(96,6,String_Windows_Time,16);
+				
+				
+				
+					printf("Device is Idle\r\n");
+					RecvComLoc3 = 1;
+					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+					RecvComLoc3 = 0;
+					for(i = 0;i<strlen("Device is Idle\r\n");i++)
+						RecvComLoc3+="Device is Idle\r\n"[i];
+					for(i = 0;i<8;i++)
+						RecvComLoc3+=BordID[i];
+					RecvComLoc3+=1;
+					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+					UARTSendData(BordID,8);
+					RecvComLoc3 = 1;
+					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+			}
+
+		}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
