@@ -54,7 +54,8 @@
 #include "24l01.h"
 #include "mpu6050.h"
 #include "inv_mpu.h"
-#include "inv_mpu_dmp_motion_driver.h" 
+#include "inv_mpu_dmp_motion_driver.h"
+#include "wav.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -208,6 +209,8 @@ int RecvComLoc1 = 0;
 int RecvComLoc2 = 0;
 int RecvComLoc3 = 0;
 int RecvComLoc4 = 0;
+
+extern unsigned char AM_Factor;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -350,6 +353,362 @@ void check_firstrun()
 		while(1);
 	}
 }
+
+extern FIL speex_file;
+extern u32 speexdata_len;
+extern UINT br;
+u32 PackegStart = 0;
+u32 PackegEnd = 0;				
+u8 ErrorRecData[2048];
+void DataCheck()
+{
+	unsigned char delay_loop = 0;
+	u32 i = 0;
+	u32 datasum = 0;
+	int start,end;
+	u32 ErrorS,ErrorE,RecvComLoc3,start_len,start_sum;
+	ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+	HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+	HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+	do
+	{
+		delay_loop++;
+		
+		
+		if(delay_loop == 15)
+		{
+			delay_loop = 0;
+			printf("Device is Idle\r\n");
+			RecvComLoc3 = 1;
+			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+			RecvComLoc3 = 0;
+			for(i = 0;i<strlen("Device is Idle\r\n");i++)
+				RecvComLoc3+="Device is Idle\r\n"[i];
+			for(i = 0;i<8;i++)
+				RecvComLoc3+=BordID[i];
+			RecvComLoc3+=5;
+			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+			UARTSendData(BordID,8);
+			RecvComLoc3 = 5;
+			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+		HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+		HAL_Delay(50);
+		
+		
+		
+		
+		
+		start = StrEqual(UART_BUFFER,"Fix Data Request\r\n",sizeof(UART_BUFFER),strlen("Fix Data Request\r\n"));
+		if(start != -1)
+		{
+			start_len = UART_BUFFER[start + 1] << 24;
+			start_len |= UART_BUFFER[start + 2] << 16;
+			start_len |= UART_BUFFER[start + 3] << 8;
+			start_len |= UART_BUFFER[start + 4];
+			
+			start_sum = UART_BUFFER[start + 5] << 24;
+			start_sum |= UART_BUFFER[start + 6] << 16;
+			start_sum |= UART_BUFFER[start + 7] << 8;
+			start_sum |= UART_BUFFER[start + 8];
+			
+			datasum = 0;
+			start_len &= 0x0000ffff;
+			for(i = 0; i < (u8)start_len + 8; i++)
+				datasum += UART_BUFFER[start + 9 + i];
+			for(i = 0; i < strlen("Fix Data Request\r\n"); i++)
+				datasum += "Fix Data Request\r\n"[i];
+			
+			if(datasum == start_sum)
+			{
+				delay_loop = 14;
+				ErrorS = UART_BUFFER[start + 17] << 24;
+				ErrorS |= UART_BUFFER[start + 18] << 16;
+				ErrorS |= UART_BUFFER[start + 19] << 8;
+				ErrorS |= UART_BUFFER[start + 20];
+				
+				ErrorE = UART_BUFFER[start + 21] << 24;
+				ErrorE |= UART_BUFFER[start + 22] << 16;
+				ErrorE |= UART_BUFFER[start + 23] << 8;
+				ErrorE |= UART_BUFFER[start + 24];
+				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
+				{
+					f_lseek(&speex_file,ErrorS);
+					if((ErrorE - ErrorS) > 2048)
+					{
+						f_read(&speex_file,ErrorRecData,2048,&br);
+						i = 2048;
+						PackegEnd = ErrorS + 2048;
+					}
+					else
+					{
+						f_read(&speex_file,ErrorRecData,(ErrorE - ErrorS),&br);
+						i = (ErrorE - ErrorS);
+						PackegEnd = ErrorE;
+					}
+					
+					
+					
+					PackegStart = ErrorS;
+					
+					ErrorS = i;
+					PackegEnd = ErrorS + 12;
+					datasum = 0;
+					while(i--)
+						datasum+=ErrorRecData[i];
+					
+					
+					
+					for(i = 0;i<8;i++)
+						datasum+=BordID[i];
+					for(i = 0;i<strlen("Recoder Repair Data\r\n");i++)
+						datasum+="Recoder Repair Data\r\n"[i];
+					datasum += ((u8*)&PackegStart)[3];
+					datasum += ((u8*)&PackegStart)[2];
+					datasum += ((u8*)&PackegStart)[1];
+					datasum += ((u8*)&PackegStart)[0];
+					datasum += Real_Time_Year_STOP + Real_Time_Month_STOP + Real_Time_Day_STOP + Real_Time_Hour_STOP + Real_Time_Minute_STOP + Real_Time_Second_STOP;
+					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
+					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
+					
+					
+					printf("Recoder Repair Data\r\n");
+					UARTSendData(&((u8*)&PackegEnd)[3],1);
+					UARTSendData(&((u8*)&PackegEnd)[2],1);
+					UARTSendData(&((u8*)&PackegEnd)[1],1);
+					UARTSendData(&((u8*)&PackegEnd)[0],1);
+					
+					UARTSendData(&((u8*)&datasum)[3],1);
+					UARTSendData(&((u8*)&datasum)[2],1);
+					UARTSendData(&((u8*)&datasum)[1],1);
+					UARTSendData(&((u8*)&datasum)[0],1);
+					
+					UARTSendData(BordID,8);
+					
+					UARTSendData(&((u8*)&PackegStart)[3],1);
+					UARTSendData(&((u8*)&PackegStart)[2],1);
+					UARTSendData(&((u8*)&PackegStart)[1],1);
+					UARTSendData(&((u8*)&PackegStart)[0],1);
+					
+					
+
+					
+					UARTSendData(&Real_Time_Year_STOP,1);
+					UARTSendData(&Real_Time_Month_STOP,1);
+					UARTSendData(&Real_Time_Day_STOP,1);
+					UARTSendData(&Real_Time_Hour_STOP,1);
+					UARTSendData(&Real_Time_Minute_STOP,1);
+					UARTSendData(&Real_Time_Second_STOP,1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[1],1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[0],1);
+					
+
+					UARTSendData(ErrorRecData,ErrorS);
+					
+					datasum = 0;
+					ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+					f_lseek(&speex_file,speexdata_len);
+					//return;
+				}
+			}
+		}
+		
+		if(HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin) == 0)
+			return;
+	}while(StrEqual(UART_BUFFER,"Device is Idle\r\n",sizeof(UART_BUFFER),strlen("Device is Idle\r\n")) == -1);
+}
+
+
+
+
+
+
+
+u8 rec_sta=0;		//录音状态
+char pname[64];
+unsigned char res;
+u8 wav_recorder(u8 key,u32 fs)
+{   
+			switch(key)
+			{		
+				case 1://KEY2_PRES:	//STOP&SAVE
+					if(rec_sta&0X80)//有录音
+					{
+						rec_sta=0;	//关闭录音
+						DataCheck();
+						stop_recoder();
+					}
+					else
+					{
+						return 0;
+					}
+					rec_sta=0;
+					return 0xff;
+
+				case 2://KEY0_PRES:	//REC/PAUSE
+					if(rec_sta&0X01)//原来是暂停,继续录音
+					{
+						rec_sta&=0XFE;//取消暂停
+						return 1;
+					}else if(rec_sta&0X80)//已经在录音了,暂停
+					{
+						rec_sta|=0X01;	//暂停
+						return 1;
+					}else				//还没开始录音 
+					{
+
+
+						recoder_new_pathname(pname);			//得到新的名字
+						
+						res = initial_recoder(pname,fs);
+						
+						
+						
+						if(res != FR_OK)			//文件创建失败
+						{
+							rec_sta=0;	//创建文件失败,不能录音
+							//rval=0XFE;	//提示是否存在SD卡
+							return 0;
+						}else 
+						{
+							//res=f_write(f_rec,(const void*)wavhead,sizeof(__WaveHeader),&bw);//写入头数据
+
+							return 0xab;
+						} 
+ 					}
+				case 3:
+					tick_recoder();
+					return rec_sta;
+				case 4:
+					rec_sta|=0X80;	//开始录音	 
+				default:
+					return rec_sta;
+			} 
+
+}
+
+
+u8 gad_sta=0;		//录音状态
+u8 gad_recorder(u8 key,u32 time,u32 fs)
+{   
+			switch(key)
+			{		
+				case 1://KEY2_Pgad_res:	//STOP&SAVE
+					if(gad_sta&0X80)//有录音
+					{
+						gad_sta=0;	//关闭录音
+						
+						//f_close(f_gad);
+
+					}
+					else
+					{
+						return 0;
+					}
+					gad_sta=0;
+//					secondcache_write_Loc = 0;  
+//					secondcache_read_Loc = 0; 
+//					gad_plane = 0;
+//					gad_time = 0;
+//					gad_times = 0;
+//				 	//LED1=1;	 						//关闭DS1
+//			    
+//					myfree(SRAMIN,data_string);	//释放内存
+//					myfree(SRAMIN,f_gad);		//释放内存
+//					myfree(SRAMIN,gad_pname);		//释放内存  
+//					myfree(SRAMIN,data_stringbuffer);		//释放内存  
+					return 0xff;
+
+				case 2://KEY0_Pgad_res:	//REC/PAUSE
+					if(gad_sta&0X01)//原来是暂停,继续录音
+					{
+						gad_sta&=0XFE;//取消暂停
+						return 1;
+					}else if(gad_sta&0X80)//已经在录音了,暂停
+					{
+						gad_sta|=0X01;	//暂停
+						return 1;
+					}else				//还没开始录音 
+					{
+//						while(f_opendir(&gaddir,"0:/RECORDER"))//打开录音文件夹
+//						{	 			  
+//							delay_ms(200);				  
+//							f_mkdir("0:/RECORDER");				//创建该目录   
+//						}   
+//						data_string=mymalloc(SRAMIN,30);//I2S录音内存1申请
+//						data_stringbuffer=mymalloc(SRAMIN,30 * 200);//I2S录音内存1申请
+//							f_gad=(FIL *)mymalloc(SRAMIN,sizeof(FIL));		//开辟FIL字节的内存区域  
+//						gad_pname=mymalloc(SRAMIN,30);						//申请30个字节内存,类似"0:RECORDER/REC00001.wav" 
+//						if(!data_string||!f_gad||!gad_pname||!data_stringbuffer)
+//							return 0xff;
+
+//						gad_plane = time; 
+//						gad_times = time;
+
+//						Timeparticle = (512.0 / (double)fs);
+//						
+//						gad_pname[0]=0;					//gad_pname没有任何文件名 
+//						
+//						
+//						
+
+
+//						gad_new_pathname(gad_pname);			//得到新的名字
+//	 					gad_res=f_open(f_gad,(const TCHAR*)gad_pname, FA_CREATE_ALWAYS | FA_WRITE); 
+						if(0)			//文件创建失败
+						{
+							gad_sta=0;	//创建文件失败,不能录音
+
+							return 0;
+						}else 
+						{
+
+							return 0xab;
+						} 
+ 					}
+				case 3:
+//						if(GAD_Rx_Flag)
+//						{
+//							GAD_Rx_Flag =0;
+//							gad_rx_callback();
+//						}
+						//MPU_Get_Accelerometer(&gad_aacx,&gad_aacy,&gad_aacz);	//得到加速度传感器数据
+						//MPU_Get_Gyroscope(&gad_gyrox,&gad_gyroy,&gad_gyroz);	//得到陀螺仪数据
+
+
+						//sprintf((char*)data_string,"Time:%10.3f,AX:%05d,AY:%05d,AZ:%05d,GX:%05d,GY:%05d,GZ:%05d\r\n",(gad_times * 0.128), gad_aacx, gad_aacy, gad_aacz, gad_gyrox, gad_gyroy, gad_gyroz);
+						//sprintf((char*)data_string,"Data Time:%10.3f , Pitch:%8.2f , Roll:%8.2f , Yaw:%8.2f , AacX:%05d , AacY:%05d , AacZ:%05d , GyroX:%05d , GyroY:%05d , GyroZ:%05d\r\n",(gad_times * 0.032), gad_pitch, gad_roll, gad_yaw, gad_aacx, gad_aacy, gad_aacz, gad_gyrox, gad_gyroy, gad_gyroz);
+					
+					return gad_sta;
+					
+				case 4:
+					gad_sta|=0X80;	//开始录音	 
+				default:
+					return gad_sta;
+			} 
+
+}
+
+
+
+
+
+
 /* USER CODE END 0 */
 
 /**

@@ -14,7 +14,7 @@ ringbuffer buffer;
 u8 dmabuffer[2048];
 u8*data_1,*data_2;
 u32 data1_len,data2_len;
-
+u32 speexdata_len = 0;
 
 
 char out_bytes[ENCODED_FRAME_SIZE];
@@ -113,6 +113,7 @@ char init_file[20];
 char* file_ptr = init_file;
 unsigned char initial_recoder(char*filename,unsigned int fs)
 {
+	speexdata_len = 0;
 	file_ptr = init_file;
 	while(*filename)
 		*(file_ptr++) = *(filename++);
@@ -164,6 +165,8 @@ unsigned int rd_i;
 
 unsigned char Encoder_Flag = 0;
 
+unsigned char AM_Factor = 0;
+
 void tick_recoder()
 {
 		u16 wav16bits;
@@ -175,7 +178,7 @@ void tick_recoder()
 			for(rd_i = 0;rd_i<data1_len;rd_i+=2)
 			{
 				wav16bits = data_1[rd_i] | (data_1[rd_i + 1] << 8);
-				*(u16*)&data_1[rd_i] = (wav16bits - 1894) << 4;
+				*(u16*)&data_1[rd_i] = (wav16bits - 1894) << AM_Factor; //4
 				rdata[wdata_len++] = data_1[rd_i];
 				rdata[wdata_len++] = data_1[rd_i + 1];
 			}
@@ -192,7 +195,7 @@ void tick_recoder()
 			for(rd_i = 0;rd_i<data2_len;rd_i+=2)
 			{
 				wav16bits = data_2[rd_i] | (data_2[rd_i + 1] << 8);
-				*(u16*)&data_2[rd_i] = (wav16bits - 1984) << 4;
+				*(u16*)&data_2[rd_i] = (wav16bits - 1984) << AM_Factor;
 				rdata[wdata_len++] = data_2[rd_i];
 				rdata[wdata_len++] = data_2[rd_i + 1];
 			}
@@ -227,7 +230,7 @@ void tick_recoder()
 
 			wdata_len = (wdata_len - rdata_len);
 			rdata_len = 0;
-			
+			speexdata_len += recoder_out_data_loc;
 			write_speex_file(recoder_outdata,recoder_out_data_loc);
 			recoder_out_data_loc = 0;
 		}
@@ -235,8 +238,21 @@ void tick_recoder()
 
 
 
-
-
+//通过时间获取文件名
+//仅限在SD卡保存,不支持FLASH DISK保存
+//组合成:形如"0:RECORDER/REC20120321210633.wav"的文件名
+void recoder_new_pathname(char *pname)
+{	 
+	u8 res;					 
+	u16 index=0;
+	while(index<0XFFFF)
+	{
+		sprintf((char*)pname,"0:RECORDER/REC%05d.wav",index);
+		res=f_open(&wav_file,(const TCHAR*)pname,FA_READ);//尝试打开这个文件
+		if(res==FR_NO_FILE)break;		//该文件名不存在=正是我们需要的.
+		index++;
+	}
+} 
 
 
 
