@@ -251,7 +251,13 @@ void recoder_new_pathname(char *pname)
 	{
 		sprintf((char*)pname,"0:RECORDER/REC%05d.wav",index);
 		res=f_open(&wav_file,(const TCHAR*)pname,FA_READ);//尝试打开这个文件
-		if(res==FR_NO_FILE)break;		//该文件名不存在=正是我们需要的.
+		f_close(&wav_file);
+		if(res==FR_NO_FILE)
+		{
+			sprintf((char*)pname,"0:RECORDER/REC%05d",index);
+			break;		//该文件名不存在=正是我们需要的.
+		}
+		
 		index++;
 	}
 } 
