@@ -360,6 +360,212 @@ extern UINT br;
 u32 PackegStart = 0;
 u32 PackegEnd = 0;				
 u8 ErrorRecData[2048];
+
+
+
+					
+	//录音 I2S_DMA接收中断服务函数.在中断里面写入数据
+void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position) 
+{    
+	u16 bw;
+	u8 res;
+	//u32 writesize;
+	u32 i = 0;
+	u32 datasum = 0;
+	int start;
+	u32 ErrorS,ErrorE,start_len,start_sum;
+	//if(rec_sta==0X80)//录音模式
+	{  
+		
+		start = StrEqual(UART_BUFFER,"Fix Data Request\r\n",sizeof(UART_BUFFER),strlen("Fix Data Request\r\n"));
+		if(start != -1)
+		{
+			start_len = UART_BUFFER[start + 1] << 24;
+			start_len |= UART_BUFFER[start + 2] << 16;
+			start_len |= UART_BUFFER[start + 3] << 8;
+			start_len |= UART_BUFFER[start + 4];
+			
+			start_sum = UART_BUFFER[start + 5] << 24;
+			start_sum |= UART_BUFFER[start + 6] << 16;
+			start_sum |= UART_BUFFER[start + 7] << 8;
+			start_sum |= UART_BUFFER[start + 8];
+			
+			datasum = 0;
+			start_len &= 0x0000ffff;
+			for(i = 0; i < (u8)start_len + 8; i++)
+				datasum += UART_BUFFER[start + 9 + i];
+			for(i = 0; i < strlen("Fix Data Request\r\n"); i++)
+				datasum += "Fix Data Request\r\n"[i];
+			
+			if(datasum == start_sum)
+			{
+				ErrorS = UART_BUFFER[start + 17] << 24;
+				ErrorS |= UART_BUFFER[start + 18] << 16;
+				ErrorS |= UART_BUFFER[start + 19] << 8;
+				ErrorS |= UART_BUFFER[start + 20];
+				
+				ErrorE = UART_BUFFER[start + 21] << 24;
+				ErrorE |= UART_BUFFER[start + 22] << 16;
+				ErrorE |= UART_BUFFER[start + 23] << 8;
+				ErrorE |= UART_BUFFER[start + 24];
+				
+				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
+				{
+					f_lseek(&speex_file,44 + ErrorS);
+					if((ErrorE - ErrorS) > 2048)
+					{
+						f_read(&speex_file,ErrorRecData,2048,&br);
+						i = 2048;
+						PackegEnd = ErrorS + 2048;
+					}
+					else
+					{
+						f_read(&speex_file,ErrorRecData,(ErrorE - ErrorS),&br);
+						i = (ErrorE - ErrorS);
+						PackegEnd = ErrorE;
+					}
+					
+					
+					
+					PackegStart = ErrorS;
+					
+					ErrorS = i;
+					
+					
+					PackegEnd = PackegEnd - PackegStart + 12;
+					datasum = 0;
+					while(i--)
+						datasum+=ErrorRecData[i];
+					for(i = 0;i<8;i++)
+						datasum+=BordID[i];
+					for(i = 0;i<strlen("Recoder Repair Data\r\n");i++)
+						datasum+="Recoder Repair Data\r\n"[i];
+					datasum += ((u8*)&PackegStart)[3];
+					datasum += ((u8*)&PackegStart)[2];
+					datasum += ((u8*)&PackegStart)[1];
+					datasum += ((u8*)&PackegStart)[0];
+					datasum += Real_Time_Year_STOP + Real_Time_Month_STOP + Real_Time_Day_STOP + Real_Time_Hour_STOP + Real_Time_Minute_STOP + Real_Time_Second_STOP;
+					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
+					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
+					
+					
+					printf("Recoder Repair Data\r\n");
+					UARTSendData(&((u8*)&PackegEnd)[3],1);
+					UARTSendData(&((u8*)&PackegEnd)[2],1);
+					UARTSendData(&((u8*)&PackegEnd)[1],1);
+					UARTSendData(&((u8*)&PackegEnd)[0],1);
+					
+					UARTSendData(&((u8*)&datasum)[3],1);
+					UARTSendData(&((u8*)&datasum)[2],1);
+					UARTSendData(&((u8*)&datasum)[1],1);
+					UARTSendData(&((u8*)&datasum)[0],1);
+					
+					UARTSendData(BordID,8);
+					
+					UARTSendData(&((u8*)&PackegStart)[3],1);
+					UARTSendData(&((u8*)&PackegStart)[2],1);
+					UARTSendData(&((u8*)&PackegStart)[1],1);
+					UARTSendData(&((u8*)&PackegStart)[0],1);
+					
+					
+
+					
+					UARTSendData(&Real_Time_Year_STOP,1);
+					UARTSendData(&Real_Time_Month_STOP,1);
+					UARTSendData(&Real_Time_Day_STOP,1);
+					UARTSendData(&Real_Time_Hour_STOP,1);
+					UARTSendData(&Real_Time_Minute_STOP,1);
+					UARTSendData(&Real_Time_Second_STOP,1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[1],1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[0],1);
+					//
+//					for(i = 0;i<1024;i++)
+//						ErrorRecData[i] = 11;
+//					i = 1024;
+//					ErrorS = i;
+//					while(i--)
+//						datasum+=ErrorRecData[i];
+					//
+					
+
+					UARTSendData(ErrorRecData,ErrorS);
+
+					
+					datasum = 0;
+					ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+					f_lseek(&speex_file,speexdata_len);
+					return;
+				}
+			}
+		}
+		
+		
+		
+		
+		//if(secondcache_read_loc < secondcache_write_loc)
+		{
+			//writesize = secondcache_write_loc - secondcache_read_loc;
+			//res=f_write(f_rec,&secondcache[secondcache_read_loc],writesize,(UINT*)&bw);//写入文件
+			
+			i = writesize;
+			datasum = 0;
+			PackegStart = begin_position;
+			PackegEnd = writesize + 12;
+			while(i--)
+				datasum+=data[i];
+			for(i = 0;i<8;i++)
+				datasum+=BordID[i];
+			for(i = 0;i<strlen("Recoder Source Data\r\n");i++)
+				datasum+="Recoder Source Data\r\n"[i];
+			datasum += ((u8*)&PackegStart)[3];
+			datasum += ((u8*)&PackegStart)[2];
+			datasum += ((u8*)&PackegStart)[1];
+			datasum += ((u8*)&PackegStart)[0];
+			datasum += Real_Time_Year_STOP + Real_Time_Month_STOP + Real_Time_Day_STOP + Real_Time_Hour_STOP + Real_Time_Minute_STOP + Real_Time_Second_STOP;
+			datasum += ((u8*)&Real_Time_Millise_STOP)[1];
+			datasum += ((u8*)&Real_Time_Millise_STOP)[0];
+			
+			
+			printf("Recoder Source Data\r\n");
+			UARTSendData(&((u8*)&PackegEnd)[3],1);
+			UARTSendData(&((u8*)&PackegEnd)[2],1);
+			UARTSendData(&((u8*)&PackegEnd)[1],1);
+			UARTSendData(&((u8*)&PackegEnd)[0],1);
+			
+			UARTSendData(&((u8*)&datasum)[3],1);
+			UARTSendData(&((u8*)&datasum)[2],1);
+			UARTSendData(&((u8*)&datasum)[1],1);
+			UARTSendData(&((u8*)&datasum)[0],1);
+			
+			UARTSendData(BordID,8);
+			
+			UARTSendData(&((u8*)&PackegStart)[3],1);
+			UARTSendData(&((u8*)&PackegStart)[2],1);
+			UARTSendData(&((u8*)&PackegStart)[1],1);
+			UARTSendData(&((u8*)&PackegStart)[0],1);
+			
+			
+					UARTSendData(&Real_Time_Year_STOP,1);
+					UARTSendData(&Real_Time_Month_STOP,1);
+					UARTSendData(&Real_Time_Day_STOP,1);
+					UARTSendData(&Real_Time_Hour_STOP,1);
+					UARTSendData(&Real_Time_Minute_STOP,1);
+					UARTSendData(&Real_Time_Second_STOP,1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[1],1);
+					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[0],1);
+			
+			UARTSendData(data,writesize);
+
+		}
+
+	} 
+
+}				
+
+
+
+
+
 void DataCheck()
 {
 	unsigned char delay_loop = 0;

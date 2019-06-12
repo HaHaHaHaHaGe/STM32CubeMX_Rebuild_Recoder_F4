@@ -230,9 +230,11 @@ void tick_recoder()
 
 			wdata_len = (wdata_len - rdata_len);
 			rdata_len = 0;
+			SendspeexData_and_FixWifiData(recoder_outdata,recoder_out_data_loc,speexdata_len);
 			speexdata_len += recoder_out_data_loc;
 			write_speex_file(recoder_outdata,recoder_out_data_loc);
 			recoder_out_data_loc = 0;
+			
 		}
 }
 
