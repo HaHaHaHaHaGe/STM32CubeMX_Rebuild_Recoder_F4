@@ -720,7 +720,8 @@ u8 wav_recorder(u8 key,u32 fs)
 					tick_recoder();
 					return rec_sta;
 				case 4:
-					rec_sta|=0X80;	//开始录音	 
+					rec_sta|=0X80;	//开始录音	
+					start_recoder();
 				default:
 					return rec_sta;
 			} 
