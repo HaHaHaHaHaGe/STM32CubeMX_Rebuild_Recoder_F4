@@ -135,11 +135,7 @@ unsigned char initial_recoder(char*filename,unsigned int fs)
 	return create_speex_file(init_file);
 }
 
-void start_recoder()
-{
-	HAL_TIM_Base_Start(&htim3);
-	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)dmabuffer,1024);
-}
+
 
 
 u8 stop_recoder()
@@ -149,6 +145,7 @@ u8 stop_recoder()
 	HAL_TIM_Base_Stop(&htim3);
 	wav_res = close_wav_file();
 	speex_res = close_speex_file();
+	deinitial_buffer(&buffer);
 	return wav_res || speex_res;
 }
 
@@ -166,6 +163,19 @@ unsigned int rd_i;
 unsigned char Encoder_Flag = 0;
 
 unsigned char AM_Factor = 0;
+
+
+void start_recoder()
+{
+	speexdata_len = 0;
+	rdata_len = 0;
+	wdata_len = 0;
+	recoder_out_data_loc = 0;
+	HAL_TIM_Base_Start(&htim3);
+	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)dmabuffer,1024);
+}
+
+
 
 void tick_recoder()
 {
