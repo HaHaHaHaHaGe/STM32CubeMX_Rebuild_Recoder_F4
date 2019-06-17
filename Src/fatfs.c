@@ -24,7 +24,12 @@ FATFS SDFatFS;    /* File system object for SD logical drive */
 FIL SDFile;       /* File object for SD */
 
 /* USER CODE BEGIN Variables */
-
+extern unsigned char Real_Time_Year;
+extern unsigned char Real_Time_Month;
+extern unsigned char Real_Time_Day;
+extern unsigned char Real_Time_Hour;
+extern unsigned char Real_Time_Minute;
+extern unsigned char Real_Time_Second;
 /* USER CODE END Variables */    
 
 void MX_FATFS_Init(void) 
@@ -46,7 +51,12 @@ void MX_FATFS_Init(void)
 DWORD get_fattime(void)
 {
   /* USER CODE BEGIN get_fattime */
-  return 0;
+  return	  ((DWORD)(Real_Time_Year) << 25)	/* Year 2013 */
+			| ((DWORD)Real_Time_Month << 21)				/* Month 7 */
+			| ((DWORD)Real_Time_Day << 16)				/* Mday 28 */
+			| ((DWORD)Real_Time_Hour << 11)				/* Hour 0 */
+			| ((DWORD)Real_Time_Minute << 5)				/* Min 0 */
+			| ((DWORD)Real_Time_Second >> 1);				/* Sec 0 */
   /* USER CODE END get_fattime */  
 }
 

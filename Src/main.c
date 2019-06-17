@@ -172,14 +172,19 @@ static void USART2_UART_Init(int baud)
 
 int fputc(int ch, FILE *f)
 {
-	uint8_t data = ch;
-	HAL_UART_Transmit(&huart2,&data,1,100);
+	while((USART2->SR&0X40)==0);//循环发送,直到发送完毕   
+	USART2->DR = (u8) ch;      
 	return ch;
 }
 
 void UARTSendData(u8 *data,u16 len)
 {
-	HAL_UART_Transmit(&huart2,data,len,100);
+	u16 l = 0;
+	for(l = 0;l<len;l++)
+	{
+		while((USART2->SR&0X40)==0);//循环发送,直到发送完毕   
+		USART2->DR = data[l];
+	}
 }
 
 
@@ -886,7 +891,6 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_TIM2_Init();
   MX_SPI1_Init();
-  MX_USB_DEVICE_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
@@ -1725,6 +1729,7 @@ int main(void)
 			state &= ~COMMAND_Init;
 			if(GadFlag == 0xff && WavFlag == 0xff)
 			{
+				MX_USB_DEVICE_DeInit();
 				GadFlag = gad_recorder(2,GADFS,FS);//初始化，采样频率
 				WavFlag = wav_recorder(2,FS);//初始化
 			}
@@ -1762,6 +1767,7 @@ int main(void)
 				OLED_ShowString(56,2,SoftID,16);
 				OLED_ShowString(0,4,"HardID:",16);
 				OLED_ShowString(56,4,BordID,16);
+				MX_USB_DEVICE_Init();
 			}
 		}
 

@@ -57,7 +57,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern uint8_t UART_BUFFER[1024];
+int USART_RX_STA = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -80,7 +81,149 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
+#define USART_IT_PE                          ((uint16_t)0x0028)
+#define USART_IT_TXE                         ((uint16_t)0x0727)
+#define USART_IT_TC                          ((uint16_t)0x0626)
+#define USART_IT_RXNE                        ((uint16_t)0x0525)
+#define USART_IT_ORE_RX                      ((uint16_t)0x0325) /* In case interrupt is generated if the RXNEIE bit is set */
+#define USART_IT_IDLE                        ((uint16_t)0x0424)
+#define USART_IT_LBD                         ((uint16_t)0x0846)
+#define USART_IT_CTS                         ((uint16_t)0x096A)
+#define USART_IT_ERR                         ((uint16_t)0x0060)
+#define USART_IT_ORE_ER                      ((uint16_t)0x0360) /* In case interrupt is generated if the EIE bit is set */
+#define USART_IT_NE                          ((uint16_t)0x0260)
+#define USART_IT_FE                          ((uint16_t)0x0160)
+#define USART_FLAG_CTS                       ((uint16_t)0x0200)
+#define USART_FLAG_LBD                       ((uint16_t)0x0100)
+#define USART_FLAG_TXE                       ((uint16_t)0x0080)
+#define USART_FLAG_TC                        ((uint16_t)0x0040)
+#define USART_FLAG_RXNE                      ((uint16_t)0x0020)
+#define USART_FLAG_IDLE                      ((uint16_t)0x0010)
+#define USART_FLAG_ORE                       ((uint16_t)0x0008)
+#define USART_FLAG_NE                        ((uint16_t)0x0004)
+#define USART_FLAG_FE                        ((uint16_t)0x0002)
+#define USART_FLAG_PE                        ((uint16_t)0x0001)
+#define IS_USART_FLAG(FLAG) (((FLAG) == USART_FLAG_PE) || ((FLAG) == USART_FLAG_TXE) || \
+                             ((FLAG) == USART_FLAG_TC) || ((FLAG) == USART_FLAG_RXNE) || \
+                             ((FLAG) == USART_FLAG_IDLE) || ((FLAG) == USART_FLAG_LBD) || \
+                             ((FLAG) == USART_FLAG_CTS) || ((FLAG) == USART_FLAG_ORE) || \
+                             ((FLAG) == USART_FLAG_NE) || ((FLAG) == USART_FLAG_FE))
+                              
+#define IS_USART_CLEAR_FLAG(FLAG) ((((FLAG) & (uint16_t)0xFC9F) == 0x00) && ((FLAG) != (uint16_t)0x00))
 
+#define IS_USART_BAUDRATE(BAUDRATE) (((BAUDRATE) > 0) && ((BAUDRATE) < 7500001))
+#define IS_USART_ADDRESS(ADDRESS) ((ADDRESS) <= 0xF)
+#define IS_USART_DATA(DATA) ((DATA) <= 0x1FF)
+#define IT_MASK                   ((uint16_t)0x001F)
+ITStatus USART_GetITStatus(USART_TypeDef* USARTx, uint16_t USART_IT)
+{
+  uint32_t bitpos = 0x00, itmask = 0x00, usartreg = 0x00;
+  ITStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  assert_param(IS_USART_GET_IT(USART_IT)); 
+
+  /* The CTS interrupt is not available for UART4 and UART5 */ 
+  if (USART_IT == USART_IT_CTS)
+  {
+    assert_param(IS_USART_1236_PERIPH(USARTx));
+  } 
+    
+  /* Get the USART register index */
+  usartreg = (((uint8_t)USART_IT) >> 0x05);
+  /* Get the interrupt position */
+  itmask = USART_IT & IT_MASK;
+  itmask = (uint32_t)0x01 << itmask;
+  
+  if (usartreg == 0x01) /* The IT  is in CR1 register */
+  {
+    itmask &= USARTx->CR1;
+  }
+  else if (usartreg == 0x02) /* The IT  is in CR2 register */
+  {
+    itmask &= USARTx->CR2;
+  }
+  else /* The IT  is in CR3 register */
+  {
+    itmask &= USARTx->CR3;
+  }
+  
+  bitpos = USART_IT >> 0x08;
+  bitpos = (uint32_t)0x01 << bitpos;
+  bitpos &= USARTx->SR;
+  if ((itmask != (uint16_t)RESET)&&(bitpos != (uint16_t)RESET))
+  {
+    bitstatus = SET;
+  }
+  else
+  {
+    bitstatus = RESET;
+  }
+  
+  return bitstatus;  
+}
+FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint16_t USART_FLAG)
+{
+  FlagStatus bitstatus = RESET;
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  assert_param(IS_USART_FLAG(USART_FLAG));
+
+  /* The CTS flag is not available for UART4 and UART5 */
+  if (USART_FLAG == USART_FLAG_CTS)
+  {
+    assert_param(IS_USART_1236_PERIPH(USARTx));
+  } 
+    
+  if ((USARTx->SR & USART_FLAG) != (uint16_t)RESET)
+  {
+    bitstatus = SET;
+  }
+  else
+  {
+    bitstatus = RESET;
+  }
+  return bitstatus;
+}
+void USART_ClearFlag(USART_TypeDef* USARTx, uint16_t USART_FLAG)
+{
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  assert_param(IS_USART_CLEAR_FLAG(USART_FLAG));
+
+  /* The CTS flag is not available for UART4 and UART5 */
+  if ((USART_FLAG & USART_FLAG_CTS) == USART_FLAG_CTS)
+  {
+    assert_param(IS_USART_1236_PERIPH(USARTx));
+  } 
+       
+  USARTx->SR = (uint16_t)~USART_FLAG;
+}
+uint16_t USART_ReceiveData(USART_TypeDef* USARTx)
+{
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  
+  /* Receive Data */
+  return (uint16_t)(USARTx->DR & (uint16_t)0x01FF);
+}
+void USART_ClearITPendingBit(USART_TypeDef* USARTx, uint16_t USART_IT)
+{
+  uint16_t bitpos = 0x00, itmask = 0x00;
+  /* Check the parameters */
+  assert_param(IS_USART_ALL_PERIPH(USARTx));
+  assert_param(IS_USART_CLEAR_IT(USART_IT)); 
+
+  /* The CTS interrupt is not available for UART4 and UART5 */
+  if (USART_IT == USART_IT_CTS)
+  {
+    assert_param(IS_USART_1236_PERIPH(USARTx));
+  } 
+    
+  bitpos = USART_IT >> 0x08;
+  itmask = ((uint16_t)0x01 << (uint16_t)bitpos);
+  USARTx->SR = (uint16_t)~itmask;
+}
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -267,11 +410,38 @@ void TIM3_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-
+		char Res;
+	if (USART_GetFlagStatus(USART2, USART_FLAG_PE) != RESET)  
+   {  
+       USART_ReceiveData(USART2);  
+     USART_ClearFlag(USART2, USART_FLAG_PE);  
+   }  
+      
+   if (USART_GetFlagStatus(USART2, USART_FLAG_ORE) != RESET)  
+   {  
+       USART_ReceiveData(USART2);  
+     USART_ClearFlag(USART2, USART_FLAG_ORE);  
+   }  
+      
+    if (USART_GetFlagStatus(USART2, USART_FLAG_FE) != RESET)  
+   {  
+       USART_ReceiveData(USART2);  
+      USART_ClearFlag(USART2, USART_FLAG_FE);  
+   }  
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
+	{
+		USART_ClearFlag(USART2, USART_FLAG_RXNE);  
+    USART_ClearITPendingBit(USART2, USART_IT_RXNE); 
+		Res =USART_ReceiveData(USART2);//(USART1->DR);	//读取接收到的数据
+		UART_BUFFER[USART_RX_STA] = Res;
+		USART_RX_STA++;
+		if(USART_RX_STA == 1024)
+			USART_RX_STA = 0;
+  } 
   /* USER CODE END USART2_IRQn 0 */
-  HAL_UART_IRQHandler(&huart2);
+  //HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
-
+	 //__HAL_UART_SEND_REQ(&huart2, UART_RXDATA_FLUSH_REQUEST);
   /* USER CODE END USART2_IRQn 1 */
 }
 
@@ -346,10 +516,20 @@ void DMA2_Stream6_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-extern uint8_t UART_BUFFER[1024];
+
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	HAL_UART_Receive_IT(&huart2,UART_BUFFER,sizeof(UART_BUFFER));
+	
+	HAL_StatusTypeDef rec;
+	//do{
+	rec =	HAL_UART_Receive_IT(&huart2,UART_BUFFER,sizeof(UART_BUFFER));
+	//}while(rec != HAL_OK);
+	
+	
+USART_ClearFlag(USART2, USART_FLAG_RXNE);  
+  USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+	
 }
 
 
