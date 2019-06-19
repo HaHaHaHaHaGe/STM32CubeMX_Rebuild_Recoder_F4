@@ -153,6 +153,7 @@ HAL_SD_CardInfoTypeDef sdinf;
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+
 static void USART2_UART_Init(int baud)
 {
 	HAL_UART_DeInit(&huart2);
@@ -336,11 +337,11 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,44 + ErrorS);
-					if((ErrorE - ErrorS) > 2048)
+					if((ErrorE - ErrorS) > 1024)
 					{
-						f_read(&speex_file,ErrorRecData,2048,&br);
-						i = 2048;
-						PackegEnd = ErrorS + 2048;
+						f_read(&speex_file,ErrorRecData,1024,&br);
+						i = 1024;
+						PackegEnd = ErrorS + 1024;
 					}
 					else
 					{
@@ -372,7 +373,8 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 					
-					
+					printf("AT+CIPSEND=%d\r\n",49 + ErrorS);
+					HAL_Delay(10);
 					printf("Recoder Repair Data\r\n");
 					UARTSendData(&((u8*)&PackegEnd)[3],1);
 					UARTSendData(&((u8*)&PackegEnd)[2],1);
@@ -449,7 +451,8 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 			datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 			datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 			
-			
+			printf("AT+CIPSEND=%d\r\n",49 + writesize);
+					HAL_Delay(10);
 			printf("Recoder Source Data\r\n");
 			UARTSendData(&((u8*)&PackegEnd)[3],1);
 			UARTSendData(&((u8*)&PackegEnd)[2],1);
@@ -508,6 +511,8 @@ void DataCheck()
 		if(delay_loop == 15)
 		{
 			delay_loop = 0;
+			printf("AT+CIPSEND=%d\r\n",25);
+					HAL_Delay(10);
 			printf("Device is Idle\r\n");
 			RecvComLoc3 = 1;
 			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
@@ -579,11 +584,11 @@ void DataCheck()
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,ErrorS);
-					if((ErrorE - ErrorS) > 2048)
+					if((ErrorE - ErrorS) > 1024)
 					{
-						f_read(&speex_file,ErrorRecData,2048,&br);
-						i = 2048;
-						PackegEnd = ErrorS + 2048;
+						f_read(&speex_file,ErrorRecData,1024,&br);
+						i = 1024;
+						PackegEnd = ErrorS + 1024;
 					}
 					else
 					{
@@ -616,7 +621,8 @@ void DataCheck()
 					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 					
-					
+					printf("AT+CIPSEND=%d\r\n",49 + ErrorS);
+					HAL_Delay(10);
 					printf("Recoder Repair Data\r\n");
 					UARTSendData(&((u8*)&PackegEnd)[3],1);
 					UARTSendData(&((u8*)&PackegEnd)[2],1);
@@ -1286,11 +1292,11 @@ int main(void)
 		HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
 		HAL_Delay(2500);
 	}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
-	HAL_Delay(200);
-	printf("AT+CIPMODE=1\r\n");
-	HAL_Delay(200);
-	printf("AT+CIPSEND\r\n");
-	HAL_Delay(200);
+	//HAL_Delay(200);
+	//printf("AT+CIPMODE=1\r\n");
+	//HAL_Delay(200);
+	//printf("AT+CIPSEND\r\n");
+	//HAL_Delay(200);
 	//printf("###Recorder Bord ID = %s###END###",initfilename);
 	//////////////////////////////////////////////////////
 	
@@ -1343,8 +1349,9 @@ int main(void)
 					
 					
 					
+					//HAL_Delay(50);
+					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
 					HAL_Delay(50);
-					
 					printf("Do Bindind Cheking\r\n");
 					RecvComLoc3 = 0;
 					UARTSendData(&((u8*)&RecvComLoc2)[3],1);
@@ -1399,6 +1406,8 @@ int main(void)
 		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
 		if(RecvComLoc3 != -1)
 		{
+			printf("AT+CIPSEND=%d\r\n",41);
+			HAL_Delay(50);
 			printf("Synchronous Device Info\r\n");
 			RecvComLoc3 = 0;
 			UARTSendData((u8*)&RecvComLoc3,4);
@@ -1504,6 +1513,8 @@ int main(void)
 					
 					
 					HAL_Delay(50);
+					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+					HAL_Delay(50);
 					//Send24L01Data("CK","00000000");
 					printf("Do Bindind Cheking\r\n");
 					RecvComLoc3 = 0;
@@ -1537,6 +1548,8 @@ int main(void)
 				HAL_Delay(10);
 				OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 			}
+					printf("AT+CIPSEND=%d\r\n",33);
+					HAL_Delay(50);
 					printf("Device is Idle\r\n");
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
@@ -1786,6 +1799,8 @@ int main(void)
 			HAL_Delay(100);
 			//printf("State"); //告诉服务器目前待机
 			//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
+			printf("AT+CIPSEND=%d\r\n",40);
+			HAL_Delay(10);
 			printf("Ready To Start Recoder\r\n");
 			RecvComLoc3 = 0;
 			UARTSendData((u8*)&RecvComLoc3,4);
@@ -1839,7 +1854,8 @@ int main(void)
 					OLED_ShowString(96,6,String_Windows_Time,16);
 				
 				
-				
+				printf("AT+CIPSEND=%d\r\n",33);
+					HAL_Delay(10);
 					printf("Device is Idle\r\n");
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
