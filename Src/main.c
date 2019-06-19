@@ -286,8 +286,31 @@ u32 PackegStart = 0;
 u32 PackegEnd = 0;				
 u8 ErrorRecData[2048];
 
-
-
+int wifi_link_check_int = 0;
+void wifi_link_check()
+{
+	int start = StrEqual(UART_BUFFER,"link is not valid",sizeof(UART_BUFFER),strlen("link is not valid"));
+	if(start != -1 || wifi_link_check_int != 0)
+	{
+		
+		if(wifi_link_check_int % 3000 == 0)
+		{
+			printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",recv_ip,recv_port);
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+		}
+		if(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) != -1)
+		{
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+			wifi_link_check_int = 0;
+			return;
+		}
+		
+		wifi_link_check_int++;
+		
+	}
+	else
+		wifi_link_check_int = 0;
+}
 					
 	//录音 I2S_DMA接收中断服务函数.在中断里面写入数据
 void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position) 
@@ -303,7 +326,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 	{  
 		
 		start = StrEqual(UART_BUFFER,"Fix Data Request\r\n",sizeof(UART_BUFFER),strlen("Fix Data Request\r\n"));
-		if(start != -1)
+		if(start != -1 && wifi_link_check_int == 0)
 		{
 			start_len = UART_BUFFER[start + 1] << 24;
 			start_len |= UART_BUFFER[start + 2] << 16;
@@ -428,7 +451,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 		
 		
 		
-		//if(secondcache_read_loc < secondcache_write_loc)
+		if(wifi_link_check_int == 0)
 		{
 			//writesize = secondcache_write_loc - secondcache_read_loc;
 			//res=f_write(f_rec,&secondcache[secondcache_read_loc],writesize,(UINT*)&bw);//写入文件
@@ -508,10 +531,10 @@ void DataCheck()
 		delay_loop++;
 		
 		
-		if(delay_loop == 15)
+		if(delay_loop == 15 && wifi_link_check_int == 0)
 		{
 			delay_loop = 0;
-			printf("AT+CIPSEND=%d\r\n",25);
+			printf("AT+CIPSEND=%d\r\n",33);
 					HAL_Delay(10);
 			printf("Device is Idle\r\n");
 			RecvComLoc3 = 1;
@@ -550,7 +573,7 @@ void DataCheck()
 		
 		
 		start = StrEqual(UART_BUFFER,"Fix Data Request\r\n",sizeof(UART_BUFFER),strlen("Fix Data Request\r\n"));
-		if(start != -1)
+		if(start != -1 && wifi_link_check_int == 0)
 		{
 			start_len = UART_BUFFER[start + 1] << 24;
 			start_len |= UART_BUFFER[start + 2] << 16;
@@ -1330,9 +1353,9 @@ int main(void)
 					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
 					HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
 					HAL_Delay(25);
-
+					wifi_link_check();
 					HAL_Delay(25);
-				
+					
 					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
 					if(RecvComLoc3 != -1)
 					{
@@ -1348,28 +1371,30 @@ int main(void)
 					RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
 					
 					
-					
-					//HAL_Delay(50);
-					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
-					HAL_Delay(50);
-					printf("Do Bindind Cheking\r\n");
-					RecvComLoc3 = 0;
-					UARTSendData(&((u8*)&RecvComLoc2)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[0],1);
-					for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
-						RecvComLoc3+="Do Bindind Cheking\r\n"[i];
-					for(i = 0;i<8;i++)
-						RecvComLoc3+=BordID[i];
-					for(i = 0;i< RecvComLoc2;i++)
-						RecvComLoc3+=initfilename[i + 8];
-					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData((unsigned char*)BordID,8);
-					UARTSendData(&initfilename[8],RecvComLoc2);
+					if(wifi_link_check_int == 0)
+					{
+						//HAL_Delay(50);
+						printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+						HAL_Delay(50);
+						printf("Do Bindind Cheking\r\n");
+						RecvComLoc3 = 0;
+						UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+						UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+						UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+						UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+						for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+							RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+						for(i = 0;i<8;i++)
+							RecvComLoc3+=BordID[i];
+						for(i = 0;i< RecvComLoc2;i++)
+							RecvComLoc3+=initfilename[i + 8];
+						UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+						UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+						UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+						UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+						UARTSendData((unsigned char*)BordID,8);
+						UARTSendData(&initfilename[8],RecvComLoc2);
+				 }
 				}
 				
 				
@@ -1404,7 +1429,7 @@ int main(void)
 		presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
 		//Synchronous Device Info\r\n
 		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
-		if(RecvComLoc3 != -1)
+		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
 		{
 			printf("AT+CIPSEND=%d\r\n",41);
 			HAL_Delay(50);
@@ -1511,7 +1536,8 @@ int main(void)
 					
 					
 					
-					
+					if(wifi_link_check_int == 0)
+					{
 					HAL_Delay(50);
 					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
 					HAL_Delay(50);
@@ -1534,6 +1560,7 @@ int main(void)
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 					UARTSendData((unsigned char*)BordID,8);
 					UARTSendData(&initfilename[8],RecvComLoc2);
+				  }
 				}
 				break;
 			}
@@ -1548,6 +1575,8 @@ int main(void)
 				HAL_Delay(10);
 				OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 			}
+			if(wifi_link_check_int == 0)
+			{
 					printf("AT+CIPSEND=%d\r\n",33);
 					HAL_Delay(50);
 					printf("Device is Idle\r\n");
@@ -1569,6 +1598,7 @@ int main(void)
 					UARTSendData((unsigned char*)BordID,8);
 					RecvComLoc3 = 2;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+				}
 		}
 	}
 	STMFLASH_Write((u32*)&FLASH_DATA,sizeof(struct FLASH_SAVE));
@@ -1612,6 +1642,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		wifi_link_check();
 		if(NRF24L01_RxPacket(Buffer)==0)
 		{
 			str1 = (u8*)strstr((char *)Buffer,(char *)"CALIB");
@@ -1799,6 +1830,8 @@ int main(void)
 			HAL_Delay(100);
 			//printf("State"); //告诉服务器目前待机
 			//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
+			if(wifi_link_check_int == 0)
+			{
 			printf("AT+CIPSEND=%d\r\n",40);
 			HAL_Delay(10);
 			printf("Ready To Start Recoder\r\n");
@@ -1815,6 +1848,7 @@ int main(void)
 			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 			UARTSendData(BordID,8);
+			}
 		}
 		else if(WavFlag == 0x80 && GadFlag == 0x80)    //正在录音提示
 		{
@@ -1829,7 +1863,7 @@ int main(void)
 		else
 		{
 			timecnt++;
-			if((timecnt%32000)==0) //告诉服务器目前待机
+			if((timecnt%3200)==0) //告诉服务器目前待机
 			{
 				
 				
@@ -1853,7 +1887,8 @@ int main(void)
 				sprintf(String_Windows_Time,"%0.2d",Real_Time_Second);
 					OLED_ShowString(96,6,String_Windows_Time,16);
 				
-				
+				if(wifi_link_check_int == 0)
+				{
 				printf("AT+CIPSEND=%d\r\n",33);
 					HAL_Delay(10);
 					printf("Device is Idle\r\n");
@@ -1875,6 +1910,7 @@ int main(void)
 					UARTSendData(BordID,8);
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+				}
 			}
 
 		}
