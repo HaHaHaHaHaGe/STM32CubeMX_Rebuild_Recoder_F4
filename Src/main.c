@@ -360,11 +360,11 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,44 + ErrorS);
-					if((ErrorE - ErrorS) > 1024)
+					if((ErrorE - ErrorS) > 1020)
 					{
-						f_read(&speex_file,ErrorRecData,1024,&br);
-						i = 1024;
-						PackegEnd = ErrorS + 1024;
+						f_read(&speex_file,ErrorRecData,1020,&br);
+						i = 1020;
+						PackegEnd = ErrorS + 1020;
 					}
 					else
 					{
@@ -607,11 +607,11 @@ void DataCheck()
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,ErrorS);
-					if((ErrorE - ErrorS) > 1024)
+					if((ErrorE - ErrorS) > 1020)
 					{
-						f_read(&speex_file,ErrorRecData,1024,&br);
-						i = 1024;
-						PackegEnd = ErrorS + 1024;
+						f_read(&speex_file,ErrorRecData,1020,&br);
+						i = 1020;
+						PackegEnd = ErrorS + 1020;
 					}
 					else
 					{
