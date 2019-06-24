@@ -359,7 +359,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 				
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
-					f_lseek(&speex_file,44 + ErrorS);
+					f_lseek(&speex_file,ErrorS);
 					if((ErrorE - ErrorS) > 1020)
 					{
 						f_read(&speex_file,ErrorRecData,1020,&br);
