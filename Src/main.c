@@ -878,6 +878,7 @@ u8 gad_recorder(u8 key,u32 time,u32 fs)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	UINT bw2;
 	u8 presskeyvalue = 1;
 	u32 timecnt = 0;
 	u8 Buffer[64];
@@ -888,6 +889,8 @@ int main(void)
 	u8 GadFlag = 0xff;
 	u32 FS = 0,GADFS = 0;
 	u8 state = 0;
+	FIL config;
+	FRESULT conres;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -972,6 +975,23 @@ int main(void)
 		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
 		HAL_Delay(200);				  
 		f_mkdir("0:/RECORDER");				//创建该目录   
+	}
+	conres = f_open(&config,"0:/config.config",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+	if(conres != FR_OK)
+	{
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"OpenConfigERROR",16);
+		while(1);
+	}
+		
+	conres = f_read(&config,&FLASH_DATA,sizeof(FLASH_SAVE),&br);
+	if(conres != FR_OK)
+	{
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
 	}
 	
 	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
@@ -1266,7 +1286,6 @@ int main(void)
 	}
 	
 	
-	STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	/////////////////////////////////////////////////
 	
 	
@@ -1427,6 +1446,8 @@ int main(void)
 	{
 		HAL_Delay(200);
 		presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
+		
+		wifi_link_check();
 		//Synchronous Device Info\r\n
 		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
 		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
@@ -1601,9 +1622,20 @@ int main(void)
 				}
 		}
 	}
-	STMFLASH_Write((u32*)&FLASH_DATA,sizeof(struct FLASH_SAVE));
-	main_start:
 	
+	
+	
+	main_start:
+	f_lseek(&config,0);
+	conres = f_write(&config,&FLASH_DATA,sizeof(FLASH_SAVE),(UINT*)&bw2);
+	if(conres != FR_OK)
+	{
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"WriteConfigERROR",16);
+		while(1);
+	}
+	f_close(&config);
 	ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 	HAL_Delay(200);
 	

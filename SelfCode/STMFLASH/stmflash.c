@@ -35,7 +35,7 @@ u32 STMFLASH_ReadWord(u32 faddr)
 void STMFLASH_Write(u32 *pBuffer,u32 NumToWrite)	
 { 
 	HAL_FLASH_Unlock();
-	
+	HAL_StatusTypeDef recv;
 	u32 serror;
 	u32 WriteAddr = ADDR_FLASH_SECTOR_7;
 	FLASH_EraseInitTypeDef f;
@@ -44,7 +44,7 @@ void STMFLASH_Write(u32 *pBuffer,u32 NumToWrite)
 	f.Sector = FLASH_SECTOR_7;
 	f.NbSectors = 1;
 	
-	HAL_FLASHEx_Erase(&f,&serror);
+	recv = HAL_FLASHEx_Erase(&f,&serror);
 
 	while(NumToWrite--)
 	{

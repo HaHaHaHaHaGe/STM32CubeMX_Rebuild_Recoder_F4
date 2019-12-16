@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Radio_Rebuild_Stm32CubeMX\Radio_Rebuild_Stm32CubeMX.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Radio_Rebuild_Stm32CubeMX\Radio_Rebuild_Stm32CubeMX.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jun 24 12:59:45 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Sep 29 11:59:33 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1584 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2564,7 +2564,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STMFLASH_Read
 </UL>
 
-<P><STRONG><a name="[1d6]"></a>STMFLASH_Write</STRONG> (Thumb, 72 bytes, Stack size 48 bytes, stmflash.o(i.STMFLASH_Write))
+<P><STRONG><a name="[1d6]"></a>STMFLASH_Write</STRONG> (Thumb, 78 bytes, Stack size 48 bytes, stmflash.o(i.STMFLASH_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = STMFLASH_Write &rArr; HAL_FLASH_Program &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASH_Unlock
@@ -2572,8 +2572,7 @@ Global Symbols
 <LI><a href="#[1d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASH_Lock
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FLASHEx_Erase
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_firstrun
+<BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_firstrun
 </UL>
 
 <P><STRONG><a name="[20]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.SVC_Handler))
@@ -3550,8 +3549,8 @@ Global Symbols
 <P><STRONG><a name="[229]"></a>close_wav_file</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, fatfs_write_wav.o(i.close_wav_file))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = close_wav_file &rArr; f_lseek &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<BR>[Calls]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stop_recoder
@@ -3595,9 +3594,9 @@ Global Symbols
 <P><STRONG><a name="[239]"></a>create_wav_file</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, fatfs_write_wav.o(i.create_wav_file))
 <BR><BR>[Stack]<UL><LI>Max Depth = 880<LI>Call Chain = create_wav_file &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_wav_init
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<BR>[Calls]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_wav_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initial_recoder
 </UL>
@@ -3642,10 +3641,10 @@ Global Symbols
 <P><STRONG><a name="[263]"></a>disk_read</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, diskio.o(i.disk_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_window
 </UL>
 
@@ -3659,9 +3658,9 @@ Global Symbols
 <P><STRONG><a name="[262]"></a>disk_write</STRONG> (Thumb, 42 bytes, Stack size 24 bytes, diskio.o(i.disk_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = disk_write
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
@@ -3829,6 +3828,7 @@ Global Symbols
 <LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dec_lock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_new_pathname
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_wav_file
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_speex_file
 </UL>
@@ -3844,7 +3844,8 @@ Global Symbols
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendspeexData_and_FixWifiData
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendspeexData_and_FixWifiData
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DataCheck
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_wav_file
 </UL>
@@ -3901,6 +3902,7 @@ Global Symbols
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_new_pathname
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_wav_file
 <LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_speex_file
 </UL>
@@ -3928,7 +3930,8 @@ Global Symbols
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendspeexData_and_FixWifiData
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendspeexData_and_FixWifiData
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DataCheck
 </UL>
 
@@ -3958,7 +3961,8 @@ Global Symbols
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_wav_file
+<BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[2d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_wav_file
 <LI><a href="#[2da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_speex_file
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_wav_file
 <LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close_wav_file
@@ -3993,9 +3997,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[267]"></a>get_fattime</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fatfs.o(i.get_fattime))
-<BR><BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
+<BR><BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 </UL>
 
 <P><STRONG><a name="[2d7]"></a>get_unread_ptr</STRONG> (Thumb, 98 bytes, Stack size 20 bytes, ringbuffer.o(i.get_unread_ptr))
@@ -4098,15 +4102,19 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> modes.o(.constdata)
 </UL>
-<P><STRONG><a name="[5d]"></a>main</STRONG> (Thumb, 6554 bytes, Stack size 80 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 992<LI>Call Chain = main &rArr; wav_recorder &rArr; initial_recoder &rArr; create_wav_file &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
+<P><STRONG><a name="[5d]"></a>main</STRONG> (Thumb, 6746 bytes, Stack size 648 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1560<LI>Call Chain = main &rArr; wav_recorder &rArr; initial_recoder &rArr; create_wav_file &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_mem_init
 <LI><a href="#[288]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_dmp_init
+<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
+<LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Speex_Init
-<LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STMFLASH_Write
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_ShowString
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Init
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Clear
@@ -4949,8 +4957,8 @@ Global Symbols
 <P><STRONG><a name="[2d8]"></a>write_wav_file</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, fatfs_write_wav.o(i.write_wav_file))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = write_wav_file &rArr; f_write &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_wav_update
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<BR>[Calls]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recoder_wav_update
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tick_recoder
 </UL>
@@ -5474,17 +5482,17 @@ Local Symbols
 <P><STRONG><a name="[261]"></a>clmt_clust</STRONG> (Thumb, 50 bytes, Stack size 20 bytes, ff.o(i.clmt_clust))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = clmt_clust
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 </UL>
 
 <P><STRONG><a name="[243]"></a>clust2sect</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, ff.o(i.clust2sect))
-<BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR><BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 </UL>
@@ -5504,9 +5512,9 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
 </UL>
 
@@ -5579,8 +5587,8 @@ Local Symbols
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_find
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_alloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 </UL>
 
 <P><STRONG><a name="[23d]"></a>dir_sdi</STRONG> (Thumb, 154 bytes, Stack size 24 bytes, ff.o(i.dir_sdi))
@@ -5613,9 +5621,9 @@ Local Symbols
 <LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_initialize
 </UL>
 <BR>[Called By]<UL><LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
+<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mount
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 </UL>
 
 <P><STRONG><a name="[266]"></a>follow_path</STRONG> (Thumb, 162 bytes, Stack size 32 bytes, ff.o(i.follow_path))
@@ -5627,8 +5635,8 @@ Local Symbols
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_name
 </UL>
 <BR>[Called By]<UL><LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_opendir
-<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 </UL>
 
 <P><STRONG><a name="[246]"></a>gen_numname</STRONG> (Thumb, 198 bytes, Stack size 64 bytes, ff.o(i.gen_numname))
@@ -5647,8 +5655,8 @@ Local Symbols
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ld_dword
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
 <LI><a href="#[26b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remove_chain
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_sdi
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
@@ -5704,9 +5712,9 @@ Local Symbols
 <P><STRONG><a name="[245]"></a>mem_cpy</STRONG> (Thumb, 26 bytes, Stack size 12 bytes, ff.o(i.mem_cpy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = mem_cpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
 <LI><a href="#[246]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gen_numname
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
 </UL>
@@ -5714,8 +5722,8 @@ Local Symbols
 <P><STRONG><a name="[236]"></a>mem_set</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, ff.o(i.mem_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = mem_set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_register
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dir_next
@@ -5728,8 +5736,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_window
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 <LI><a href="#[265]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;find_volume
@@ -5765,8 +5773,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_fat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 </UL>
 
 <P><STRONG><a name="[269]"></a>st_clust</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, ff.o(i.st_clust))
@@ -5774,15 +5782,15 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;st_word
 </UL>
-<BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 </UL>
 
 <P><STRONG><a name="[268]"></a>st_dword</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, ff.o(i.st_dword))
-<BR><BR>[Called By]<UL><LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
+<BR><BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
+<LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_mkdir
 <LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_open
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sync_fs
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_fat
 </UL>
@@ -5832,11 +5840,11 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
+<BR>[Called By]<UL><LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_lseek
-<LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_write
-<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_close
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_sync
 </UL>
 
 <P><STRONG><a name="[216]"></a>accel_self_test</STRONG> (Thumb, 182 bytes, Stack size 40 bytes, inv_mpu.o(i.accel_self_test))
