@@ -1139,7 +1139,7 @@ int main(void)
 			OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
 			OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
 			OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
-			if(PressKey() == 0)
+			//if(PressKey() == 0)
 			{
 				for(i = 0; i< 20;i++)
 					recv_wifi[i] = FLASH_DATA.WIFI_NAME[i];
@@ -1151,12 +1151,12 @@ int main(void)
 					recv_port[i] = FLASH_DATA.SERVER_PORT[i];
 				goto connect_wifi;
 			}
-			else
-			{
-				OLED_Clear( );
-				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
-			}
+//			else
+//			{
+//				OLED_Clear( );
+//				HAL_Delay(10);
+//				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+//			}
 	}
 	
 	
@@ -1357,7 +1357,7 @@ int main(void)
 			OLED_ShowString(0,2,(u8*)FLASH_DATA.BIND_NAME,16);
 			//OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
 			OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
-			if(PressKey() == 0)
+			//if(PressKey() == 0)
 			{
 				for(i = 0;i<8;i++)
 					initfilename[i] = BordID[i];
@@ -1423,10 +1423,10 @@ int main(void)
 				
 				goto main_start;
 			}
-			else
-			{
+//			else
+//			{
 
-			}
+//			}
 	}
 	
 	
