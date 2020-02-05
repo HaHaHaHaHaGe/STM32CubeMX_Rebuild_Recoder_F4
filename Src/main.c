@@ -105,6 +105,10 @@ typedef struct FLASH_SAVE
 
 
 FLASH_SAVE FLASH_DATA;
+unsigned char link_id;
+unsigned char FILE_DATA[256];
+unsigned char *FILE_DATA_ptr = FILE_DATA;
+unsigned char *FILE_DATA_ptr_recv;
 uint8_t UART_BUFFER[1024];
 u8 String_Windows_Time[64] = {0};
 uint8_t isPowerOn = 0;
@@ -976,7 +980,7 @@ int main(void)
 		HAL_Delay(200);				  
 		f_mkdir("0:/RECORDER");				//创建该目录   
 	}
-	conres = f_open(&config,"0:/config.config",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+	conres = f_open(&config,"0:/config.ini",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
 	if(conres != FR_OK)
 	{
 		OLED_Clear( );
@@ -985,7 +989,7 @@ int main(void)
 		while(1);
 	}
 		
-	conres = f_read(&config,&FLASH_DATA,sizeof(FLASH_SAVE),&br);
+	conres = f_read(&config,&FILE_DATA,sizeof(FILE_DATA),&br);
 	if(conres != FR_OK)
 	{
 		OLED_Clear( );
@@ -993,6 +997,64 @@ int main(void)
 		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
 		while(1);
 	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"wifi_name=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		{
+			FLASH_DATA.WIFI_NAME[i] = FILE_DATA_ptr[i + 10];
+		}
+	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"wifi_pass=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		{
+			FLASH_DATA.WIFI_PASS[i] = FILE_DATA_ptr[i + 10];
+		}
+	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"server_ip=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		{
+			FLASH_DATA.SERVER_IP[i] = FILE_DATA_ptr[i + 10];
+		}
+	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"server_port=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 12));i++)
+		{
+			FLASH_DATA.SERVER_PORT[i] = FILE_DATA_ptr[i + 12];
+		}
+	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"link_id=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		link_id = FILE_DATA_ptr[10];
+	}
+	
+	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"bind_name=");
+	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
+	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
+	{
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		{
+			FLASH_DATA.BIND_NAME[i] = FILE_DATA_ptr[i + 10];
+		}
+	}
+	f_close(&config);
 	
 	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
 	HAL_Delay(2000);
@@ -1035,12 +1097,20 @@ int main(void)
 				sum+=Buffer[i];
 			if(sum == Buffer[RecvComLoc3 -11 + 20])
 			{
+				
 				for(i = 0;i<8;i++)
 				{
 					SoftID[i] = Buffer[RecvComLoc3 + 1 + i];
 				}
-				
-				
+				if(SoftID[0] != link_id)
+				{
+						sum = 0;
+					for(i = 0;i<8;i++)
+						SoftID[i] = 0;
+					for(i = 0;i<64;i++)
+						Buffer[i]=0;
+					continue;
+				}
 				if(connectstate == 1)
 				{
 					//sum = Send24L01Data("AB","00000000");
@@ -1049,7 +1119,7 @@ int main(void)
 				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
 				OLED_ShowString(0,4,(u8*)SoftID,16);
 				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
-				if(PressKey() == 0)
+				//if(PressKey() == 0)
 				{
 					//sum = Send24L01Data("AB","00000000");
 					connectstate = 1;
@@ -1065,20 +1135,20 @@ int main(void)
 					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
 					break;
 				}
-				else
-				{
-					sum = 0;
-					
-					for(i = 0;i<8;i++)
-						SoftID[i] = 0;
+//				else
+//				{
+//					sum = 0;
+//					
+//					for(i = 0;i<8;i++)
+//						SoftID[i] = 0;
 
-					for(i = 0;i<64;i++)
-						Buffer[i]=0;
-					
-					OLED_Clear( );
-					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
-				}
+//					for(i = 0;i<64;i++)
+//						Buffer[i]=0;
+//					
+//					OLED_Clear( );
+//					HAL_Delay(10);
+//					OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
+//				}
 				continue;
 				
 				
@@ -1626,16 +1696,16 @@ int main(void)
 	
 	
 	main_start:
-	f_lseek(&config,0);
-	conres = f_write(&config,&FLASH_DATA,sizeof(FLASH_SAVE),(UINT*)&bw2);
-	if(conres != FR_OK)
-	{
-		OLED_Clear( );
-		HAL_Delay(500);
-		OLED_ShowString(0,0,(unsigned char*)"WriteConfigERROR",16);
-		while(1);
-	}
-	f_close(&config);
+//	f_lseek(&config,0);
+//	conres = f_write(&config,&FLASH_DATA,sizeof(FLASH_SAVE),(UINT*)&bw2);
+//	if(conres != FR_OK)
+//	{
+//		OLED_Clear( );
+//		HAL_Delay(500);
+//		OLED_ShowString(0,0,(unsigned char*)"WriteConfigERROR",16);
+//		while(1);
+//	}
+//	f_close(&config);
 	ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 	HAL_Delay(200);
 	
