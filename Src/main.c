@@ -992,6 +992,7 @@ int main(void)
 	conres = f_read(&config,&FILE_DATA,sizeof(FILE_DATA),&br);
 	if(conres != FR_OK)
 	{
+		f_close(&config);
 		OLED_Clear( );
 		HAL_Delay(500);
 		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
@@ -1002,59 +1003,103 @@ int main(void)
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10) + 1);i++)
 		{
 			FLASH_DATA.WIFI_NAME[i] = FILE_DATA_ptr[i + 10];
 		}
 	}
-	
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}	
 	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"wifi_pass=");
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10) + 1);i++)
 		{
 			FLASH_DATA.WIFI_PASS[i] = FILE_DATA_ptr[i + 10];
 		}
 	}
-	
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}	
 	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"server_ip=");
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10) + 1);i++)
 		{
 			FLASH_DATA.SERVER_IP[i] = FILE_DATA_ptr[i + 10];
 		}
 	}
-	
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}	
 	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"server_port=");
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 12));i++)
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 12) + 1);i++)
 		{
 			FLASH_DATA.SERVER_PORT[i] = FILE_DATA_ptr[i + 12];
 		}
 	}
-	
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}	
 	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"link_id=");
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		link_id = FILE_DATA_ptr[10];
+		link_id = FILE_DATA_ptr[8];
 	}
-	
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}	
 	FILE_DATA_ptr = (unsigned char*)strstr((const char*)FILE_DATA,"bind_name=");
 	FILE_DATA_ptr_recv = (unsigned char*)strchr((const char*)FILE_DATA_ptr,'\n');
 	if(FILE_DATA_ptr_recv != 0 && FILE_DATA_ptr != 0)
 	{
-		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10));i++)
+		for(i = 0; i < ((FILE_DATA_ptr_recv - 2) - (FILE_DATA_ptr + 10) + 1);i++)
 		{
 			FLASH_DATA.BIND_NAME[i] = FILE_DATA_ptr[i + 10];
 		}
 	}
+	else
+	{
+		f_close(&config);
+		OLED_Clear( );
+		HAL_Delay(500);
+		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+		while(1);
+	}
 	f_close(&config);
+
 	
 	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
 	HAL_Delay(2000);
