@@ -100,6 +100,7 @@ typedef struct FLASH_SAVE
 	unsigned char SERVER_PORT[20];
 	unsigned char BIND_NAME[20];
 	unsigned char DEVICE_ID[28];
+	unsigned char GROUP;
 	int check;
 }FLASH_SAVE;
 
@@ -112,7 +113,7 @@ unsigned char Real_Time_Year=0,Real_Time_Month=0,Real_Time_Day=0,Real_Time_Hour=
 unsigned int Real_Time_Millise=0;
 unsigned char Real_Time_Year_STOP=0,Real_Time_Month_STOP=0,Real_Time_Day_STOP=0,Real_Time_Hour_STOP=0,Real_Time_Minute_STOP=0,Real_Time_Second_STOP=0;
 unsigned int Real_Time_Millise_STOP=0;
-char SoftID[9] = {"12345678"};
+char SoftID;
 char SessID[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 char BordID[9] = {0,0,0,0,0,0,0,0,0};
 char recv_wifi[20] = {0};
@@ -122,13 +123,13 @@ char recv_port[20] = {0};
 unsigned char Binding_Bool = 1;
 char *recv_A = "WIFI CONNECTED\r\nWIFI GOT IP\r\n\r\nOK\r\n";
 char *recv_B = "CONNECT";
-u8 initfilename[20] = {0};
+//u8 initfilename[20] = {0};
 
 int RecvComLoc1 = 0;
 int RecvComLoc2 = 0;
 int RecvComLoc3 = 0;
 int RecvComLoc4 = 0;
-
+u8 Buffer[64];
 extern unsigned char AM_Factor;
 /* USER CODE END PV */
 
@@ -260,7 +261,8 @@ void check_firstrun()
 		FLASH_DATA.DEVICE_ID[6] = (rand() % 26) + 'A';
 		FLASH_DATA.DEVICE_ID[7] = (rand() % 26) + 'A';
 		FLASH_DATA.DEVICE_ID[8] = 0;
-		
+		FLASH_DATA.GROUP = 'A';
+		FLASH_DATA.BIND_NAME[0] = 0;
 		
 		HAL_Delay(200);
 		STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
@@ -295,7 +297,7 @@ void wifi_link_check()
 		
 		if(wifi_link_check_int % 3000 == 0)
 		{
-			printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",recv_ip,recv_port);
+			printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",FLASH_DATA.SERVER_IP,FLASH_DATA.SERVER_PORT);
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 		}
 		if(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) != -1)
@@ -864,7 +866,337 @@ u8 gad_recorder(u8 key,u32 time,u32 fs)
 
 }
 
-
+void RF_Command_Check()
+{
+	u8 i,sum;
+	//if(NRF24L01_RxPacket(Buffer)!=0)
+	//		return;
+	RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"SERCH:Begin_",32,strlen("SERCH:Begin_"));
+	if(RecvComLoc1 != -1)
+	{
+			sum = 0;
+			for(i = RecvComLoc1 - 11;i < RecvComLoc1 + 2;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc1 + 2])
+			{
+				if(Buffer[RecvComLoc1 + 1] == FLASH_DATA.GROUP)
+				{
+					ClearBuffer(Buffer,sizeof(Buffer));
+					return;
+				}
+				
+				
+				
+				OLED_Clear( );
+				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+				//OLED_ShowString(0,4,(u8*)&Buffer[RecvComLoc1 + 1],1);
+				OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],16);
+				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+				if(PressKey() == 0)
+				{
+					//sum = Send24L01Data("AB","00000000");
+					SoftID = Buffer[RecvComLoc1 + 1];
+					FLASH_DATA.GROUP = SoftID;
+					OLED_Clear( );
+					HAL_Delay(10);
+					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
+					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+					//OLED_ShowString(0,4,(u8*)&FLASH_DATA.GROUP,1);
+					HAL_Delay(2000);
+					OLED_Clear( );
+					HAL_Delay(10);
+					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+					STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
+					
+					
+					
+				}
+				OLED_Clear( );
+				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
+					OLED_ShowString(0,2,(unsigned char*)"Group:",16);
+				//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
+					OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+					OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+					if(FLASH_DATA.BIND_NAME[0] != 0xff)
+						OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+			}
+			ClearBuffer(Buffer,sizeof(Buffer));
+			return;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"$WIFI",32,strlen("$WIFI"));
+		RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"$PASS",32,strlen("$PASS"));
+		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"$IPAD",32,strlen("$IPAD"));
+		RecvComLoc4 = StrEqual(Buffer,(unsigned char*)"$PORT",32,strlen("$PORT"));
+		if(RecvComLoc1 != -1)
+		{
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
+			if(RecvComLoc2 < RecvComLoc1)
+			{
+				ClearBuffer(Buffer,sizeof(Buffer));
+				return;
+			}
+			
+			sum = 0;
+			for(i = RecvComLoc1 - 5;i < RecvComLoc2 + 1;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc2 + 1])
+			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc1 - 5])
+				{
+					ClearBuffer(Buffer,sizeof(Buffer));
+					return;
+				}
+				for(i = 0;i<RecvComLoc2 - RecvComLoc1 - 1;i++)
+				{
+					recv_wifi[i] = Buffer[i + RecvComLoc1 + 1];
+					FLASH_DATA.WIFI_NAME[i] = recv_wifi[i];
+				}
+				FLASH_DATA.WIFI_NAME[i] = 0;
+			}
+			ClearBuffer(Buffer,sizeof(Buffer));
+		}
+		else if (RecvComLoc2 != -1)
+		{
+			RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
+			if(RecvComLoc1 < RecvComLoc2)
+			{
+				ClearBuffer(Buffer,sizeof(Buffer));
+				return;
+			}
+			
+			sum = 0;
+			for(i = RecvComLoc2 - 5;i < RecvComLoc1 + 1;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc1 + 1])
+			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc2 - 5])
+				{
+					ClearBuffer(Buffer,sizeof(Buffer));
+					return;
+				}
+				for(i = 0;i<RecvComLoc1 - RecvComLoc2 - 1;i++)
+				{
+					recv_pass[i] = Buffer[i + RecvComLoc2 + 1];
+					FLASH_DATA.WIFI_PASS[i] = recv_pass[i];
+				}
+				FLASH_DATA.WIFI_PASS[i] = 0;
+			}
+			ClearBuffer(Buffer,sizeof(Buffer));
+		}
+		else if (RecvComLoc3 != -1)
+		{
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
+			if(RecvComLoc2 < RecvComLoc3)
+			{
+				ClearBuffer(Buffer,sizeof(Buffer));
+				return;
+			}
+			sum = 0;
+			for(i = RecvComLoc3 - 5;i < RecvComLoc2 + 1;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc2 + 1])
+			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc3 - 5])
+				{
+					ClearBuffer(Buffer,sizeof(Buffer));
+					return;
+				}
+				for(i = 0;i<RecvComLoc2 - RecvComLoc3 - 1;i++)
+				{
+					recv_ip[i] = Buffer[i + RecvComLoc3 + 1];
+					FLASH_DATA.SERVER_IP[i] = recv_ip[i];
+				}
+				FLASH_DATA.SERVER_IP[i] = 0;
+			}
+			ClearBuffer(Buffer,sizeof(Buffer));
+		}
+		else if (RecvComLoc4 != -1)
+		{
+			RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"\n",32,strlen("\n"));
+			if(RecvComLoc2 < RecvComLoc4)
+			{
+				ClearBuffer(Buffer,sizeof(Buffer));
+				return;
+			}
+			sum = 0;
+			for(i = RecvComLoc4 - 5;i < RecvComLoc2 + 1;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc2 + 1])
+			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc4 - 5])
+				{
+					ClearBuffer(Buffer,sizeof(Buffer));
+					return;
+				}
+				for(i = 0;i<RecvComLoc2 - RecvComLoc4 - 1;i++)
+				{
+					recv_port[i] = Buffer[i + RecvComLoc4 + 1];
+					FLASH_DATA.SERVER_PORT[i] = recv_port[i];
+				}
+				FLASH_DATA.SERVER_PORT[i] = 0;
+			}
+			ClearBuffer(Buffer,sizeof(Buffer));
+		}
+		else
+		{
+			
+		}
+		if(recv_wifi[0] != 0 && recv_pass[0] != 0 && recv_ip[0] != 0 && recv_port[0] != 0)
+		{
+			recv_wifi[0] = 0;
+			recv_pass[0] = 0;
+			recv_ip[0] = 0;
+			recv_port[0] = 0;
+				OLED_Clear( );
+				HAL_Delay(10);
+				OLED_ShowString(0,0,(unsigned char*)"Connect WIFI",16);
+				OLED_ShowString(0,2,(unsigned char*)"...",16);
+				
+				///////////////////////////////////////////////////
+				//ESP8266 Init
+				printf("AT+CWMODE=1\r\n");
+				HAL_Delay(1000);
+				i = 0;
+				do
+				{
+					//printf("AT+CWJAP=\"CU_kh2m\",\"m9svhdhq\"\r\n");
+					printf("AT+CWJAP=\"%s\",\"%s\"\r\n",FLASH_DATA.WIFI_NAME,FLASH_DATA.WIFI_PASS);
+					ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+					HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+					HAL_Delay(5000);
+					HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+					HAL_Delay(5000);
+					printf("%s",UART_BUFFER);
+					i++;
+					if(i == 3)
+					{
+						
+						OLED_Clear( );
+						HAL_Delay(10);
+						OLED_ShowString(0,0,(unsigned char*)"Connect Faild",16);
+						OLED_ShowString(0,2,(unsigned char*)"...",16);
+						HAL_Delay(1000);
+						ClearBuffer(Buffer,sizeof(Buffer));
+						return;
+					}
+				}while(StrEqual(UART_BUFFER,(unsigned char*)recv_A,sizeof(UART_BUFFER),strlen(recv_A)) == -1);
+				
+				ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+				
+				
+				
+				OLED_Clear( );
+				HAL_Delay(10);
+				OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
+				OLED_ShowString(0,2,(unsigned char*)"...",16);
+				
+				i = 0;
+				do
+				{
+					printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",FLASH_DATA.SERVER_IP,FLASH_DATA.SERVER_PORT);
+					ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+					HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+					HAL_Delay(2500);
+					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+					HAL_Delay(2500);
+					i++;
+					if(i == 3)
+					{
+						OLED_Clear( );
+						HAL_Delay(10);
+						OLED_ShowString(0,0,(unsigned char*)"Connect Faild",16);
+						OLED_ShowString(0,2,(unsigned char*)"...",16);
+						HAL_Delay(1000);
+						ClearBuffer(Buffer,sizeof(Buffer));
+						return;
+					}
+				}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
+			STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
+				OLED_Clear( );
+				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
+			OLED_ShowString(0,2,(unsigned char*)"Group:",16);
+		//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
+			OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+			OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+			if(FLASH_DATA.BIND_NAME[0] != 0xff)
+				OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+			ClearBuffer(Buffer,sizeof(Buffer));
+			return;
+		}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Request Binding\r\n",sizeof(UART_BUFFER),strlen("Request Binding\r\n"));
+		if(RecvComLoc3 != -1)
+		{
+			
+			RecvComLoc2 = UART_BUFFER[RecvComLoc3 + 1] << 24;
+			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 2] << 16;
+			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 3] << 8;
+			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 4];
+			
+			RecvComLoc1 = UART_BUFFER[RecvComLoc3 + 5] << 24;
+			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 6] << 16;
+			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 7] << 8;
+			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 8];
+			
+			
+			RecvComLoc4 = 0;
+			for(i = 0; i < (u8)RecvComLoc2 + 8; i++)
+				RecvComLoc4 += UART_BUFFER[RecvComLoc3 + 9 + i];
+			for(i = 0; i < strlen("Request Binding\r\n"); i++)
+				RecvComLoc4 += "Request Binding\r\n"[i];
+			
+			
+			
+			if(RecvComLoc4 == RecvComLoc1)
+			{
+//				for(i = 0;i<8;i++)
+//				{
+//					initfilename[i] = BordID[i];
+//				}
+				for(i = 0;i< RecvComLoc2;i++)
+				{
+					//initfilename[i + 8] = UART_BUFFER[RecvComLoc3 + 17 + i];
+					FLASH_DATA.BIND_NAME[i] = UART_BUFFER[RecvComLoc3 + 17 + i];
+				}
+				FLASH_DATA.BIND_NAME[i] = 0;
+				STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
+				
+				OLED_Clear( );
+				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
+				OLED_ShowString(0,2,(unsigned char*)"Group:",16);
+			//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
+				OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+				if(FLASH_DATA.BIND_NAME[0] != 0xff)
+					OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+			}
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+		}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
+		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
+		{
+			printf("AT+CIPSEND=%d\r\n",41);
+			HAL_Delay(50);
+			printf("Synchronous Device Info\r\n");
+			RecvComLoc3 = 0;
+			UARTSendData((u8*)&RecvComLoc3,4);
+			for(i = 0;i<strlen("Synchronous Device Info\r\n");i++)
+				RecvComLoc3+="Synchronous Device Info\r\n"[i];
+			for(i = 0;i<8;i++)
+				RecvComLoc3+=BordID[i];
+			
+			
+			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+			UARTSendData((unsigned char*)BordID,8);
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+			return;
+		}
+}
 
 
 
@@ -881,7 +1213,7 @@ int main(void)
 	UINT bw2;
 	u8 presskeyvalue = 1;
 	u32 timecnt = 0;
-	u8 Buffer[64];
+	
 	u8 connectstate = 0;
 	u8 i,sum = 0;
 	u8 *str1;
@@ -976,157 +1308,117 @@ int main(void)
 		HAL_Delay(200);				  
 		f_mkdir("0:/RECORDER");				//创建该目录   
 	}
-	conres = f_open(&config,"0:/config.config",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
-	if(conres != FR_OK)
-	{
-		OLED_Clear( );
-		HAL_Delay(500);
-		OLED_ShowString(0,0,(unsigned char*)"OpenConfigERROR",16);
-		while(1);
-	}
-		
-	conres = f_read(&config,&FLASH_DATA,sizeof(FLASH_SAVE),&br);
-	if(conres != FR_OK)
-	{
-		OLED_Clear( );
-		HAL_Delay(500);
-		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
-		while(1);
-	}
+//	conres = f_open(&config,"0:/config.config",FA_OPEN_ALWAYS|FA_READ|FA_WRITE);
+//	if(conres != FR_OK)
+//	{
+//		OLED_Clear( );
+//		HAL_Delay(500);
+//		OLED_ShowString(0,0,(unsigned char*)"OpenConfigERROR",16);
+//		while(1);
+//	}
+//		
+//	conres = f_read(&config,&FLASH_DATA,sizeof(FLASH_SAVE),&br);
+//	if(conres != FR_OK)
+//	{
+//		OLED_Clear( );
+//		HAL_Delay(500);
+//		OLED_ShowString(0,0,(unsigned char*)"ReadConfigERROR",16);
+//		while(1);
+//	}
 	
 	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
 	HAL_Delay(2000);
 	OLED_Clear( );
 	HAL_Delay(500);
-	OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
-		//////////////////////////////////////////////////
-	//binding
-	binding:
-	presskeyvalue = 1;
-	HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
-	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
-	while(1)
-	{
-		HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-		HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
-		HAL_Delay(50);
-		//NRF24L01_RX_Mode();
-		HAL_Delay(50);
-		if(presskeyvalue == 1 || SessID[0] == 0)
-			presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
+	//OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
+//		//////////////////////////////////////////////////
+//	//binding
+//	binding:
+//	presskeyvalue = 1;
+//	HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+//	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+//	while(1)
+//	{
+//		HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+//		HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+//		HAL_Delay(50);
+//		//NRF24L01_RX_Mode();
+//		HAL_Delay(50);
+//		if(presskeyvalue == 1 || SessID[0] == 0)
+//			presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
 
-		if(SessID[0] != 0)
-			timecnt++;
-		if(timecnt > 20)
-		{
-			timecnt=0;
-			OLED_Clear( );
-			HAL_Delay(10);
-			OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
-		}
-		
-		if(NRF24L01_RxPacket(Buffer)!=0)
-			continue;
-		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"SERCH:Begin_",32,strlen("SERCH:Begin_"));
-		if(connectstate < 2 && RecvComLoc3 != -1)
-		{
-			sum = 0;
-			for(i = RecvComLoc3 - 11;i < RecvComLoc3 - 11 + 20;i++)
-				sum+=Buffer[i];
-			if(sum == Buffer[RecvComLoc3 -11 + 20])
-			{
-				for(i = 0;i<8;i++)
-				{
-					SoftID[i] = Buffer[RecvComLoc3 + 1 + i];
-				}
-				
-				
-				if(connectstate == 1)
-				{
-					//sum = Send24L01Data("AB","00000000");
-					continue;
-				}
-				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
-				OLED_ShowString(0,4,(u8*)SoftID,16);
-				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
-				if(PressKey() == 0)
-				{
-					//sum = Send24L01Data("AB","00000000");
-					connectstate = 1;
-					
-					OLED_Clear( );
-					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
-					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
-					OLED_ShowString(0,4,(u8*)SoftID,16);
-					HAL_Delay(2000);
-					OLED_Clear( );
-					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
-					break;
-				}
-				else
-				{
-					sum = 0;
-					
-					for(i = 0;i<8;i++)
-						SoftID[i] = 0;
-
-					for(i = 0;i<64;i++)
-						Buffer[i]=0;
-					
-					OLED_Clear( );
-					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
-				}
-				continue;
-				
-				
-			}
-			
-		}
-		
-		
-
-//		RecvComLoc3 = StrEqual(Buffer,"Sess_",32,strlen("Sess_"));
-//		if(RecvComLoc3 != -1)
+//		if(SessID[0] != 0)
+//			timecnt++;
+//		if(timecnt > 20)
 //		{
-//			RecvComLoc2 = StrEqual(Buffer,"#",32,strlen("#"));
-//			if(RecvComLoc2 < RecvComLoc3)
-//				continue;
-//			
-//			sum = 0;
-//			for(i = RecvComLoc3 - 4;i < RecvComLoc2 + 1;i++)
-//				sum+=Buffer[i];
-//			if(sum == Buffer[RecvComLoc2 + 1])
-//			{
-//				sum = 0;
-//				for(i = 0;i < 8;i++)
-//				{
-//					if(SoftID[i] != Buffer[RecvComLoc3 + 1 + i])
-//						sum = 1;
-//				}
-//				if(sum == 1)
-//					continue;
-//				for(i = 0;i< RecvComLoc2 - RecvComLoc3 - 9;i++)
-//				{
-//					SessID[i] = Buffer[RecvComLoc3 + 9 + i];
-//				}
-//				connectstate = 2;
-
-//			}
+//			timecnt=0;
+//			OLED_Clear( );
+//			HAL_Delay(10);
+//			OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
 //		}
-		
-		
+//		
+//		if(NRF24L01_RxPacket(Buffer)!=0)
+//			continue;
+//		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"SERCH:Begin_",32,strlen("SERCH:Begin_"));
+//		if(connectstate < 2 && RecvComLoc3 != -1)
+//		{
+//			sum = 0;
+//			for(i = RecvComLoc3 - 11;i < RecvComLoc3 - 11 + 20;i++)
+//				sum+=Buffer[i];
+//			if(sum == Buffer[RecvComLoc3 -11 + 20])
+//			{
+//				for(i = 0;i<8;i++)
+//				{
+//					SoftID[i] = Buffer[RecvComLoc3 + 1 + i];
+//				}
+//				
+//				
+//				if(connectstate == 1)
+//				{
+//					//sum = Send24L01Data("AB","00000000");
+//					continue;
+//				}
+//				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+//				OLED_ShowString(0,4,(u8*)SoftID,16);
+//				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+//				if(PressKey() == 0)
+//				{
+//					//sum = Send24L01Data("AB","00000000");
+//					connectstate = 1;
+//					
+//					OLED_Clear( );
+//					HAL_Delay(10);
+//					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
+//					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+//					OLED_ShowString(0,4,(u8*)SoftID,16);
+//					HAL_Delay(2000);
+//					OLED_Clear( );
+//					HAL_Delay(10);
+//					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+//					break;
+//				}
+//				else
+//				{
+//					sum = 0;
+//					
+//					for(i = 0;i<8;i++)
+//						SoftID[i] = 0;
 
-		
-		
-		
-		
-		
-
-		
-	}
+//					for(i = 0;i<64;i++)
+//						Buffer[i]=0;
+//					
+//					OLED_Clear( );
+//					HAL_Delay(10);
+//					OLED_ShowString(0,0,(unsigned char*)"Waiting Network",16);
+//				}
+//				continue;
+//				
+//				
+//			}
+//			
+//		}
+//		
+//	}
 	
 	
 	
@@ -1135,11 +1427,11 @@ int main(void)
 	{
 			OLED_Clear( );
 			HAL_Delay(10);
-			OLED_ShowString(0,0,(unsigned char*)"WiFi Server:",16);
-			OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
-			OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
-			OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
-			if(PressKey() == 0)
+			//OLED_ShowString(0,0,(unsigned char*)"WiFi Server:",16);
+			//OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
+			//OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
+			//OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+			//if(PressKey() == 0)
 			{
 				for(i = 0; i< 20;i++)
 					recv_wifi[i] = FLASH_DATA.WIFI_NAME[i];
@@ -1151,12 +1443,12 @@ int main(void)
 					recv_port[i] = FLASH_DATA.SERVER_PORT[i];
 				goto connect_wifi;
 			}
-			else
-			{
-				OLED_Clear( );
-				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
-			}
+//			else
+//			{
+//				OLED_Clear( );
+//				HAL_Delay(10);
+//				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+//			}
 	}
 	
 	
@@ -1180,6 +1472,10 @@ int main(void)
 	
 	//////////////////////////////////////////////////
 	//wifi
+	wifi:
+	OLED_Clear( );
+	HAL_Delay(10);
+	OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
 	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
 	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
 	while(1)
@@ -1189,12 +1485,73 @@ int main(void)
 		HAL_Delay(25);
 		NRF24L01_RX_Mode();
 		HAL_Delay(25);
-
-		if(HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin) == 0)
-			goto binding;
 		
 		if(NRF24L01_RxPacket(Buffer)!=0)
 			continue;
+		
+			RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"SERCH:Begin_",32,strlen("SERCH:Begin_"));
+	if(RecvComLoc1 != -1)
+	{
+			sum = 0;
+			for(i = RecvComLoc1 - 11;i < RecvComLoc1 + 2;i++)
+				sum+=Buffer[i];
+			if(sum == Buffer[RecvComLoc1 + 2])
+			{
+				if(Buffer[RecvComLoc1 + 1] == FLASH_DATA.GROUP)
+				{
+					continue;
+				}
+				
+				
+				
+				
+				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+				//OLED_ShowString(0,4,(u8*)&Buffer[RecvComLoc1 + 1],1);
+				OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],16);
+				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+				if(PressKey() == 0)
+				{
+					//sum = Send24L01Data("AB","00000000");
+					SoftID = Buffer[RecvComLoc1 + 1];
+					FLASH_DATA.GROUP = SoftID;
+					OLED_Clear( );
+					HAL_Delay(10);
+					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
+					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+					//OLED_ShowString(0,4,(u8*)&FLASH_DATA.GROUP,1);
+					HAL_Delay(2000);
+					OLED_Clear( );
+					HAL_Delay(10);
+					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+					STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
+					OLED_Clear( );
+					HAL_Delay(10);
+					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+					HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+					HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+				}
+				continue;
+				
+				
+			}
+			
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		RecvComLoc1 = StrEqual(Buffer,(unsigned char*)"$WIFI",32,strlen("$WIFI"));
 		RecvComLoc2 = StrEqual(Buffer,(unsigned char*)"$PASS",32,strlen("$PASS"));
 		RecvComLoc3 = StrEqual(Buffer,(unsigned char*)"$IPAD",32,strlen("$IPAD"));
@@ -1206,10 +1563,12 @@ int main(void)
 				continue;
 			
 			sum = 0;
-			for(i = RecvComLoc1 - 12;i < RecvComLoc2 + 1;i++)
+			for(i = RecvComLoc1 - 5;i < RecvComLoc2 + 1;i++)
 				sum+=Buffer[i];
 			if(sum == Buffer[RecvComLoc2 + 1])
 			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc1 - 5])
+					continue;
 				for(i = 0;i<RecvComLoc2 - RecvComLoc1 - 1;i++)
 				{
 					recv_wifi[i] = Buffer[i + RecvComLoc1 + 1];
@@ -1225,10 +1584,12 @@ int main(void)
 				continue;
 			
 			sum = 0;
-			for(i = RecvComLoc2 - 12;i < RecvComLoc1 + 1;i++)
+			for(i = RecvComLoc2 - 5;i < RecvComLoc1 + 1;i++)
 				sum+=Buffer[i];
 			if(sum == Buffer[RecvComLoc1 + 1])
 			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc2 - 5])
+					continue;
 				for(i = 0;i<RecvComLoc1 - RecvComLoc2 - 1;i++)
 				{
 					recv_pass[i] = Buffer[i + RecvComLoc2 + 1];
@@ -1244,10 +1605,12 @@ int main(void)
 				continue;
 			
 			sum = 0;
-			for(i = RecvComLoc3 - 12;i < RecvComLoc2 + 1;i++)
+			for(i = RecvComLoc3 - 5;i < RecvComLoc2 + 1;i++)
 				sum+=Buffer[i];
 			if(sum == Buffer[RecvComLoc2 + 1])
 			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc3 - 5])
+					continue;
 				for(i = 0;i<RecvComLoc2 - RecvComLoc3 - 1;i++)
 				{
 					recv_ip[i] = Buffer[i + RecvComLoc3 + 1];
@@ -1263,10 +1626,12 @@ int main(void)
 				continue;
 			
 			sum = 0;
-			for(i = RecvComLoc4 - 12;i < RecvComLoc2 + 1;i++)
+			for(i = RecvComLoc4 - 5;i < RecvComLoc2 + 1;i++)
 				sum+=Buffer[i];
 			if(sum == Buffer[RecvComLoc2 + 1])
 			{
+				if(FLASH_DATA.GROUP != Buffer[RecvComLoc4 - 5])
+					continue;
 				for(i = 0;i<RecvComLoc2 - RecvComLoc4 - 1;i++)
 				{
 					recv_port[i] = Buffer[i + RecvComLoc4 + 1];
@@ -1296,13 +1661,13 @@ int main(void)
 	OLED_Clear( );
 	HAL_Delay(10);
 	OLED_ShowString(0,0,(unsigned char*)"Connect WIFI",16);
-	OLED_ShowString(0,2,(unsigned char*)"...",16);
+	OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
 	
 	///////////////////////////////////////////////////
 	//ESP8266 Init
 	printf("AT+CWMODE=1\r\n");
 	HAL_Delay(1000);
-	
+	i = 0;
 	do
 	{
 		//printf("AT+CWJAP=\"CU_kh2m\",\"m9svhdhq\"\r\n");
@@ -1312,6 +1677,9 @@ int main(void)
 		HAL_Delay(5000);
 		HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
 		HAL_Delay(5000);
+		i++;
+		if(i == 3)
+		 goto wifi;
 		printf("%s",UART_BUFFER);
 	}while(StrEqual(UART_BUFFER,(unsigned char*)recv_A,sizeof(UART_BUFFER),strlen(recv_A)) == -1);
 	
@@ -1324,7 +1692,7 @@ int main(void)
 	OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
 	OLED_ShowString(0,2,(unsigned char*)"...",16);
 	
-	
+	i = 0;
 	do
 	{
 		printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",recv_ip,recv_port);
@@ -1333,7 +1701,17 @@ int main(void)
 		HAL_Delay(2500);
 		HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
 		HAL_Delay(2500);
+		i++;
+		if(i == 3)
+		 goto wifi;
 	}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
+	
+	
+	
+	recv_wifi[0] = 0;
+	recv_pass[0] = 0;
+	recv_ip[0] = 0;
+	recv_port[0] = 0;
 	//HAL_Delay(200);
 	//printf("AT+CIPMODE=1\r\n");
 	//HAL_Delay(200);
@@ -1345,297 +1723,291 @@ int main(void)
 	
 	
 	
-	
-	
-	
-	
-	if(FLASH_DATA.BIND_NAME[0] != 0xff)
-	{
-			OLED_Clear( );
-			HAL_Delay(10);
-			OLED_ShowString(0,0,(unsigned char*)"Bind Name:",16);
-			OLED_ShowString(0,2,(u8*)FLASH_DATA.BIND_NAME,16);
-			//OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
-			OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
-			if(PressKey() == 0)
-			{
-				for(i = 0;i<8;i++)
-					initfilename[i] = BordID[i];
-				for(i = 0;i< 12;i++)
-					initfilename[i + 8] = FLASH_DATA.BIND_NAME[i];
-				
-				
-				
-				
-				while(1)
-				{
-					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-					HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
-					HAL_Delay(25);
-					wifi_link_check();
-					HAL_Delay(25);
-					
-					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
-					if(RecvComLoc3 != -1)
-					{
-						OLED_Clear( );
-						HAL_Delay(10);
-						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
-						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
-						HAL_Delay(2000);
-						break;
-					}
-					
-					
-					RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
-					
-					
-					if(wifi_link_check_int == 0)
-					{
-						//HAL_Delay(50);
-						printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
-						HAL_Delay(50);
-						printf("Do Bindind Cheking\r\n");
-						RecvComLoc3 = 0;
-						UARTSendData(&((u8*)&RecvComLoc2)[3],1);
-						UARTSendData(&((u8*)&RecvComLoc2)[2],1);
-						UARTSendData(&((u8*)&RecvComLoc2)[1],1);
-						UARTSendData(&((u8*)&RecvComLoc2)[0],1);
-						for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
-							RecvComLoc3+="Do Bindind Cheking\r\n"[i];
-						for(i = 0;i<8;i++)
-							RecvComLoc3+=BordID[i];
-						for(i = 0;i< RecvComLoc2;i++)
-							RecvComLoc3+=initfilename[i + 8];
-						UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-						UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-						UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-						UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-						UARTSendData((unsigned char*)BordID,8);
-						UARTSendData(&initfilename[8],RecvComLoc2);
-				 }
-				}
-				
-				
-				
-				
-				
-				
-				goto main_start;
-			}
-			else
-			{
+//	if(FLASH_DATA.BIND_NAME[0] != 0xff)
+//	{
+//			OLED_Clear( );
+//			HAL_Delay(10);
+//			OLED_ShowString(0,0,(unsigned char*)"Bind Name:",16);
+//			OLED_ShowString(0,2,(u8*)FLASH_DATA.BIND_NAME,16);
+//			//OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_IP,16);
+//			OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
+//			if(PressKey() == 0)
+//			{
+//				for(i = 0;i<8;i++)
+//					initfilename[i] = BordID[i];
+//				for(i = 0;i< 12;i++)
+//					initfilename[i + 8] = FLASH_DATA.BIND_NAME[i];
+//				
+//				
+//				
+//				
+//				while(1)
+//				{
+//					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+//					HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+//					HAL_Delay(25);
+//					wifi_link_check();
+//					HAL_Delay(25);
+//					
+//					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
+//					if(RecvComLoc3 != -1)
+//					{
+//						OLED_Clear( );
+//						HAL_Delay(10);
+//						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
+//						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+//						HAL_Delay(2000);
+//						break;
+//					}
+//					
+//					
+//					RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
+//					
+//					
+//					if(wifi_link_check_int == 0)
+//					{
+//						//HAL_Delay(50);
+//						printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+//						HAL_Delay(50);
+//						printf("Do Bindind Cheking\r\n");
+//						RecvComLoc3 = 0;
+//						UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+//						UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+//						UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+//						UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+//						for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+//							RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+//						for(i = 0;i<8;i++)
+//							RecvComLoc3+=BordID[i];
+//						for(i = 0;i< RecvComLoc2;i++)
+//							RecvComLoc3+=initfilename[i + 8];
+//						UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//						UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//						UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//						UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//						UARTSendData((unsigned char*)BordID,8);
+//						UARTSendData(&initfilename[8],RecvComLoc2);
+//				 }
+//				}
+//				
+//				
+//				
+//				
+//				
+//				
+//				goto main_start;
+//			}
+//			else
+//			{
 
-			}
-	}
+//			}
+//	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	OLED_Clear( );
-	HAL_Delay(10);
-	OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
-	while(1)
-	{
-		HAL_Delay(200);
-		presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
-		
-		wifi_link_check();
-		//Synchronous Device Info\r\n
-		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
-		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
-		{
-			printf("AT+CIPSEND=%d\r\n",41);
-			HAL_Delay(50);
-			printf("Synchronous Device Info\r\n");
-			RecvComLoc3 = 0;
-			UARTSendData((u8*)&RecvComLoc3,4);
-			for(i = 0;i<strlen("Synchronous Device Info\r\n");i++)
-				RecvComLoc3+="Synchronous Device Info\r\n"[i];
-			for(i = 0;i<8;i++)
-				RecvComLoc3+=BordID[i];
-			
-			
-			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-			UARTSendData((unsigned char*)BordID,8);
-			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
-			continue;
-		}
-		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Request Binding\r\n",sizeof(UART_BUFFER),strlen("Request Binding\r\n"));
-		if(RecvComLoc3 != -1)
-		{
-			
-			RecvComLoc2 = UART_BUFFER[RecvComLoc3 + 1] << 24;
-			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 2] << 16;
-			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 3] << 8;
-			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 4];
-			
-			RecvComLoc1 = UART_BUFFER[RecvComLoc3 + 5] << 24;
-			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 6] << 16;
-			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 7] << 8;
-			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 8];
-			
-			
-			RecvComLoc4 = 0;
-			for(i = 0; i < (u8)RecvComLoc2 + 8; i++)
-				RecvComLoc4 += UART_BUFFER[RecvComLoc3 + 9 + i];
-			for(i = 0; i < strlen("Request Binding\r\n"); i++)
-				RecvComLoc4 += "Request Binding\r\n"[i];
-			
-			
-			
-			if(RecvComLoc4 == RecvComLoc1)
-			{
-				for(i = 0;i<8;i++)
-				{
-					initfilename[i] = BordID[i];
-				}
-				for(i = 0;i< RecvComLoc2;i++)
-				{
-					initfilename[i + 8] = UART_BUFFER[RecvComLoc3 + 17 + i];
-					FLASH_DATA.BIND_NAME[i] = initfilename[i + 8];
-				}
-				FLASH_DATA.BIND_NAME[i] = 0;
-				timecnt = 0;
-				OLED_ShowString(0,4,(unsigned char*)"                ",16);
-				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
-				OLED_ShowString(0,4,(u8*)&initfilename[8],16);
-				OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
-				ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
-				if(presskeyvalue == 1)
-				{
-					Binding_Bool = 1;
-					continue;
-				}
-				
-				
-				OLED_Clear( );
-				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Binding...",16);
-				OLED_ShowString(0,2,(u8*)&initfilename[8],16);
-				
-				
-				
-				while(1)
-				{
-					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-					HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
-					HAL_Delay(25);
-					//NRF24L01_RX_Mode();
-					HAL_Delay(25);
-					
-					
-					//if(NRF24L01_RxPacket(Buffer)!=0)
-					//	continue;
-					
-					
 
-					
-					
-					
-					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
-					if(RecvComLoc3 != -1)
-					{
-						OLED_Clear( );
-						HAL_Delay(10);
-						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
-						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
-						HAL_Delay(2000);
-						break;
-					}
-					
-					
-					
-					
-					if(wifi_link_check_int == 0)
-					{
-					HAL_Delay(50);
-					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
-					HAL_Delay(50);
-					//Send24L01Data("CK","00000000");
-					printf("Do Bindind Cheking\r\n");
-					RecvComLoc3 = 0;
-					UARTSendData(&((u8*)&RecvComLoc2)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc2)[0],1);
-					for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
-						RecvComLoc3+="Do Bindind Cheking\r\n"[i];
-					for(i = 0;i<8;i++)
-						RecvComLoc3+=BordID[i];
-					for(i = 0;i< RecvComLoc2;i++)
-						RecvComLoc3+=initfilename[i + 8];
-					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData((unsigned char*)BordID,8);
-					UARTSendData(&initfilename[8],RecvComLoc2);
-				  }
-				}
-				break;
-			}
-			//ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
-		}
-		else
-		{
-			if(Binding_Bool == 1)
-			{
-				Binding_Bool = 0;
-				OLED_Clear( );
-				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
-			}
-			if(wifi_link_check_int == 0)
-			{
-					printf("AT+CIPSEND=%d\r\n",33);
-					HAL_Delay(50);
-					printf("Device is Idle\r\n");
-					RecvComLoc3 = 1;
-					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					RecvComLoc3 = 0;
-					for(i = 0;i<strlen("Device is Idle\r\n");i++)
-						RecvComLoc3+="Device is Idle\r\n"[i];
-					for(i = 0;i<8;i++)
-						RecvComLoc3+=BordID[i];
-					RecvComLoc3+=1;
-					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData((unsigned char*)BordID,8);
-					RecvComLoc3 = 2;
-					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-				}
-		}
-	}
+
+	
+	
+//	OLED_Clear( );
+//	HAL_Delay(10);
+//	OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
+//	while(1)
+//	{
+//		HAL_Delay(200);
+//		presskeyvalue = HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin);
+//		
+//		wifi_link_check();
+//		//Synchronous Device Info\r\n
+//		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
+//		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
+//		{
+//			printf("AT+CIPSEND=%d\r\n",41);
+//			HAL_Delay(50);
+//			printf("Synchronous Device Info\r\n");
+//			RecvComLoc3 = 0;
+//			UARTSendData((u8*)&RecvComLoc3,4);
+//			for(i = 0;i<strlen("Synchronous Device Info\r\n");i++)
+//				RecvComLoc3+="Synchronous Device Info\r\n"[i];
+//			for(i = 0;i<8;i++)
+//				RecvComLoc3+=BordID[i];
+//			
+//			
+//			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//			UARTSendData((unsigned char*)BordID,8);
+//			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+//			continue;
+//		}
+//		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Request Binding\r\n",sizeof(UART_BUFFER),strlen("Request Binding\r\n"));
+//		if(RecvComLoc3 != -1)
+//		{
+//			
+//			RecvComLoc2 = UART_BUFFER[RecvComLoc3 + 1] << 24;
+//			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 2] << 16;
+//			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 3] << 8;
+//			RecvComLoc2 |= UART_BUFFER[RecvComLoc3 + 4];
+//			
+//			RecvComLoc1 = UART_BUFFER[RecvComLoc3 + 5] << 24;
+//			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 6] << 16;
+//			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 7] << 8;
+//			RecvComLoc1 |= UART_BUFFER[RecvComLoc3 + 8];
+//			
+//			
+//			RecvComLoc4 = 0;
+//			for(i = 0; i < (u8)RecvComLoc2 + 8; i++)
+//				RecvComLoc4 += UART_BUFFER[RecvComLoc3 + 9 + i];
+//			for(i = 0; i < strlen("Request Binding\r\n"); i++)
+//				RecvComLoc4 += "Request Binding\r\n"[i];
+//			
+//			
+//			
+//			if(RecvComLoc4 == RecvComLoc1)
+//			{
+////				for(i = 0;i<8;i++)
+////				{
+////					initfilename[i] = BordID[i];
+////				}
+//				for(i = 0;i< RecvComLoc2;i++)
+//				{
+//					//initfilename[i + 8] = UART_BUFFER[RecvComLoc3 + 17 + i];
+//					FLASH_DATA.BIND_NAME[i] = UART_BUFFER[RecvComLoc3 + 17 + i];
+//				}
+//				FLASH_DATA.BIND_NAME[i] = 0;
+//				timecnt = 0;
+//				OLED_ShowString(0,4,(unsigned char*)"                ",16);
+//				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+//				OLED_ShowString(0,4,(u8*)FLASH_DATA.BIND_NAME,16);
+//				OLED_ShowString(0,6,(unsigned char*)"Bind?",16);
+//				ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+//				if(presskeyvalue == 1)
+//				{
+//					Binding_Bool = 1;
+//					continue;
+//				}
+//				
+//				
+//				OLED_Clear( );
+//				HAL_Delay(10);
+//				OLED_ShowString(0,0,(unsigned char*)"Binding...",16);
+//				OLED_ShowString(0,2,(u8*)FLASH_DATA.BIND_NAME,16);
+//				
+//				
+//				
+//				while(1)
+//				{
+//					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+//					HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+//					HAL_Delay(25);
+//					//NRF24L01_RX_Mode();
+//					HAL_Delay(25);
+//					
+//					
+//					//if(NRF24L01_RxPacket(Buffer)!=0)
+//					//	continue;
+//					
+//					
+
+//					
+//					
+//					
+//					RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
+//					if(RecvComLoc3 != -1)
+//					{
+//						OLED_Clear( );
+//						HAL_Delay(10);
+//						OLED_ShowString(0,0,(unsigned char*)"Binding",16);
+//						OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+//						HAL_Delay(2000);
+//						break;
+//					}
+//					
+//					
+//					
+//					
+//					if(wifi_link_check_int == 0)
+//					{
+//					HAL_Delay(50);
+//					printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+//					HAL_Delay(50);
+//					//Send24L01Data("CK","00000000");
+//					printf("Do Bindind Cheking\r\n");
+//					RecvComLoc3 = 0;
+//					UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+//					UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+//					UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+//					UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+//					for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+//						RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+//					for(i = 0;i<8;i++)
+//						RecvComLoc3+=BordID[i];
+//					for(i = 0;i< RecvComLoc2;i++)
+//						RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
+//					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//					UARTSendData((unsigned char*)BordID,8);
+//					UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
+//				  }
+//				}
+//				break;
+//			}
+//			//ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+//		}
+//		else
+//		{
+//			if(Binding_Bool == 1)
+//			{
+//				Binding_Bool = 0;
+//				OLED_Clear( );
+//				HAL_Delay(10);
+//				OLED_ShowString(0,0,(unsigned char*)"Waiting Binding",16);
+//			}
+//			if(wifi_link_check_int == 0)
+//			{
+//					printf("AT+CIPSEND=%d\r\n",33);
+//					HAL_Delay(50);
+//					printf("Device is Idle\r\n");
+//					RecvComLoc3 = 1;
+//					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//					RecvComLoc3 = 0;
+//					for(i = 0;i<strlen("Device is Idle\r\n");i++)
+//						RecvComLoc3+="Device is Idle\r\n"[i];
+//					for(i = 0;i<8;i++)
+//						RecvComLoc3+=BordID[i];
+//					RecvComLoc3+=1;
+//					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//					UARTSendData((unsigned char*)BordID,8);
+//					RecvComLoc3 = 2;
+//					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//				}
+//		}
+//	}
 	
 	
 	
 	main_start:
-	f_lseek(&config,0);
-	conres = f_write(&config,&FLASH_DATA,sizeof(FLASH_SAVE),(UINT*)&bw2);
-	if(conres != FR_OK)
-	{
-		OLED_Clear( );
-		HAL_Delay(500);
-		OLED_ShowString(0,0,(unsigned char*)"WriteConfigERROR",16);
-		while(1);
-	}
-	f_close(&config);
+//	f_lseek(&config,0);
+//	conres = f_write(&config,&FLASH_DATA,sizeof(FLASH_SAVE),(UINT*)&bw2);
+//	if(conres != FR_OK)
+//	{
+//		OLED_Clear( );
+//		HAL_Delay(500);
+//		OLED_ShowString(0,0,(unsigned char*)"WriteConfigERROR",16);
+//		while(1);
+//	}
+//	f_close(&config);
+STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 	HAL_Delay(200);
 	
@@ -1648,10 +2020,12 @@ int main(void)
 	OLED_Clear( );
 	HAL_Delay(10);
 	OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-	OLED_ShowString(0,2,(unsigned char*)"SoftID:",16);
-	OLED_ShowString(56,2,(unsigned char*)SoftID,16);
-	OLED_ShowString(0,4,(unsigned char*)"HardID:",16);
-	OLED_ShowString(56,4,(unsigned char*)BordID,16);
+	OLED_ShowString(0,2,(unsigned char*)"Group:",16);
+//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
+	OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+	OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+	if(FLASH_DATA.BIND_NAME[0] != 0xff)
+		OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 	
 	
 	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
@@ -1681,29 +2055,28 @@ int main(void)
 			if(str1)
 			{
 				sum = 0;
-				for(i = 0;i<21;i++)
+				for(i = 0;i<14;i++)
 				{
 					sum += *(str1 + i);
 				}
-				if(sum == *(str1 + 21))
+				if(sum == *(str1 + 14))
 				{
 					sum = 0;
-					for(i = 0;i<8;i++)
-						if(*(str1 + i + 5) != SoftID[i])
-							sum = 1;
+					if(*(str1 + 5) != FLASH_DATA.GROUP)
+						sum = 1;
 					if(sum == 0)
 					{
 						HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
 						HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
-						Real_Time_Year = *(str1 + 13);
-						Real_Time_Month = *(str1 + 14);
-						Real_Time_Day = *(str1 + 15);
-						Real_Time_Hour = *(str1 + 16);
-						Real_Time_Minute = *(str1 + 17);
-						Real_Time_Second = *(str1 + 18);
+						Real_Time_Year = *(str1 + 6);
+						Real_Time_Month = *(str1 + 7);
+						Real_Time_Day = *(str1 + 8);
+						Real_Time_Hour = *(str1 + 9);
+						Real_Time_Minute = *(str1 + 10);
+						Real_Time_Second = *(str1 + 11);
 						Real_Time_Millise = 0;
-						Real_Time_Millise = *(str1 + 19) << 8;
-						Real_Time_Millise |= *(str1 + 20);
+						Real_Time_Millise = *(str1 + 12) << 8;
+						Real_Time_Millise |= *(str1 + 13);
 					}
 				}
 			}
@@ -1713,9 +2086,8 @@ int main(void)
 			if(str1)
 			{
 				sum = 0;
-				for(i = 0;i<8;i++)
-					if(*(str1 + i - 8) != SoftID[i])
-						sum = 1;
+				if(*(str1 - 1) != FLASH_DATA.GROUP)
+					sum = 1;
 			}
 			if(str1 && sum == 0)
 			{
@@ -1763,10 +2135,10 @@ int main(void)
 						OLED_Clear( );
 						HAL_Delay(10);
 						OLED_ShowString(0,0,"Recording...",16);
-						OLED_ShowString(0,2,"SoftID:",16);
-						OLED_ShowString(56,2,SoftID,16);
-						OLED_ShowString(0,4,"HardID:",16);
-						OLED_ShowString(56,4,BordID,16);
+						OLED_ShowString(0,2,"Group:",16);
+						OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+						OLED_ShowString(0,4,"Name:",16);
+						OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
 
 					}
 				}
@@ -1839,10 +2211,10 @@ int main(void)
 				OLED_Clear( );
 				HAL_Delay(10);
 				OLED_ShowString(0,0,"Wait Recording",16);
-				OLED_ShowString(0,2,"SoftID:",16);
-				OLED_ShowString(56,2,SoftID,16);
-				OLED_ShowString(0,4,"HardID:",16);
-				OLED_ShowString(56,4,BordID,16);
+				OLED_ShowString(0,2,"Group:",16);
+				OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,4,"Name:",16);
+				OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
 				MX_USB_DEVICE_Init();
 			}
 		}
@@ -1894,8 +2266,9 @@ int main(void)
 		}
 		else
 		{
+			RF_Command_Check();
 			timecnt++;
-			if((timecnt%3200)==0) //告诉服务器目前待机
+			if((timecnt%1000)==0) //告诉服务器目前待机
 			{
 				
 				
