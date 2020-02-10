@@ -865,7 +865,35 @@ u8 gad_recorder(u8 key,u32 time,u32 fs)
 			} 
 
 }
+void wifi_update_bindname()
+{
+	unsigned char i = 0;
+	RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
 
+	if(wifi_link_check_int == 0)
+	{
+		printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+		HAL_Delay(50);
+		printf("Do Bindind Cheking\r\n");
+		RecvComLoc3 = 0;
+		UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+		for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+			RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+		for(i = 0;i<8;i++)
+			RecvComLoc3+=BordID[i];
+		for(i = 0;i< RecvComLoc2;i++)
+			RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
+		UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+		UARTSendData((unsigned char*)BordID,8);
+		UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
+	}
+}
 void RF_Command_Check()
 {
 	u8 i,sum;
@@ -1160,6 +1188,7 @@ void RF_Command_Check()
 					FLASH_DATA.BIND_NAME[i] = UART_BUFFER[RecvComLoc3 + 17 + i];
 				}
 				FLASH_DATA.BIND_NAME[i] = 0;
+				wifi_update_bindname();
 				STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				
 				OLED_Clear( );
@@ -1198,35 +1227,7 @@ void RF_Command_Check()
 		}
 }
 
-void wifi_update_bindname()
-{
-	unsigned char i = 0;
-	RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
 
-	if(wifi_link_check_int == 0)
-	{
-		printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
-		HAL_Delay(50);
-		printf("Do Bindind Cheking\r\n");
-		RecvComLoc3 = 0;
-		UARTSendData(&((u8*)&RecvComLoc2)[3],1);
-		UARTSendData(&((u8*)&RecvComLoc2)[2],1);
-		UARTSendData(&((u8*)&RecvComLoc2)[1],1);
-		UARTSendData(&((u8*)&RecvComLoc2)[0],1);
-		for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
-			RecvComLoc3+="Do Bindind Cheking\r\n"[i];
-		for(i = 0;i<8;i++)
-			RecvComLoc3+=BordID[i];
-		for(i = 0;i< RecvComLoc2;i++)
-			RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
-		UARTSendData(&((u8*)&RecvComLoc3)[3],1);
-		UARTSendData(&((u8*)&RecvComLoc3)[2],1);
-		UARTSendData(&((u8*)&RecvComLoc3)[1],1);
-		UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-		UARTSendData((unsigned char*)BordID,8);
-		UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
-	}
-}
 
 
 /* USER CODE END 0 */
@@ -2344,7 +2345,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 				}
-				wifi_update_bindname();
+				
 			}
 
 		}
