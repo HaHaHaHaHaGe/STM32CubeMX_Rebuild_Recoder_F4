@@ -1101,7 +1101,7 @@ void RF_Command_Check()
 					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
 					HAL_Delay(2500);
 					i++;
-					if(i == 3)
+					if(i == 6)
 					{
 						OLED_Clear( );
 						HAL_Delay(10);
@@ -1198,7 +1198,35 @@ void RF_Command_Check()
 		}
 }
 
+void wifi_update_bindname()
+{
+	unsigned char i = 0;
+	RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
 
+	if(wifi_link_check_int == 0)
+	{
+		printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+		HAL_Delay(50);
+		printf("Do Bindind Cheking\r\n");
+		RecvComLoc3 = 0;
+		UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+		UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+		for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+			RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+		for(i = 0;i<8;i++)
+			RecvComLoc3+=BordID[i];
+		for(i = 0;i< RecvComLoc2;i++)
+			RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
+		UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+		UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+		UARTSendData((unsigned char*)BordID,8);
+		UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
+	}
+}
 
 
 /* USER CODE END 0 */
@@ -1690,8 +1718,8 @@ int main(void)
 	OLED_Clear( );
 	HAL_Delay(10);
 	OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
-	OLED_ShowString(0,2,(unsigned char*)"...",16);
-	
+	OLED_ShowString(0,2,(u8*)FLASH_DATA.SERVER_IP,16);
+	OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_PORT,16);
 	i = 0;
 	do
 	{
@@ -1702,7 +1730,7 @@ int main(void)
 		HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
 		HAL_Delay(2500);
 		i++;
-		if(i == 3)
+		if(i == 6)
 		 goto wifi;
 	}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
 	
@@ -2316,6 +2344,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 				}
+				wifi_update_bindname();
 			}
 
 		}
