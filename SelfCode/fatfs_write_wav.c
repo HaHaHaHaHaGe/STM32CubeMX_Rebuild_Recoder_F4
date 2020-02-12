@@ -15,8 +15,8 @@ u8 dmabuffer[2048];
 u8*data_1,*data_2;
 u32 data1_len,data2_len;
 u32 speexdata_len = 0;
-
-
+char filepath[64];
+char filepath2[64];
 char out_bytes[ENCODED_FRAME_SIZE];
 
 
@@ -63,6 +63,7 @@ unsigned char close_wav_file()
 
 unsigned char create_wav_file(char*filename,unsigned int fs)
 {
+	strcpy(filepath,filename);
 	retSD = f_open(&wav_file, filename, FA_CREATE_ALWAYS | FA_WRITE | FA_READ);
 	if(retSD != FR_OK)
 		return retSD;
@@ -78,6 +79,9 @@ unsigned char write_wav_file(unsigned char*wavdata,unsigned int len)
 	if(retSD != FR_OK)
 		return retSD;
 	recoder_wav_update(&wav_head,len);
+//	f_lseek(&wav_file,0);
+//	retSD = f_write(&wav_file, (const void*)&wav_head, sizeof(__WaveHeader), &bw);
+//	f_lseek(&wav_file,wav_head.riff.ChunkSize);
 	return retSD;
 }
 
@@ -85,11 +89,15 @@ unsigned char write_wav_file(unsigned char*wavdata,unsigned int len)
 
 unsigned char create_speex_file(char*filename)
 {
+	strcpy(filepath2,filename);
 	return f_open(&speex_file, filename, FA_CREATE_ALWAYS | FA_WRITE | FA_READ);
 }
 unsigned char write_speex_file(unsigned char*wavdata,unsigned int len)
 {
-	return f_write(&speex_file, wavdata, len, &bw);
+	retSD = f_write(&speex_file, wavdata, len, &bw);
+	f_close(&speex_file);
+	retSD = f_open(&speex_file, filepath2,  FA_OPEN_APPEND | FA_WRITE | FA_READ);
+	return retSD;
 }
 unsigned char close_speex_file()
 {

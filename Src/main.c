@@ -115,7 +115,7 @@ unsigned char Real_Time_Year_STOP=0,Real_Time_Month_STOP=0,Real_Time_Day_STOP=0,
 unsigned int Real_Time_Millise_STOP=0;
 char SoftID;
 char SessID[17] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-char BordID[9] = {0,0,0,0,0,0,0,0,0};
+char BordID[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 char recv_wifi[20] = {0};
 char recv_pass[20] = {0};
 char recv_ip[20] = {0};
@@ -229,6 +229,22 @@ void ClearBuffer(unsigned char *target,int targetlen)
 }
 
 
+u8 hex_to_char( u8 ch)
+{
+	u8 value = 0;
+	if(ch >= 0 && ch <= 9)
+	{
+		value = ch + 0x30;
+	}
+	else if(ch >=10 && ch <=15)
+	{
+	// ????
+		value = ch + 0x37;
+	}
+	 
+	//printf("%s hex : 0x%02x\n", __func__, value);
+	return value;
+}
 
 void check_firstrun()
 {
@@ -252,15 +268,19 @@ void check_firstrun()
 		srand(rand_i);
 		
 		FLASH_DATA.check = 0x12345678;
-		FLASH_DATA.DEVICE_ID[0] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[1] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[2] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[3] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[4] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[5] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[6] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[7] = (rand() % 26) + 'A';
-		FLASH_DATA.DEVICE_ID[8] = 0;
+		FLASH_DATA.DEVICE_ID[0] = hex_to_char((u8)(HAL_GetUIDw0() & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[1] = hex_to_char((u8)((HAL_GetUIDw0() >> 4) & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[2] = hex_to_char((u8)((HAL_GetUIDw0() >> 16) & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[3] = hex_to_char((u8)((HAL_GetUIDw0() >> 20) & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[4] = hex_to_char((u8)(HAL_GetUIDw1() & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[5] = hex_to_char((u8)((HAL_GetUIDw1() >> 4) & 0x0000000f));
+		FLASH_DATA.DEVICE_ID[6] = (HAL_GetUIDw1() >> 16) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[7] = (HAL_GetUIDw1() >> 24) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[8] = (HAL_GetUIDw2()) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[9] = (HAL_GetUIDw2() >> 8) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[10] = (HAL_GetUIDw2() >> 16) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[11] = (HAL_GetUIDw2() >> 24) & 0x000000ff;
+		FLASH_DATA.DEVICE_ID[12] = 0;
 		FLASH_DATA.GROUP = 'A';
 		FLASH_DATA.BIND_NAME[0] = 0;
 		
@@ -342,22 +362,22 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 			
 			datasum = 0;
 			start_len &= 0x0000ffff;
-			for(i = 0; i < (u8)start_len + 8; i++)
+			for(i = 0; i < (u8)start_len + 12; i++)
 				datasum += UART_BUFFER[start + 9 + i];
 			for(i = 0; i < strlen("Fix Data Request\r\n"); i++)
 				datasum += "Fix Data Request\r\n"[i];
 			
 			if(datasum == start_sum)
 			{
-				ErrorS = UART_BUFFER[start + 17] << 24;
-				ErrorS |= UART_BUFFER[start + 18] << 16;
-				ErrorS |= UART_BUFFER[start + 19] << 8;
-				ErrorS |= UART_BUFFER[start + 20];
+				ErrorS = UART_BUFFER[start + 21] << 24;
+				ErrorS |= UART_BUFFER[start + 22] << 16;
+				ErrorS |= UART_BUFFER[start + 23] << 8;
+				ErrorS |= UART_BUFFER[start + 24];
 				
-				ErrorE = UART_BUFFER[start + 21] << 24;
-				ErrorE |= UART_BUFFER[start + 22] << 16;
-				ErrorE |= UART_BUFFER[start + 23] << 8;
-				ErrorE |= UART_BUFFER[start + 24];
+				ErrorE = UART_BUFFER[start + 25] << 24;
+				ErrorE |= UART_BUFFER[start + 26] << 16;
+				ErrorE |= UART_BUFFER[start + 27] << 8;
+				ErrorE |= UART_BUFFER[start + 28];
 				
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
@@ -386,7 +406,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					datasum = 0;
 					while(i--)
 						datasum+=ErrorRecData[i];
-					for(i = 0;i<8;i++)
+					for(i = 0;i<12;i++)
 						datasum+=BordID[i];
 					for(i = 0;i<strlen("Recoder Repair Data\r\n");i++)
 						datasum+="Recoder Repair Data\r\n"[i];
@@ -398,7 +418,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 					
-					printf("AT+CIPSEND=%d\r\n",49 + ErrorS);
+					printf("AT+CIPSEND=%d\r\n",53 + ErrorS);
 					HAL_Delay(10);
 					printf("Recoder Repair Data\r\n");
 					UARTSendData(&((u8*)&PackegEnd)[3],1);
@@ -411,7 +431,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					UARTSendData(&((u8*)&datasum)[1],1);
 					UARTSendData(&((u8*)&datasum)[0],1);
 					
-					UARTSendData(BordID,8);
+					UARTSendData(BordID,12);
 					
 					UARTSendData(&((u8*)&PackegStart)[3],1);
 					UARTSendData(&((u8*)&PackegStart)[2],1);
@@ -464,7 +484,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 			PackegEnd = writesize + 12;
 			while(i--)
 				datasum+=data[i];
-			for(i = 0;i<8;i++)
+			for(i = 0;i<12;i++)
 				datasum+=BordID[i];
 			for(i = 0;i<strlen("Recoder Source Data\r\n");i++)
 				datasum+="Recoder Source Data\r\n"[i];
@@ -476,7 +496,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 			datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 			datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 			
-			printf("AT+CIPSEND=%d\r\n",49 + writesize);
+			printf("AT+CIPSEND=%d\r\n",53 + writesize);
 					HAL_Delay(10);
 			printf("Recoder Source Data\r\n");
 			UARTSendData(&((u8*)&PackegEnd)[3],1);
@@ -489,7 +509,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 			UARTSendData(&((u8*)&datasum)[1],1);
 			UARTSendData(&((u8*)&datasum)[0],1);
 			
-			UARTSendData(BordID,8);
+			UARTSendData(BordID,12);
 			
 			UARTSendData(&((u8*)&PackegStart)[3],1);
 			UARTSendData(&((u8*)&PackegStart)[2],1);
@@ -536,7 +556,7 @@ void DataCheck()
 		if(delay_loop == 15 && wifi_link_check_int == 0)
 		{
 			delay_loop = 0;
-			printf("AT+CIPSEND=%d\r\n",33);
+			printf("AT+CIPSEND=%d\r\n",37);
 					HAL_Delay(10);
 			printf("Device is Idle\r\n");
 			RecvComLoc3 = 1;
@@ -547,14 +567,14 @@ void DataCheck()
 			RecvComLoc3 = 0;
 			for(i = 0;i<strlen("Device is Idle\r\n");i++)
 				RecvComLoc3+="Device is Idle\r\n"[i];
-			for(i = 0;i<8;i++)
+			for(i = 0;i<12;i++)
 				RecvComLoc3+=BordID[i];
 			RecvComLoc3+=5;
 			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-			UARTSendData(BordID,8);
+			UARTSendData(BordID,12);
 			RecvComLoc3 = 5;
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
 		}
@@ -589,7 +609,7 @@ void DataCheck()
 			
 			datasum = 0;
 			start_len &= 0x0000ffff;
-			for(i = 0; i < (u8)start_len + 8; i++)
+			for(i = 0; i < (u8)start_len + 12; i++)
 				datasum += UART_BUFFER[start + 9 + i];
 			for(i = 0; i < strlen("Fix Data Request\r\n"); i++)
 				datasum += "Fix Data Request\r\n"[i];
@@ -597,15 +617,15 @@ void DataCheck()
 			if(datasum == start_sum)
 			{
 				delay_loop = 14;
-				ErrorS = UART_BUFFER[start + 17] << 24;
-				ErrorS |= UART_BUFFER[start + 18] << 16;
-				ErrorS |= UART_BUFFER[start + 19] << 8;
-				ErrorS |= UART_BUFFER[start + 20];
+				ErrorS = UART_BUFFER[start + 21] << 24;
+				ErrorS |= UART_BUFFER[start + 22] << 16;
+				ErrorS |= UART_BUFFER[start + 23] << 8;
+				ErrorS |= UART_BUFFER[start + 24];
 				
-				ErrorE = UART_BUFFER[start + 21] << 24;
-				ErrorE |= UART_BUFFER[start + 22] << 16;
-				ErrorE |= UART_BUFFER[start + 23] << 8;
-				ErrorE |= UART_BUFFER[start + 24];
+				ErrorE = UART_BUFFER[start + 25] << 24;
+				ErrorE |= UART_BUFFER[start + 26] << 16;
+				ErrorE |= UART_BUFFER[start + 27] << 8;
+				ErrorE |= UART_BUFFER[start + 28];
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,ErrorS);
@@ -634,7 +654,7 @@ void DataCheck()
 					
 					
 					
-					for(i = 0;i<8;i++)
+					for(i = 0;i<12;i++)
 						datasum+=BordID[i];
 					for(i = 0;i<strlen("Recoder Repair Data\r\n");i++)
 						datasum+="Recoder Repair Data\r\n"[i];
@@ -646,7 +666,7 @@ void DataCheck()
 					datasum += ((u8*)&Real_Time_Millise_STOP)[1];
 					datasum += ((u8*)&Real_Time_Millise_STOP)[0];
 					
-					printf("AT+CIPSEND=%d\r\n",49 + ErrorS);
+					printf("AT+CIPSEND=%d\r\n",53 + ErrorS);
 					HAL_Delay(10);
 					printf("Recoder Repair Data\r\n");
 					UARTSendData(&((u8*)&PackegEnd)[3],1);
@@ -659,7 +679,7 @@ void DataCheck()
 					UARTSendData(&((u8*)&datasum)[1],1);
 					UARTSendData(&((u8*)&datasum)[0],1);
 					
-					UARTSendData(BordID,8);
+					UARTSendData(BordID,12);
 					
 					UARTSendData(&((u8*)&PackegStart)[3],1);
 					UARTSendData(&((u8*)&PackegStart)[2],1);
@@ -872,7 +892,7 @@ void wifi_update_bindname()
 
 	if(wifi_link_check_int == 0)
 	{
-		printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+		printf("AT+CIPSEND=%d\r\n",40 + RecvComLoc2);
 		HAL_Delay(50);
 		printf("Do Bindind Cheking\r\n");
 		RecvComLoc3 = 0;
@@ -882,7 +902,7 @@ void wifi_update_bindname()
 		UARTSendData(&((u8*)&RecvComLoc2)[0],1);
 		for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
 			RecvComLoc3+="Do Bindind Cheking\r\n"[i];
-		for(i = 0;i<8;i++)
+		for(i = 0;i<12;i++)
 			RecvComLoc3+=BordID[i];
 		for(i = 0;i< RecvComLoc2;i++)
 			RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
@@ -890,7 +910,7 @@ void wifi_update_bindname()
 		UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 		UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 		UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-		UARTSendData((unsigned char*)BordID,8);
+		UARTSendData((unsigned char*)BordID,12);
 		UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
 	}
 }
@@ -940,11 +960,11 @@ void RF_Command_Check()
 					
 				}
 				OLED_Clear( );
-				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-					OLED_ShowString(0,2,(unsigned char*)"Group:",16);
-				//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
-					OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
-					OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+				OLED_ShowString(0,0,"Wait Recording",16);
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,2,"ID:",16);
+				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
+				OLED_ShowString(0,4,"Name:",16);
 					if(FLASH_DATA.BIND_NAME[0] != 0xff)
 						OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			}
@@ -1142,11 +1162,11 @@ void RF_Command_Check()
 				}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
 			STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				OLED_Clear( );
-				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-			OLED_ShowString(0,2,(unsigned char*)"Group:",16);
-		//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
-			OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
-			OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+				OLED_ShowString(0,0,"Wait Recording",16);
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,2,"ID:",16);
+				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
+				OLED_ShowString(0,4,"Name:",16);
 			if(FLASH_DATA.BIND_NAME[0] != 0xff)
 				OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			ClearBuffer(Buffer,sizeof(Buffer));
@@ -1169,7 +1189,7 @@ void RF_Command_Check()
 			
 			
 			RecvComLoc4 = 0;
-			for(i = 0; i < (u8)RecvComLoc2 + 8; i++)
+			for(i = 0; i < (u8)RecvComLoc2 + 12; i++)
 				RecvComLoc4 += UART_BUFFER[RecvComLoc3 + 9 + i];
 			for(i = 0; i < strlen("Request Binding\r\n"); i++)
 				RecvComLoc4 += "Request Binding\r\n"[i];
@@ -1185,7 +1205,7 @@ void RF_Command_Check()
 				for(i = 0;i< RecvComLoc2;i++)
 				{
 					//initfilename[i + 8] = UART_BUFFER[RecvComLoc3 + 17 + i];
-					FLASH_DATA.BIND_NAME[i] = UART_BUFFER[RecvComLoc3 + 17 + i];
+					FLASH_DATA.BIND_NAME[i] = UART_BUFFER[RecvComLoc3 + 21 + i];
 				}
 				FLASH_DATA.BIND_NAME[i] = 0;
 				wifi_update_bindname();
@@ -1193,10 +1213,10 @@ void RF_Command_Check()
 				
 				OLED_Clear( );
 				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-				OLED_ShowString(0,2,(unsigned char*)"Group:",16);
-			//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
-				OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
-				OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,2,"ID:",16);
+				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
+				OLED_ShowString(0,4,"Name:",16);
 				if(FLASH_DATA.BIND_NAME[0] != 0xff)
 					OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			}
@@ -1206,14 +1226,14 @@ void RF_Command_Check()
 		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Synchronous Device Info\r\n",sizeof(UART_BUFFER),strlen("Synchronous Device Info\r\n"));
 		if(RecvComLoc3 != -1 && wifi_link_check_int == 0)
 		{
-			printf("AT+CIPSEND=%d\r\n",41);
+			printf("AT+CIPSEND=%d\r\n",45);
 			HAL_Delay(50);
 			printf("Synchronous Device Info\r\n");
 			RecvComLoc3 = 0;
 			UARTSendData((u8*)&RecvComLoc3,4);
 			for(i = 0;i<strlen("Synchronous Device Info\r\n");i++)
 				RecvComLoc3+="Synchronous Device Info\r\n"[i];
-			for(i = 0;i<8;i++)
+			for(i = 0;i<12;i++)
 				RecvComLoc3+=BordID[i];
 			
 			
@@ -1221,7 +1241,7 @@ void RF_Command_Check()
 			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-			UARTSendData((unsigned char*)BordID,8);
+			UARTSendData((unsigned char*)BordID,12);
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 			return;
 		}
@@ -1294,7 +1314,7 @@ int main(void)
 	
 	check_firstrun();
 	
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < 12; i++)
 		BordID[i] = FLASH_DATA.DEVICE_ID[i];
 	
 	USART2_UART_Init(921600);
@@ -1675,6 +1695,7 @@ int main(void)
 		}
 		if(recv_wifi[0] != 0 && recv_pass[0] != 0 && recv_ip[0] != 0 && recv_port[0] != 0)
 		{
+			ClearBuffer(Buffer,sizeof(Buffer));
 			break;
 		}
 	}
@@ -1741,6 +1762,61 @@ int main(void)
 	recv_pass[0] = 0;
 	recv_ip[0] = 0;
 	recv_port[0] = 0;
+	
+	
+//	while(1)
+//	{
+//		HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+//		HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+//		HAL_Delay(25);
+//		wifi_link_check();
+//		HAL_Delay(25);
+//					
+//		RecvComLoc3 = StrEqual(UART_BUFFER,(unsigned char*)"Bindind Check Confirm\r\n",sizeof(UART_BUFFER),strlen("Bindind Check Confirm\r\n"));
+//		if(RecvComLoc3 != -1)
+//		{
+//			OLED_Clear( );
+//			HAL_Delay(10);
+//			OLED_ShowString(0,0,(unsigned char*)"Binding",16);
+//			OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+//			HAL_Delay(2000);
+//			break;
+//		}
+//					
+//					
+//		RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
+//					
+//					
+//		if(wifi_link_check_int == 0)
+//		{
+//			printf("AT+CIPSEND=%d\r\n",36 + RecvComLoc2);
+//			HAL_Delay(50);
+//			printf("Do Bindind Cheking\r\n");
+//			RecvComLoc3 = 0;
+//			UARTSendData(&((u8*)&RecvComLoc2)[3],1);
+//			UARTSendData(&((u8*)&RecvComLoc2)[2],1);
+//			UARTSendData(&((u8*)&RecvComLoc2)[1],1);
+//			UARTSendData(&((u8*)&RecvComLoc2)[0],1);
+//			for(i = 0;i<strlen("Do Bindind Cheking\r\n");i++)
+//				RecvComLoc3+="Do Bindind Cheking\r\n"[i];
+//			for(i = 0;i<8;i++)
+//				RecvComLoc3+=BordID[i];
+//			for(i = 0;i< RecvComLoc2;i++)
+//				RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
+//			UARTSendData(&((u8*)&RecvComLoc3)[3],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
+//			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+//			UARTSendData((unsigned char*)BordID,8);
+//			UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
+//		}
+//	}
+//	
+	
+	
+	
+	
+	
 	//HAL_Delay(200);
 	//printf("AT+CIPMODE=1\r\n");
 	//HAL_Delay(200);
@@ -2048,11 +2124,12 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-	OLED_ShowString(0,2,(unsigned char*)"Group:",16);
-//OLED_ShowString(56,2,(unsigned char*)&FLASH_DATA.GROUP,1);
-	OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
-	OLED_ShowString(0,4,(unsigned char*)"Name:",16);
+	OLED_ShowString(0,0,"Wait Recording",16);
+	OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+	OLED_ShowString(0,2,"ID:",16);
+	OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
+	OLED_ShowString(0,4,"Name:",16);
+
 	if(FLASH_DATA.BIND_NAME[0] != 0xff)
 		OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 	
@@ -2164,11 +2241,11 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 						OLED_Clear( );
 						HAL_Delay(10);
 						OLED_ShowString(0,0,"Recording...",16);
-						OLED_ShowString(0,2,"Group:",16);
-						OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+						OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+						OLED_ShowString(0,2,"ID:",16);
+						OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 						OLED_ShowString(0,4,"Name:",16);
-						OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
-
+						OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 					}
 				}
 				if(*(str1 + 6)=='B' && *(str1 + 7)=='e' && *(str1 + 8)=='g' && *(str1 + 9)=='i' && *(str1 + 10)=='n')
@@ -2240,8 +2317,9 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				OLED_Clear( );
 				HAL_Delay(10);
 				OLED_ShowString(0,0,"Wait Recording",16);
-				OLED_ShowString(0,2,"Group:",16);
-				OLED_ShowChar(56,2,FLASH_DATA.GROUP,16);
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
+				OLED_ShowString(0,2,"ID:",16);
+				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 				OLED_ShowString(0,4,"Name:",16);
 				OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
 				MX_USB_DEVICE_Init();
@@ -2265,14 +2343,14 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 			//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
 			if(wifi_link_check_int == 0)
 			{
-			printf("AT+CIPSEND=%d\r\n",40);
+			printf("AT+CIPSEND=%d\r\n",44);
 			HAL_Delay(10);
 			printf("Ready To Start Recoder\r\n");
 			RecvComLoc3 = 0;
 			UARTSendData((u8*)&RecvComLoc3,4);
 			for(i = 0;i<strlen("Ready To Start Recoder\r\n");i++)
 				RecvComLoc3+="Ready To Start Recoder\r\n"[i];
-			for(i = 0;i<8;i++)
+			for(i = 0;i<12;i++)
 				RecvComLoc3+=BordID[i];
 			
 			
@@ -2280,7 +2358,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 			UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 			UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-			UARTSendData(BordID,8);
+			UARTSendData(BordID,12);
 			}
 		}
 		else if(WavFlag == 0x80 && GadFlag == 0x80)    //正在录音提示
@@ -2323,10 +2401,11 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				
 				if(wifi_link_check_int == 0)
 				{
-				printf("AT+CIPSEND=%d\r\n",33);
+					RecvComLoc2 = strlen((char*)FLASH_DATA.BIND_NAME);
+				printf("AT+CIPSEND=%d\r\n",37 + RecvComLoc2);
 					HAL_Delay(10);
 					printf("Device is Idle\r\n");
-					RecvComLoc3 = 1;
+					RecvComLoc3 = 1 + RecvComLoc2;
 					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
@@ -2334,16 +2413,20 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					RecvComLoc3 = 0;
 					for(i = 0;i<strlen("Device is Idle\r\n");i++)
 						RecvComLoc3+="Device is Idle\r\n"[i];
-					for(i = 0;i<8;i++)
+					for(i = 0;i<12;i++)
 						RecvComLoc3+=BordID[i];
+					for(i = 0;i<RecvComLoc2;i++)
+						RecvComLoc3+=FLASH_DATA.BIND_NAME[i];
+					
 					RecvComLoc3+=1;
 					UARTSendData(&((u8*)&RecvComLoc3)[3],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[2],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[1],1);
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
-					UARTSendData(BordID,8);
+					UARTSendData(BordID,12);
 					RecvComLoc3 = 1;
 					UARTSendData(&((u8*)&RecvComLoc3)[0],1);
+					UARTSendData(FLASH_DATA.BIND_NAME,RecvComLoc2);
 				}
 				
 			}
