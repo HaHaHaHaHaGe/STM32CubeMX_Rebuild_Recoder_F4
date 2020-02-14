@@ -4477,191 +4477,191 @@ Image Symbol Table
     i.lsp_to_lpc                             0x08010b60   Section        0  lsp.o(i.lsp_to_lpc)
     i.lsp_unquant_lbr                        0x08010eb8   Section        0  quant_lsp.o(i.lsp_unquant_lbr)
     i.main                                   0x08010f70   Section        0  main.o(i.main)
-    i.malloc                                 0x08012158   Section        0  malloc.o(i.malloc)
-    i.mem_cmp                                0x080121c4   Section        0  ff.o(i.mem_cmp)
-    mem_cmp                                  0x080121c5   Thumb Code    36  ff.o(i.mem_cmp)
-    i.mem_cpy                                0x080121e8   Section        0  ff.o(i.mem_cpy)
-    mem_cpy                                  0x080121e9   Thumb Code    26  ff.o(i.mem_cpy)
-    i.mem_set                                0x08012202   Section        0  ff.o(i.mem_set)
-    mem_set                                  0x08012203   Thumb Code    18  ff.o(i.mem_set)
-    i.move_window                            0x08012214   Section        0  ff.o(i.move_window)
-    move_window                              0x08012215   Thumb Code    52  ff.o(i.move_window)
-    i.mpu_configure_fifo                     0x08012248   Section        0  inv_mpu.o(i.mpu_configure_fifo)
-    i.mpu_dmp_init                           0x080122b8   Section        0  inv_mpu.o(i.mpu_dmp_init)
-    i.mpu_get_accel_fsr                      0x08012354   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
-    i.mpu_get_accel_sens                     0x080123a0   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
-    i.mpu_get_fifo_config                    0x080123f4   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
-    i.mpu_get_gyro_fsr                       0x08012404   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
-    i.mpu_get_gyro_sens                      0x08012448   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
-    i.mpu_get_lpf                            0x080124a8   Section        0  inv_mpu.o(i.mpu_get_lpf)
-    i.mpu_get_sample_rate                    0x080124f8   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
-    i.mpu_init                               0x08012518   Section        0  inv_mpu.o(i.mpu_init)
-    i.mpu_load_firmware                      0x08012708   Section        0  inv_mpu.o(i.mpu_load_firmware)
-    i.mpu_lp_accel_mode                      0x080127c0   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
-    i.mpu_read_mem                           0x080128a0   Section        0  inv_mpu.o(i.mpu_read_mem)
-    i.mpu_reset_fifo                         0x08012920   Section        0  inv_mpu.o(i.mpu_reset_fifo)
-    i.mpu_run_self_test                      0x08012ae8   Section        0  inv_mpu.o(i.mpu_run_self_test)
-    i.mpu_set_accel_fsr                      0x08012c04   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
-    i.mpu_set_bypass                         0x08012c88   Section        0  inv_mpu.o(i.mpu_set_bypass)
-    i.mpu_set_dmp_state                      0x08012dd4   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
-    i.mpu_set_gyro_fsr                       0x08012e64   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
-    i.mpu_set_int_latched                    0x08012eec   Section        0  inv_mpu.o(i.mpu_set_int_latched)
-    i.mpu_set_lpf                            0x08012f58   Section        0  inv_mpu.o(i.mpu_set_lpf)
-    i.mpu_set_sample_rate                    0x08012fdc   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
-    i.mpu_set_sensors                        0x08013078   Section        0  inv_mpu.o(i.mpu_set_sensors)
-    i.mpu_write_mem                          0x08013148   Section        0  inv_mpu.o(i.mpu_write_mem)
-    i.multicomb                              0x080131c8   Section        0  filters.o(i.multicomb)
-    i.my_mem_free                            0x08013580   Section        0  malloc.o(i.my_mem_free)
-    i.my_mem_init                            0x080135ec   Section        0  malloc.o(i.my_mem_init)
-    i.my_mem_malloc                          0x08013630   Section        0  malloc.o(i.my_mem_malloc)
-    i.my_mem_perused                         0x080136d8   Section        0  malloc.o(i.my_mem_perused)
-    i.myfree                                 0x08013718   Section        0  malloc.o(i.myfree)
-    i.mymalloc                               0x0801373c   Section        0  malloc.o(i.mymalloc)
-    i.mymemcpy                               0x08013764   Section        0  malloc.o(i.mymemcpy)
-    i.mymemset                               0x0801377e   Section        0  malloc.o(i.mymemset)
-    i.myrealloc                              0x08013794   Section        0  malloc.o(i.myrealloc)
-    i.nb_decode                              0x080137d8   Section        0  nb_celp.o(i.nb_decode)
-    i.nb_decode_lost                         0x08014818   Section        0  nb_celp.o(i.nb_decode_lost)
-    nb_decode_lost                           0x08014819   Thumb Code   436  nb_celp.o(i.nb_decode_lost)
-    i.nb_decoder_ctl                         0x080149d0   Section        0  nb_celp.o(i.nb_decoder_ctl)
-    i.nb_decoder_destroy                     0x08014bd0   Section        0  nb_celp.o(i.nb_decoder_destroy)
-    i.nb_decoder_init                        0x08014c04   Section        0  nb_celp.o(i.nb_decoder_init)
-    i.nb_encode                              0x08014d30   Section        0  nb_celp.o(i.nb_encode)
-    i.nb_encoder_ctl                         0x08015c14   Section        0  nb_celp.o(i.nb_encoder_ctl)
-    i.nb_encoder_destroy                     0x08015eb8   Section        0  nb_celp.o(i.nb_encoder_destroy)
-    i.nb_encoder_init                        0x08015f18   Section        0  nb_celp.o(i.nb_encoder_init)
-    i.nb_mode_query                          0x08016090   Section        0  speex.o(i.nb_mode_query)
-    i.noise_codebook_quant                   0x08016104   Section        0  cb_search.o(i.noise_codebook_quant)
-    i.normalize16                            0x08016162   Section        0  filters.o(i.normalize16)
-    i.open_loop_nbest_pitch                  0x080161aa   Section        0  ltp.o(i.open_loop_nbest_pitch)
-    i.pitch_gain_search_3tap                 0x080164e8   Section        0  ltp.o(i.pitch_gain_search_3tap)
-    pitch_gain_search_3tap                   0x080164e9   Thumb Code  1124  ltp.o(i.pitch_gain_search_3tap)
-    i.pitch_gain_search_3tap_vq              0x0801694c   Section        0  ltp.o(i.pitch_gain_search_3tap_vq)
-    i.pitch_search_3tap                      0x08016a70   Section        0  ltp.o(i.pitch_search_3tap)
-    i.pitch_unquant_3tap                     0x08016d0a   Section        0  ltp.o(i.pitch_unquant_3tap)
-    i.pitch_xcorr                            0x08016eee   Section        0  ltp.o(i.pitch_xcorr)
-    i.put_fat                                0x08016f22   Section        0  ff.o(i.put_fat)
-    put_fat                                  0x08016f23   Thumb Code   312  ff.o(i.put_fat)
-    i.put_lfn                                0x0801705c   Section        0  ff.o(i.put_lfn)
-    put_lfn                                  0x0801705d   Thumb Code   124  ff.o(i.put_lfn)
-    i.recoder_new_pathname                   0x080170dc   Section        0  fatfs_write_wav.o(i.recoder_new_pathname)
-    i.recoder_wav_init                       0x08017150   Section        0  wav.o(i.recoder_wav_init)
-    i.recoder_wav_update                     0x0801719c   Section        0  wav.o(i.recoder_wav_update)
-    i.remove_chain                           0x080171aa   Section        0  ff.o(i.remove_chain)
-    remove_chain                             0x080171ab   Thumb Code   154  ff.o(i.remove_chain)
-    i.residue_percep_zero16                  0x08017244   Section        0  filters.o(i.residue_percep_zero16)
-    i.run_self_test                          0x080172b2   Section        0  inv_mpu.o(i.run_self_test)
-    i.sanitize_values32                      0x0801734c   Section        0  filters.o(i.sanitize_values32)
-    i.scal_quant                             0x0801738e   Section        0  vq.o(i.scal_quant)
-    i.scal_quant32                           0x080173aa   Section        0  vq.o(i.scal_quant32)
-    i.set_int_enable                         0x080173c4   Section        0  inv_mpu.o(i.set_int_enable)
-    set_int_enable                           0x080173c5   Thumb Code   138  inv_mpu.o(i.set_int_enable)
-    i.signal_div                             0x08017454   Section        0  filters.o(i.signal_div)
-    i.signal_mul                             0x08017506   Section        0  filters.o(i.signal_mul)
-    i.speex_alloc                            0x0801753a   Section        0  nb_celp.o(i.speex_alloc)
-    speex_alloc                              0x0801753b   Thumb Code    32  nb_celp.o(i.speex_alloc)
-    i.speex_alloc_scratch                    0x0801755a   Section        0  nb_celp.o(i.speex_alloc_scratch)
-    speex_alloc_scratch                      0x0801755b   Thumb Code    14  nb_celp.o(i.speex_alloc_scratch)
-    i.speex_bits_advance                     0x08017568   Section        0  bits.o(i.speex_bits_advance)
-    i.speex_bits_init                        0x0801759c   Section        0  bits.o(i.speex_bits_init)
-    i.speex_bits_insert_terminator           0x080175d4   Section        0  bits.o(i.speex_bits_insert_terminator)
-    i.speex_bits_pack                        0x080175fc   Section        0  bits.o(i.speex_bits_pack)
-    i.speex_bits_remaining                   0x0801771c   Section        0  bits.o(i.speex_bits_remaining)
-    i.speex_bits_reset                       0x08017736   Section        0  bits.o(i.speex_bits_reset)
-    i.speex_bits_unpack_unsigned             0x08017746   Section        0  bits.o(i.speex_bits_unpack_unsigned)
-    i.speex_bits_write                       0x080177a0   Section        0  bits.o(i.speex_bits_write)
-    i.speex_decoder_ctl                      0x080177f2   Section        0  speex.o(i.speex_decoder_ctl)
-    i.speex_decoder_init                     0x08017808   Section        0  speex.o(i.speex_decoder_init)
-    i.speex_default_user_handler             0x08017814   Section        0  speex_callbacks.o(i.speex_default_user_handler)
-    i.speex_encode_int                       0x08017838   Section        0  speex.o(i.speex_encode_int)
-    i.speex_encoder_ctl                      0x08017852   Section        0  speex.o(i.speex_encoder_ctl)
-    i.speex_encoder_init                     0x08017868   Section        0  speex.o(i.speex_encoder_init)
-    i.speex_free                             0x08017874   Section        0  nb_celp.o(i.speex_free)
-    speex_free                               0x08017875   Thumb Code    14  nb_celp.o(i.speex_free)
-    i.speex_free_scratch                     0x08017882   Section        0  nb_celp.o(i.speex_free_scratch)
-    speex_free_scratch                       0x08017883   Thumb Code    14  nb_celp.o(i.speex_free_scratch)
-    i.speex_inband_handler                   0x08017890   Section        0  speex_callbacks.o(i.speex_inband_handler)
-    i.speex_rand                             0x080178f8   Section        0  nb_celp.o(i.speex_rand)
-    speex_rand                               0x080178f9   Thumb Code    38  nb_celp.o(i.speex_rand)
-    i.speex_realloc                          0x08017928   Section        0  bits.o(i.speex_realloc)
-    speex_realloc                            0x08017929   Thumb Code    18  bits.o(i.speex_realloc)
-    i.split_cb_search_shape_sign             0x0801793c   Section        0  cb_search.o(i.split_cb_search_shape_sign)
-    i.split_cb_shape_sign_unquant            0x08017f34   Section        0  cb_search.o(i.split_cb_shape_sign_unquant)
-    i.spx_acos                               0x08018012   Section        0  lsp.o(i.spx_acos)
-    spx_acos                                 0x08018013   Thumb Code    86  lsp.o(i.spx_acos)
-    i.spx_cos                                0x08018068   Section        0  lsp.o(i.spx_cos)
-    spx_cos                                  0x08018069   Thumb Code   150  lsp.o(i.spx_cos)
-    i.spx_sqrt                               0x080180fe   Section        0  lsp.o(i.spx_sqrt)
-    spx_sqrt                                 0x080180ff   Thumb Code   138  lsp.o(i.spx_sqrt)
-    i.spx_sqrt                               0x08018188   Section        0  filters.o(i.spx_sqrt)
-    spx_sqrt                                 0x08018189   Thumb Code   138  filters.o(i.spx_sqrt)
-    i.spx_sqrt                               0x08018212   Section        0  ltp.o(i.spx_sqrt)
-    spx_sqrt                                 0x08018213   Thumb Code   138  ltp.o(i.spx_sqrt)
-    i.spx_sqrt                               0x0801829c   Section        0  nb_celp.o(i.spx_sqrt)
-    spx_sqrt                                 0x0801829d   Thumb Code   138  nb_celp.o(i.spx_sqrt)
-    i.st_clust                               0x08018326   Section        0  ff.o(i.st_clust)
-    st_clust                                 0x08018327   Thumb Code    36  ff.o(i.st_clust)
-    i.st_dword                               0x0801834a   Section        0  ff.o(i.st_dword)
-    st_dword                                 0x0801834b   Thumb Code    24  ff.o(i.st_dword)
-    i.st_word                                0x08018362   Section        0  ff.o(i.st_word)
-    st_word                                  0x08018363   Thumb Code    12  ff.o(i.st_word)
-    i.start_recoder                          0x08018370   Section        0  fatfs_write_wav.o(i.start_recoder)
-    i.stop_recoder                           0x080183b4   Section        0  fatfs_write_wav.o(i.stop_recoder)
-    i.sum_sfn                                0x080183ec   Section        0  ff.o(i.sum_sfn)
-    sum_sfn                                  0x080183ed   Thumb Code    32  ff.o(i.sum_sfn)
-    i.sync_fs                                0x0801840c   Section        0  ff.o(i.sync_fs)
-    sync_fs                                  0x0801840d   Thumb Code   134  ff.o(i.sync_fs)
-    i.sync_window                            0x0801849c   Section        0  ff.o(i.sync_window)
-    sync_window                              0x0801849d   Thumb Code    82  ff.o(i.sync_window)
-    i.tick_recoder                           0x080184f0   Section        0  fatfs_write_wav.o(i.tick_recoder)
-    i.validate                               0x0801875c   Section        0  ff.o(i.validate)
-    validate                                 0x0801875d   Thumb Code    60  ff.o(i.validate)
-    i.wav_recorder                           0x08018798   Section        0  main.o(i.wav_recorder)
-    i.wifi_link_check                        0x08018860   Section        0  main.o(i.wifi_link_check)
-    i.wifi_update_bindname                   0x0801892c   Section        0  main.o(i.wifi_update_bindname)
-    i.write_buffer_data                      0x08018a54   Section        0  ringbuffer.o(i.write_buffer_data)
-    i.write_speex_file                       0x08018b74   Section        0  fatfs_write_wav.o(i.write_speex_file)
-    i.write_wav_file                         0x08018bb4   Section        0  fatfs_write_wav.o(i.write_wav_file)
-    .constdata                               0x08018bf4   Section       20  sd_diskio.o(.constdata)
-    .constdata                               0x08018c08   Section       36  usbd_storage_if.o(.constdata)
-    .constdata                               0x08018c2c   Section        8  stm32f4xx_hal_dma.o(.constdata)
-    flagBitshiftOffset                       0x08018c2c   Data           8  stm32f4xx_hal_dma.o(.constdata)
-    .constdata                               0x08018c34   Section       24  system_stm32f4xx.o(.constdata)
-    .constdata                               0x08018c4c   Section       42  ff.o(.constdata)
-    LfnOfs                                   0x08018c4c   Data          13  ff.o(.constdata)
-    cst                                      0x08018c5a   Data          14  ff.o(.constdata)
-    cst32                                    0x08018c68   Data          14  ff.o(.constdata)
-    .constdata                               0x08018c76   Section    108718  cc950.o(.constdata)
-    uni2oem                                  0x08018c76   Data       54016  cc950.o(.constdata)
-    oem2uni                                  0x08025f76   Data       54016  cc950.o(.constdata)
-    cvt1                                     0x08033276   Data         498  cc950.o(.constdata)
-    cvt2                                     0x08033468   Data         188  cc950.o(.constdata)
-    .constdata                               0x08033524   Section       36  malloc.o(.constdata)
-    .constdata                               0x08033548   Section     2072  oled.o(.constdata)
-    .constdata                               0x08033d60   Section       10  24l01.o(.constdata)
-    .constdata                               0x08033d6c   Section       80  inv_mpu.o(.constdata)
-    .constdata                               0x08033dbc   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    dmp_memory                               0x08033dbc   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    .constdata                               0x080349b2   Section      320  exc_10_32_table.o(.constdata)
-    .constdata                               0x08034af2   Section      128  gain_table_lbr.o(.constdata)
-    .constdata                               0x08034b72   Section      422  window.o(.constdata)
-    .constdata                               0x08034d18   Section      106  filters.o(.constdata)
-    .constdata                               0x08034d84   Section      256  ltp.o(.constdata)
-    .constdata                               0x08034e84   Section      280  modes.o(.constdata)
-    ltp_params_lbr                           0x08034e84   Data          12  modes.o(.constdata)
-    split_cb_nb_lbr                          0x08034e90   Data          20  modes.o(.constdata)
-    nb_submode3                              0x08034ea4   Data          56  modes.o(.constdata)
-    nb_mode                                  0x08034edc   Data         140  modes.o(.constdata)
-    .constdata                               0x08034f9c   Section      216  nb_celp.o(.constdata)
-    wb_skip_table                            0x08035054   Data          32  nb_celp.o(.constdata)
-    .constdata                               0x08035074   Section     1920  lsp_tables_nb.o(.constdata)
-    .constdata                               0x080357f4   Section       23  usbd_msc_data.o(.constdata)
-    .constdata                               0x0803580b   Section      129  ctype_o.o(.constdata)
-    .constdata                               0x0803588c   Section        4  ctype_o.o(.constdata)
-    table                                    0x0803588c   Data           4  ctype_o.o(.constdata)
-    .conststring                             0x08035890   Section       44  main.o(.conststring)
-    .conststring                             0x080358bc   Section       77  inv_mpu.o(.conststring)
-    .conststring                             0x0803590c   Section       11  modes.o(.conststring)
+    i.malloc                                 0x08012168   Section        0  malloc.o(i.malloc)
+    i.mem_cmp                                0x080121d4   Section        0  ff.o(i.mem_cmp)
+    mem_cmp                                  0x080121d5   Thumb Code    36  ff.o(i.mem_cmp)
+    i.mem_cpy                                0x080121f8   Section        0  ff.o(i.mem_cpy)
+    mem_cpy                                  0x080121f9   Thumb Code    26  ff.o(i.mem_cpy)
+    i.mem_set                                0x08012212   Section        0  ff.o(i.mem_set)
+    mem_set                                  0x08012213   Thumb Code    18  ff.o(i.mem_set)
+    i.move_window                            0x08012224   Section        0  ff.o(i.move_window)
+    move_window                              0x08012225   Thumb Code    52  ff.o(i.move_window)
+    i.mpu_configure_fifo                     0x08012258   Section        0  inv_mpu.o(i.mpu_configure_fifo)
+    i.mpu_dmp_init                           0x080122c8   Section        0  inv_mpu.o(i.mpu_dmp_init)
+    i.mpu_get_accel_fsr                      0x08012364   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
+    i.mpu_get_accel_sens                     0x080123b0   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
+    i.mpu_get_fifo_config                    0x08012404   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
+    i.mpu_get_gyro_fsr                       0x08012414   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
+    i.mpu_get_gyro_sens                      0x08012458   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
+    i.mpu_get_lpf                            0x080124b8   Section        0  inv_mpu.o(i.mpu_get_lpf)
+    i.mpu_get_sample_rate                    0x08012508   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
+    i.mpu_init                               0x08012528   Section        0  inv_mpu.o(i.mpu_init)
+    i.mpu_load_firmware                      0x08012718   Section        0  inv_mpu.o(i.mpu_load_firmware)
+    i.mpu_lp_accel_mode                      0x080127d0   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
+    i.mpu_read_mem                           0x080128b0   Section        0  inv_mpu.o(i.mpu_read_mem)
+    i.mpu_reset_fifo                         0x08012930   Section        0  inv_mpu.o(i.mpu_reset_fifo)
+    i.mpu_run_self_test                      0x08012af8   Section        0  inv_mpu.o(i.mpu_run_self_test)
+    i.mpu_set_accel_fsr                      0x08012c14   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
+    i.mpu_set_bypass                         0x08012c98   Section        0  inv_mpu.o(i.mpu_set_bypass)
+    i.mpu_set_dmp_state                      0x08012de4   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
+    i.mpu_set_gyro_fsr                       0x08012e74   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
+    i.mpu_set_int_latched                    0x08012efc   Section        0  inv_mpu.o(i.mpu_set_int_latched)
+    i.mpu_set_lpf                            0x08012f68   Section        0  inv_mpu.o(i.mpu_set_lpf)
+    i.mpu_set_sample_rate                    0x08012fec   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
+    i.mpu_set_sensors                        0x08013088   Section        0  inv_mpu.o(i.mpu_set_sensors)
+    i.mpu_write_mem                          0x08013158   Section        0  inv_mpu.o(i.mpu_write_mem)
+    i.multicomb                              0x080131d8   Section        0  filters.o(i.multicomb)
+    i.my_mem_free                            0x08013590   Section        0  malloc.o(i.my_mem_free)
+    i.my_mem_init                            0x080135fc   Section        0  malloc.o(i.my_mem_init)
+    i.my_mem_malloc                          0x08013640   Section        0  malloc.o(i.my_mem_malloc)
+    i.my_mem_perused                         0x080136e8   Section        0  malloc.o(i.my_mem_perused)
+    i.myfree                                 0x08013728   Section        0  malloc.o(i.myfree)
+    i.mymalloc                               0x0801374c   Section        0  malloc.o(i.mymalloc)
+    i.mymemcpy                               0x08013774   Section        0  malloc.o(i.mymemcpy)
+    i.mymemset                               0x0801378e   Section        0  malloc.o(i.mymemset)
+    i.myrealloc                              0x080137a4   Section        0  malloc.o(i.myrealloc)
+    i.nb_decode                              0x080137e8   Section        0  nb_celp.o(i.nb_decode)
+    i.nb_decode_lost                         0x08014828   Section        0  nb_celp.o(i.nb_decode_lost)
+    nb_decode_lost                           0x08014829   Thumb Code   436  nb_celp.o(i.nb_decode_lost)
+    i.nb_decoder_ctl                         0x080149e0   Section        0  nb_celp.o(i.nb_decoder_ctl)
+    i.nb_decoder_destroy                     0x08014be0   Section        0  nb_celp.o(i.nb_decoder_destroy)
+    i.nb_decoder_init                        0x08014c14   Section        0  nb_celp.o(i.nb_decoder_init)
+    i.nb_encode                              0x08014d40   Section        0  nb_celp.o(i.nb_encode)
+    i.nb_encoder_ctl                         0x08015c24   Section        0  nb_celp.o(i.nb_encoder_ctl)
+    i.nb_encoder_destroy                     0x08015ec8   Section        0  nb_celp.o(i.nb_encoder_destroy)
+    i.nb_encoder_init                        0x08015f28   Section        0  nb_celp.o(i.nb_encoder_init)
+    i.nb_mode_query                          0x080160a0   Section        0  speex.o(i.nb_mode_query)
+    i.noise_codebook_quant                   0x08016114   Section        0  cb_search.o(i.noise_codebook_quant)
+    i.normalize16                            0x08016172   Section        0  filters.o(i.normalize16)
+    i.open_loop_nbest_pitch                  0x080161ba   Section        0  ltp.o(i.open_loop_nbest_pitch)
+    i.pitch_gain_search_3tap                 0x080164f8   Section        0  ltp.o(i.pitch_gain_search_3tap)
+    pitch_gain_search_3tap                   0x080164f9   Thumb Code  1124  ltp.o(i.pitch_gain_search_3tap)
+    i.pitch_gain_search_3tap_vq              0x0801695c   Section        0  ltp.o(i.pitch_gain_search_3tap_vq)
+    i.pitch_search_3tap                      0x08016a80   Section        0  ltp.o(i.pitch_search_3tap)
+    i.pitch_unquant_3tap                     0x08016d1a   Section        0  ltp.o(i.pitch_unquant_3tap)
+    i.pitch_xcorr                            0x08016efe   Section        0  ltp.o(i.pitch_xcorr)
+    i.put_fat                                0x08016f32   Section        0  ff.o(i.put_fat)
+    put_fat                                  0x08016f33   Thumb Code   312  ff.o(i.put_fat)
+    i.put_lfn                                0x0801706c   Section        0  ff.o(i.put_lfn)
+    put_lfn                                  0x0801706d   Thumb Code   124  ff.o(i.put_lfn)
+    i.recoder_new_pathname                   0x080170ec   Section        0  fatfs_write_wav.o(i.recoder_new_pathname)
+    i.recoder_wav_init                       0x08017160   Section        0  wav.o(i.recoder_wav_init)
+    i.recoder_wav_update                     0x080171ac   Section        0  wav.o(i.recoder_wav_update)
+    i.remove_chain                           0x080171ba   Section        0  ff.o(i.remove_chain)
+    remove_chain                             0x080171bb   Thumb Code   154  ff.o(i.remove_chain)
+    i.residue_percep_zero16                  0x08017254   Section        0  filters.o(i.residue_percep_zero16)
+    i.run_self_test                          0x080172c2   Section        0  inv_mpu.o(i.run_self_test)
+    i.sanitize_values32                      0x0801735c   Section        0  filters.o(i.sanitize_values32)
+    i.scal_quant                             0x0801739e   Section        0  vq.o(i.scal_quant)
+    i.scal_quant32                           0x080173ba   Section        0  vq.o(i.scal_quant32)
+    i.set_int_enable                         0x080173d4   Section        0  inv_mpu.o(i.set_int_enable)
+    set_int_enable                           0x080173d5   Thumb Code   138  inv_mpu.o(i.set_int_enable)
+    i.signal_div                             0x08017464   Section        0  filters.o(i.signal_div)
+    i.signal_mul                             0x08017516   Section        0  filters.o(i.signal_mul)
+    i.speex_alloc                            0x0801754a   Section        0  nb_celp.o(i.speex_alloc)
+    speex_alloc                              0x0801754b   Thumb Code    32  nb_celp.o(i.speex_alloc)
+    i.speex_alloc_scratch                    0x0801756a   Section        0  nb_celp.o(i.speex_alloc_scratch)
+    speex_alloc_scratch                      0x0801756b   Thumb Code    14  nb_celp.o(i.speex_alloc_scratch)
+    i.speex_bits_advance                     0x08017578   Section        0  bits.o(i.speex_bits_advance)
+    i.speex_bits_init                        0x080175ac   Section        0  bits.o(i.speex_bits_init)
+    i.speex_bits_insert_terminator           0x080175e4   Section        0  bits.o(i.speex_bits_insert_terminator)
+    i.speex_bits_pack                        0x0801760c   Section        0  bits.o(i.speex_bits_pack)
+    i.speex_bits_remaining                   0x0801772c   Section        0  bits.o(i.speex_bits_remaining)
+    i.speex_bits_reset                       0x08017746   Section        0  bits.o(i.speex_bits_reset)
+    i.speex_bits_unpack_unsigned             0x08017756   Section        0  bits.o(i.speex_bits_unpack_unsigned)
+    i.speex_bits_write                       0x080177b0   Section        0  bits.o(i.speex_bits_write)
+    i.speex_decoder_ctl                      0x08017802   Section        0  speex.o(i.speex_decoder_ctl)
+    i.speex_decoder_init                     0x08017818   Section        0  speex.o(i.speex_decoder_init)
+    i.speex_default_user_handler             0x08017824   Section        0  speex_callbacks.o(i.speex_default_user_handler)
+    i.speex_encode_int                       0x08017848   Section        0  speex.o(i.speex_encode_int)
+    i.speex_encoder_ctl                      0x08017862   Section        0  speex.o(i.speex_encoder_ctl)
+    i.speex_encoder_init                     0x08017878   Section        0  speex.o(i.speex_encoder_init)
+    i.speex_free                             0x08017884   Section        0  nb_celp.o(i.speex_free)
+    speex_free                               0x08017885   Thumb Code    14  nb_celp.o(i.speex_free)
+    i.speex_free_scratch                     0x08017892   Section        0  nb_celp.o(i.speex_free_scratch)
+    speex_free_scratch                       0x08017893   Thumb Code    14  nb_celp.o(i.speex_free_scratch)
+    i.speex_inband_handler                   0x080178a0   Section        0  speex_callbacks.o(i.speex_inband_handler)
+    i.speex_rand                             0x08017908   Section        0  nb_celp.o(i.speex_rand)
+    speex_rand                               0x08017909   Thumb Code    38  nb_celp.o(i.speex_rand)
+    i.speex_realloc                          0x08017938   Section        0  bits.o(i.speex_realloc)
+    speex_realloc                            0x08017939   Thumb Code    18  bits.o(i.speex_realloc)
+    i.split_cb_search_shape_sign             0x0801794c   Section        0  cb_search.o(i.split_cb_search_shape_sign)
+    i.split_cb_shape_sign_unquant            0x08017f44   Section        0  cb_search.o(i.split_cb_shape_sign_unquant)
+    i.spx_acos                               0x08018022   Section        0  lsp.o(i.spx_acos)
+    spx_acos                                 0x08018023   Thumb Code    86  lsp.o(i.spx_acos)
+    i.spx_cos                                0x08018078   Section        0  lsp.o(i.spx_cos)
+    spx_cos                                  0x08018079   Thumb Code   150  lsp.o(i.spx_cos)
+    i.spx_sqrt                               0x0801810e   Section        0  lsp.o(i.spx_sqrt)
+    spx_sqrt                                 0x0801810f   Thumb Code   138  lsp.o(i.spx_sqrt)
+    i.spx_sqrt                               0x08018198   Section        0  filters.o(i.spx_sqrt)
+    spx_sqrt                                 0x08018199   Thumb Code   138  filters.o(i.spx_sqrt)
+    i.spx_sqrt                               0x08018222   Section        0  ltp.o(i.spx_sqrt)
+    spx_sqrt                                 0x08018223   Thumb Code   138  ltp.o(i.spx_sqrt)
+    i.spx_sqrt                               0x080182ac   Section        0  nb_celp.o(i.spx_sqrt)
+    spx_sqrt                                 0x080182ad   Thumb Code   138  nb_celp.o(i.spx_sqrt)
+    i.st_clust                               0x08018336   Section        0  ff.o(i.st_clust)
+    st_clust                                 0x08018337   Thumb Code    36  ff.o(i.st_clust)
+    i.st_dword                               0x0801835a   Section        0  ff.o(i.st_dword)
+    st_dword                                 0x0801835b   Thumb Code    24  ff.o(i.st_dword)
+    i.st_word                                0x08018372   Section        0  ff.o(i.st_word)
+    st_word                                  0x08018373   Thumb Code    12  ff.o(i.st_word)
+    i.start_recoder                          0x08018380   Section        0  fatfs_write_wav.o(i.start_recoder)
+    i.stop_recoder                           0x080183c4   Section        0  fatfs_write_wav.o(i.stop_recoder)
+    i.sum_sfn                                0x080183fc   Section        0  ff.o(i.sum_sfn)
+    sum_sfn                                  0x080183fd   Thumb Code    32  ff.o(i.sum_sfn)
+    i.sync_fs                                0x0801841c   Section        0  ff.o(i.sync_fs)
+    sync_fs                                  0x0801841d   Thumb Code   134  ff.o(i.sync_fs)
+    i.sync_window                            0x080184ac   Section        0  ff.o(i.sync_window)
+    sync_window                              0x080184ad   Thumb Code    82  ff.o(i.sync_window)
+    i.tick_recoder                           0x08018500   Section        0  fatfs_write_wav.o(i.tick_recoder)
+    i.validate                               0x0801876c   Section        0  ff.o(i.validate)
+    validate                                 0x0801876d   Thumb Code    60  ff.o(i.validate)
+    i.wav_recorder                           0x080187a8   Section        0  main.o(i.wav_recorder)
+    i.wifi_link_check                        0x08018870   Section        0  main.o(i.wifi_link_check)
+    i.wifi_update_bindname                   0x0801893c   Section        0  main.o(i.wifi_update_bindname)
+    i.write_buffer_data                      0x08018a64   Section        0  ringbuffer.o(i.write_buffer_data)
+    i.write_speex_file                       0x08018b84   Section        0  fatfs_write_wav.o(i.write_speex_file)
+    i.write_wav_file                         0x08018bc4   Section        0  fatfs_write_wav.o(i.write_wav_file)
+    .constdata                               0x08018c04   Section       20  sd_diskio.o(.constdata)
+    .constdata                               0x08018c18   Section       36  usbd_storage_if.o(.constdata)
+    .constdata                               0x08018c3c   Section        8  stm32f4xx_hal_dma.o(.constdata)
+    flagBitshiftOffset                       0x08018c3c   Data           8  stm32f4xx_hal_dma.o(.constdata)
+    .constdata                               0x08018c44   Section       24  system_stm32f4xx.o(.constdata)
+    .constdata                               0x08018c5c   Section       42  ff.o(.constdata)
+    LfnOfs                                   0x08018c5c   Data          13  ff.o(.constdata)
+    cst                                      0x08018c6a   Data          14  ff.o(.constdata)
+    cst32                                    0x08018c78   Data          14  ff.o(.constdata)
+    .constdata                               0x08018c86   Section    108718  cc950.o(.constdata)
+    uni2oem                                  0x08018c86   Data       54016  cc950.o(.constdata)
+    oem2uni                                  0x08025f86   Data       54016  cc950.o(.constdata)
+    cvt1                                     0x08033286   Data         498  cc950.o(.constdata)
+    cvt2                                     0x08033478   Data         188  cc950.o(.constdata)
+    .constdata                               0x08033534   Section       36  malloc.o(.constdata)
+    .constdata                               0x08033558   Section     2072  oled.o(.constdata)
+    .constdata                               0x08033d70   Section       10  24l01.o(.constdata)
+    .constdata                               0x08033d7c   Section       80  inv_mpu.o(.constdata)
+    .constdata                               0x08033dcc   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    dmp_memory                               0x08033dcc   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    .constdata                               0x080349c2   Section      320  exc_10_32_table.o(.constdata)
+    .constdata                               0x08034b02   Section      128  gain_table_lbr.o(.constdata)
+    .constdata                               0x08034b82   Section      422  window.o(.constdata)
+    .constdata                               0x08034d28   Section      106  filters.o(.constdata)
+    .constdata                               0x08034d94   Section      256  ltp.o(.constdata)
+    .constdata                               0x08034e94   Section      280  modes.o(.constdata)
+    ltp_params_lbr                           0x08034e94   Data          12  modes.o(.constdata)
+    split_cb_nb_lbr                          0x08034ea0   Data          20  modes.o(.constdata)
+    nb_submode3                              0x08034eb4   Data          56  modes.o(.constdata)
+    nb_mode                                  0x08034eec   Data         140  modes.o(.constdata)
+    .constdata                               0x08034fac   Section      216  nb_celp.o(.constdata)
+    wb_skip_table                            0x08035064   Data          32  nb_celp.o(.constdata)
+    .constdata                               0x08035084   Section     1920  lsp_tables_nb.o(.constdata)
+    .constdata                               0x08035804   Section       23  usbd_msc_data.o(.constdata)
+    .constdata                               0x0803581b   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x0803589c   Section        4  ctype_o.o(.constdata)
+    table                                    0x0803589c   Data           4  ctype_o.o(.constdata)
+    .conststring                             0x080358a0   Section       44  main.o(.conststring)
+    .conststring                             0x080358cc   Section       77  inv_mpu.o(.conststring)
+    .conststring                             0x0803591c   Section       11  modes.o(.conststring)
     .ARM.__AT_0x10000000                     0x10000000   Section    61440  malloc.o(.ARM.__AT_0x10000000)
     .ARM.__AT_0x1000F000                     0x1000f000   Section     3840  malloc.o(.ARM.__AT_0x1000F000)
     .data                                    0x20000000   Section       71  main.o(.data)
@@ -5285,131 +5285,131 @@ Image Symbol Table
     lsp_quant_lbr                            0x080108d5   Thumb Code   638  quant_lsp.o(i.lsp_quant_lbr)
     lsp_to_lpc                               0x08010b61   Thumb Code   850  lsp.o(i.lsp_to_lpc)
     lsp_unquant_lbr                          0x08010eb9   Thumb Code   172  quant_lsp.o(i.lsp_unquant_lbr)
-    main                                     0x08010f71   Thumb Code  4456  main.o(i.main)
-    malloc                                   0x08012159   Thumb Code    92  malloc.o(i.malloc)
-    mpu_configure_fifo                       0x08012249   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
-    mpu_dmp_init                             0x080122b9   Thumb Code   150  inv_mpu.o(i.mpu_dmp_init)
-    mpu_get_accel_fsr                        0x08012355   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
-    mpu_get_accel_sens                       0x080123a1   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
-    mpu_get_fifo_config                      0x080123f5   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
-    mpu_get_gyro_fsr                         0x08012405   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
-    mpu_get_gyro_sens                        0x08012449   Thumb Code    74  inv_mpu.o(i.mpu_get_gyro_sens)
-    mpu_get_lpf                              0x080124a9   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
-    mpu_get_sample_rate                      0x080124f9   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
-    mpu_init                                 0x08012519   Thumb Code   416  inv_mpu.o(i.mpu_init)
-    mpu_load_firmware                        0x08012709   Thumb Code   180  inv_mpu.o(i.mpu_load_firmware)
-    mpu_lp_accel_mode                        0x080127c1   Thumb Code   218  inv_mpu.o(i.mpu_lp_accel_mode)
-    mpu_read_mem                             0x080128a1   Thumb Code   122  inv_mpu.o(i.mpu_read_mem)
-    mpu_reset_fifo                           0x08012921   Thumb Code   450  inv_mpu.o(i.mpu_reset_fifo)
-    mpu_run_self_test                        0x08012ae9   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
-    mpu_set_accel_fsr                        0x08012c05   Thumb Code   126  inv_mpu.o(i.mpu_set_accel_fsr)
-    mpu_set_bypass                           0x08012c89   Thumb Code   328  inv_mpu.o(i.mpu_set_bypass)
-    mpu_set_dmp_state                        0x08012dd5   Thumb Code   138  inv_mpu.o(i.mpu_set_dmp_state)
-    mpu_set_gyro_fsr                         0x08012e65   Thumb Code   132  inv_mpu.o(i.mpu_set_gyro_fsr)
-    mpu_set_int_latched                      0x08012eed   Thumb Code   102  inv_mpu.o(i.mpu_set_int_latched)
-    mpu_set_lpf                              0x08012f59   Thumb Code   126  inv_mpu.o(i.mpu_set_lpf)
-    mpu_set_sample_rate                      0x08012fdd   Thumb Code   152  inv_mpu.o(i.mpu_set_sample_rate)
-    mpu_set_sensors                          0x08013079   Thumb Code   202  inv_mpu.o(i.mpu_set_sensors)
-    mpu_write_mem                            0x08013149   Thumb Code   122  inv_mpu.o(i.mpu_write_mem)
-    multicomb                                0x080131c9   Thumb Code   948  filters.o(i.multicomb)
-    my_mem_free                              0x08013581   Thumb Code    96  malloc.o(i.my_mem_free)
-    my_mem_init                              0x080135ed   Thumb Code    54  malloc.o(i.my_mem_init)
-    my_mem_malloc                            0x08013631   Thumb Code   156  malloc.o(i.my_mem_malloc)
-    my_mem_perused                           0x080136d9   Thumb Code    54  malloc.o(i.my_mem_perused)
-    myfree                                   0x08013719   Thumb Code    30  malloc.o(i.myfree)
-    mymalloc                                 0x0801373d   Thumb Code    34  malloc.o(i.mymalloc)
-    mymemcpy                                 0x08013765   Thumb Code    26  malloc.o(i.mymemcpy)
-    mymemset                                 0x0801377f   Thumb Code    20  malloc.o(i.mymemset)
-    myrealloc                                0x08013795   Thumb Code    64  malloc.o(i.myrealloc)
-    nb_decode                                0x080137d9   Thumb Code  4158  nb_celp.o(i.nb_decode)
-    nb_decoder_ctl                           0x080149d1   Thumb Code   482  nb_celp.o(i.nb_decoder_ctl)
-    nb_decoder_destroy                       0x08014bd1   Thumb Code    50  nb_celp.o(i.nb_decoder_destroy)
-    nb_decoder_init                          0x08014c05   Thumb Code   294  nb_celp.o(i.nb_decoder_init)
-    nb_encode                                0x08014d31   Thumb Code  3796  nb_celp.o(i.nb_encode)
-    nb_encoder_ctl                           0x08015c15   Thumb Code   646  nb_celp.o(i.nb_encoder_ctl)
-    nb_encoder_destroy                       0x08015eb9   Thumb Code    94  nb_celp.o(i.nb_encoder_destroy)
-    nb_encoder_init                          0x08015f19   Thumb Code   366  nb_celp.o(i.nb_encoder_init)
-    nb_mode_query                            0x08016091   Thumb Code    84  speex.o(i.nb_mode_query)
-    noise_codebook_quant                     0x08016105   Thumb Code    94  cb_search.o(i.noise_codebook_quant)
-    normalize16                              0x08016163   Thumb Code    72  filters.o(i.normalize16)
-    open_loop_nbest_pitch                    0x080161ab   Thumb Code   830  ltp.o(i.open_loop_nbest_pitch)
-    pitch_gain_search_3tap_vq                0x0801694d   Thumb Code   282  ltp.o(i.pitch_gain_search_3tap_vq)
-    pitch_search_3tap                        0x08016a71   Thumb Code   666  ltp.o(i.pitch_search_3tap)
-    pitch_unquant_3tap                       0x08016d0b   Thumb Code   484  ltp.o(i.pitch_unquant_3tap)
-    pitch_xcorr                              0x08016eef   Thumb Code    52  ltp.o(i.pitch_xcorr)
-    recoder_new_pathname                     0x080170dd   Thumb Code    68  fatfs_write_wav.o(i.recoder_new_pathname)
-    recoder_wav_init                         0x08017151   Thumb Code    60  wav.o(i.recoder_wav_init)
-    recoder_wav_update                       0x0801719d   Thumb Code    14  wav.o(i.recoder_wav_update)
-    residue_percep_zero16                    0x08017245   Thumb Code   110  filters.o(i.residue_percep_zero16)
-    run_self_test                            0x080172b3   Thumb Code   154  inv_mpu.o(i.run_self_test)
-    sanitize_values32                        0x0801734d   Thumb Code    66  filters.o(i.sanitize_values32)
-    scal_quant                               0x0801738f   Thumb Code    28  vq.o(i.scal_quant)
-    scal_quant32                             0x080173ab   Thumb Code    26  vq.o(i.scal_quant32)
-    signal_div                               0x08017455   Thumb Code   178  filters.o(i.signal_div)
-    signal_mul                               0x08017507   Thumb Code    52  filters.o(i.signal_mul)
-    speex_bits_advance                       0x08017569   Thumb Code    52  bits.o(i.speex_bits_advance)
-    speex_bits_init                          0x0801759d   Thumb Code    56  bits.o(i.speex_bits_init)
-    speex_bits_insert_terminator             0x080175d5   Thumb Code    38  bits.o(i.speex_bits_insert_terminator)
-    speex_bits_pack                          0x080175fd   Thumb Code   170  bits.o(i.speex_bits_pack)
-    speex_bits_remaining                     0x0801771d   Thumb Code    26  bits.o(i.speex_bits_remaining)
-    speex_bits_reset                         0x08017737   Thumb Code    16  bits.o(i.speex_bits_reset)
-    speex_bits_unpack_unsigned               0x08017747   Thumb Code    90  bits.o(i.speex_bits_unpack_unsigned)
-    speex_bits_write                         0x080177a1   Thumb Code    82  bits.o(i.speex_bits_write)
-    speex_decoder_ctl                        0x080177f3   Thumb Code    22  speex.o(i.speex_decoder_ctl)
-    speex_decoder_init                       0x08017809   Thumb Code    12  speex.o(i.speex_decoder_init)
-    speex_default_user_handler               0x08017815   Thumb Code    36  speex_callbacks.o(i.speex_default_user_handler)
-    speex_encode_int                         0x08017839   Thumb Code    26  speex.o(i.speex_encode_int)
-    speex_encoder_ctl                        0x08017853   Thumb Code    22  speex.o(i.speex_encoder_ctl)
-    speex_encoder_init                       0x08017869   Thumb Code    12  speex.o(i.speex_encoder_init)
-    speex_inband_handler                     0x08017891   Thumb Code   102  speex_callbacks.o(i.speex_inband_handler)
-    split_cb_search_shape_sign               0x0801793d   Thumb Code  1528  cb_search.o(i.split_cb_search_shape_sign)
-    split_cb_shape_sign_unquant              0x08017f35   Thumb Code   222  cb_search.o(i.split_cb_shape_sign_unquant)
-    start_recoder                            0x08018371   Thumb Code    40  fatfs_write_wav.o(i.start_recoder)
-    stop_recoder                             0x080183b5   Thumb Code    44  fatfs_write_wav.o(i.stop_recoder)
-    tick_recoder                             0x080184f1   Thumb Code   556  fatfs_write_wav.o(i.tick_recoder)
-    wav_recorder                             0x08018799   Thumb Code   186  main.o(i.wav_recorder)
-    wifi_link_check                          0x08018861   Thumb Code   140  main.o(i.wifi_link_check)
-    wifi_update_bindname                     0x0801892d   Thumb Code   234  main.o(i.wifi_update_bindname)
-    write_buffer_data                        0x08018a55   Thumb Code   286  ringbuffer.o(i.write_buffer_data)
-    write_speex_file                         0x08018b75   Thumb Code    48  fatfs_write_wav.o(i.write_speex_file)
-    write_wav_file                           0x08018bb5   Thumb Code    48  fatfs_write_wav.o(i.write_wav_file)
-    SD_Driver                                0x08018bf4   Data          20  sd_diskio.o(.constdata)
-    STORAGE_Inquirydata_FS                   0x08018c08   Data          36  usbd_storage_if.o(.constdata)
-    AHBPrescTable                            0x08018c34   Data          16  system_stm32f4xx.o(.constdata)
-    APBPrescTable                            0x08018c44   Data           8  system_stm32f4xx.o(.constdata)
-    memtblsize                               0x08033524   Data          12  malloc.o(.constdata)
-    memblksize                               0x08033530   Data          12  malloc.o(.constdata)
-    memsize                                  0x0803353c   Data          12  malloc.o(.constdata)
-    F6x8                                     0x08033548   Data         552  oled.o(.constdata)
-    F8X16                                    0x08033770   Data        1520  oled.o(.constdata)
-    TX_ADDRESS                               0x08033d60   Data           5  24l01.o(.constdata)
-    RX_ADDRESS                               0x08033d65   Data           5  24l01.o(.constdata)
-    reg                                      0x08033d6c   Data          27  inv_mpu.o(.constdata)
-    hw                                       0x08033d88   Data          12  inv_mpu.o(.constdata)
-    test                                     0x08033d94   Data          40  inv_mpu.o(.constdata)
-    exc_10_32_table                          0x080349b2   Data         320  exc_10_32_table.o(.constdata)
-    gain_cdbk_lbr                            0x08034af2   Data         128  gain_table_lbr.o(.constdata)
-    lag_window                               0x08034b72   Data          22  window.o(.constdata)
-    lpc_window                               0x08034b88   Data         400  window.o(.constdata)
-    shift_filt                               0x08034d18   Data          42  filters.o(.constdata)
-    speex_nb_mode                            0x08034f68   Data          52  modes.o(.constdata)
-    ol_gain_table                            0x08034f9c   Data         128  nb_celp.o(.constdata)
-    exc_gain_quant_scal3_bound               0x0803501c   Data          14  nb_celp.o(.constdata)
-    exc_gain_quant_scal3                     0x0803502a   Data          16  nb_celp.o(.constdata)
-    exc_gain_quant_scal1_bound               0x0803503a   Data           2  nb_celp.o(.constdata)
-    exc_gain_quant_scal1                     0x0803503c   Data           4  nb_celp.o(.constdata)
-    attenuation                              0x08035040   Data          20  nb_celp.o(.constdata)
-    cdbk_nb                                  0x08035074   Data         640  lsp_tables_nb.o(.constdata)
-    cdbk_nb_low1                             0x080352f4   Data         320  lsp_tables_nb.o(.constdata)
-    cdbk_nb_low2                             0x08035434   Data         320  lsp_tables_nb.o(.constdata)
-    cdbk_nb_high1                            0x08035574   Data         320  lsp_tables_nb.o(.constdata)
-    cdbk_nb_high2                            0x080356b4   Data         320  lsp_tables_nb.o(.constdata)
-    MSC_Page00_Inquiry_Data                  0x080357f4   Data           7  usbd_msc_data.o(.constdata)
-    MSC_Mode_Sense6_data                     0x080357fb   Data           8  usbd_msc_data.o(.constdata)
-    MSC_Mode_Sense10_data                    0x08035803   Data           8  usbd_msc_data.o(.constdata)
-    __ctype_table                            0x0803580b   Data         129  ctype_o.o(.constdata)
-    Region$$Table$$Base                      0x08035918   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08035938   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08010f71   Thumb Code  4472  main.o(i.main)
+    malloc                                   0x08012169   Thumb Code    92  malloc.o(i.malloc)
+    mpu_configure_fifo                       0x08012259   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
+    mpu_dmp_init                             0x080122c9   Thumb Code   150  inv_mpu.o(i.mpu_dmp_init)
+    mpu_get_accel_fsr                        0x08012365   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
+    mpu_get_accel_sens                       0x080123b1   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
+    mpu_get_fifo_config                      0x08012405   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
+    mpu_get_gyro_fsr                         0x08012415   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
+    mpu_get_gyro_sens                        0x08012459   Thumb Code    74  inv_mpu.o(i.mpu_get_gyro_sens)
+    mpu_get_lpf                              0x080124b9   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
+    mpu_get_sample_rate                      0x08012509   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
+    mpu_init                                 0x08012529   Thumb Code   416  inv_mpu.o(i.mpu_init)
+    mpu_load_firmware                        0x08012719   Thumb Code   180  inv_mpu.o(i.mpu_load_firmware)
+    mpu_lp_accel_mode                        0x080127d1   Thumb Code   218  inv_mpu.o(i.mpu_lp_accel_mode)
+    mpu_read_mem                             0x080128b1   Thumb Code   122  inv_mpu.o(i.mpu_read_mem)
+    mpu_reset_fifo                           0x08012931   Thumb Code   450  inv_mpu.o(i.mpu_reset_fifo)
+    mpu_run_self_test                        0x08012af9   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
+    mpu_set_accel_fsr                        0x08012c15   Thumb Code   126  inv_mpu.o(i.mpu_set_accel_fsr)
+    mpu_set_bypass                           0x08012c99   Thumb Code   328  inv_mpu.o(i.mpu_set_bypass)
+    mpu_set_dmp_state                        0x08012de5   Thumb Code   138  inv_mpu.o(i.mpu_set_dmp_state)
+    mpu_set_gyro_fsr                         0x08012e75   Thumb Code   132  inv_mpu.o(i.mpu_set_gyro_fsr)
+    mpu_set_int_latched                      0x08012efd   Thumb Code   102  inv_mpu.o(i.mpu_set_int_latched)
+    mpu_set_lpf                              0x08012f69   Thumb Code   126  inv_mpu.o(i.mpu_set_lpf)
+    mpu_set_sample_rate                      0x08012fed   Thumb Code   152  inv_mpu.o(i.mpu_set_sample_rate)
+    mpu_set_sensors                          0x08013089   Thumb Code   202  inv_mpu.o(i.mpu_set_sensors)
+    mpu_write_mem                            0x08013159   Thumb Code   122  inv_mpu.o(i.mpu_write_mem)
+    multicomb                                0x080131d9   Thumb Code   948  filters.o(i.multicomb)
+    my_mem_free                              0x08013591   Thumb Code    96  malloc.o(i.my_mem_free)
+    my_mem_init                              0x080135fd   Thumb Code    54  malloc.o(i.my_mem_init)
+    my_mem_malloc                            0x08013641   Thumb Code   156  malloc.o(i.my_mem_malloc)
+    my_mem_perused                           0x080136e9   Thumb Code    54  malloc.o(i.my_mem_perused)
+    myfree                                   0x08013729   Thumb Code    30  malloc.o(i.myfree)
+    mymalloc                                 0x0801374d   Thumb Code    34  malloc.o(i.mymalloc)
+    mymemcpy                                 0x08013775   Thumb Code    26  malloc.o(i.mymemcpy)
+    mymemset                                 0x0801378f   Thumb Code    20  malloc.o(i.mymemset)
+    myrealloc                                0x080137a5   Thumb Code    64  malloc.o(i.myrealloc)
+    nb_decode                                0x080137e9   Thumb Code  4158  nb_celp.o(i.nb_decode)
+    nb_decoder_ctl                           0x080149e1   Thumb Code   482  nb_celp.o(i.nb_decoder_ctl)
+    nb_decoder_destroy                       0x08014be1   Thumb Code    50  nb_celp.o(i.nb_decoder_destroy)
+    nb_decoder_init                          0x08014c15   Thumb Code   294  nb_celp.o(i.nb_decoder_init)
+    nb_encode                                0x08014d41   Thumb Code  3796  nb_celp.o(i.nb_encode)
+    nb_encoder_ctl                           0x08015c25   Thumb Code   646  nb_celp.o(i.nb_encoder_ctl)
+    nb_encoder_destroy                       0x08015ec9   Thumb Code    94  nb_celp.o(i.nb_encoder_destroy)
+    nb_encoder_init                          0x08015f29   Thumb Code   366  nb_celp.o(i.nb_encoder_init)
+    nb_mode_query                            0x080160a1   Thumb Code    84  speex.o(i.nb_mode_query)
+    noise_codebook_quant                     0x08016115   Thumb Code    94  cb_search.o(i.noise_codebook_quant)
+    normalize16                              0x08016173   Thumb Code    72  filters.o(i.normalize16)
+    open_loop_nbest_pitch                    0x080161bb   Thumb Code   830  ltp.o(i.open_loop_nbest_pitch)
+    pitch_gain_search_3tap_vq                0x0801695d   Thumb Code   282  ltp.o(i.pitch_gain_search_3tap_vq)
+    pitch_search_3tap                        0x08016a81   Thumb Code   666  ltp.o(i.pitch_search_3tap)
+    pitch_unquant_3tap                       0x08016d1b   Thumb Code   484  ltp.o(i.pitch_unquant_3tap)
+    pitch_xcorr                              0x08016eff   Thumb Code    52  ltp.o(i.pitch_xcorr)
+    recoder_new_pathname                     0x080170ed   Thumb Code    68  fatfs_write_wav.o(i.recoder_new_pathname)
+    recoder_wav_init                         0x08017161   Thumb Code    60  wav.o(i.recoder_wav_init)
+    recoder_wav_update                       0x080171ad   Thumb Code    14  wav.o(i.recoder_wav_update)
+    residue_percep_zero16                    0x08017255   Thumb Code   110  filters.o(i.residue_percep_zero16)
+    run_self_test                            0x080172c3   Thumb Code   154  inv_mpu.o(i.run_self_test)
+    sanitize_values32                        0x0801735d   Thumb Code    66  filters.o(i.sanitize_values32)
+    scal_quant                               0x0801739f   Thumb Code    28  vq.o(i.scal_quant)
+    scal_quant32                             0x080173bb   Thumb Code    26  vq.o(i.scal_quant32)
+    signal_div                               0x08017465   Thumb Code   178  filters.o(i.signal_div)
+    signal_mul                               0x08017517   Thumb Code    52  filters.o(i.signal_mul)
+    speex_bits_advance                       0x08017579   Thumb Code    52  bits.o(i.speex_bits_advance)
+    speex_bits_init                          0x080175ad   Thumb Code    56  bits.o(i.speex_bits_init)
+    speex_bits_insert_terminator             0x080175e5   Thumb Code    38  bits.o(i.speex_bits_insert_terminator)
+    speex_bits_pack                          0x0801760d   Thumb Code   170  bits.o(i.speex_bits_pack)
+    speex_bits_remaining                     0x0801772d   Thumb Code    26  bits.o(i.speex_bits_remaining)
+    speex_bits_reset                         0x08017747   Thumb Code    16  bits.o(i.speex_bits_reset)
+    speex_bits_unpack_unsigned               0x08017757   Thumb Code    90  bits.o(i.speex_bits_unpack_unsigned)
+    speex_bits_write                         0x080177b1   Thumb Code    82  bits.o(i.speex_bits_write)
+    speex_decoder_ctl                        0x08017803   Thumb Code    22  speex.o(i.speex_decoder_ctl)
+    speex_decoder_init                       0x08017819   Thumb Code    12  speex.o(i.speex_decoder_init)
+    speex_default_user_handler               0x08017825   Thumb Code    36  speex_callbacks.o(i.speex_default_user_handler)
+    speex_encode_int                         0x08017849   Thumb Code    26  speex.o(i.speex_encode_int)
+    speex_encoder_ctl                        0x08017863   Thumb Code    22  speex.o(i.speex_encoder_ctl)
+    speex_encoder_init                       0x08017879   Thumb Code    12  speex.o(i.speex_encoder_init)
+    speex_inband_handler                     0x080178a1   Thumb Code   102  speex_callbacks.o(i.speex_inband_handler)
+    split_cb_search_shape_sign               0x0801794d   Thumb Code  1528  cb_search.o(i.split_cb_search_shape_sign)
+    split_cb_shape_sign_unquant              0x08017f45   Thumb Code   222  cb_search.o(i.split_cb_shape_sign_unquant)
+    start_recoder                            0x08018381   Thumb Code    40  fatfs_write_wav.o(i.start_recoder)
+    stop_recoder                             0x080183c5   Thumb Code    44  fatfs_write_wav.o(i.stop_recoder)
+    tick_recoder                             0x08018501   Thumb Code   556  fatfs_write_wav.o(i.tick_recoder)
+    wav_recorder                             0x080187a9   Thumb Code   186  main.o(i.wav_recorder)
+    wifi_link_check                          0x08018871   Thumb Code   140  main.o(i.wifi_link_check)
+    wifi_update_bindname                     0x0801893d   Thumb Code   234  main.o(i.wifi_update_bindname)
+    write_buffer_data                        0x08018a65   Thumb Code   286  ringbuffer.o(i.write_buffer_data)
+    write_speex_file                         0x08018b85   Thumb Code    48  fatfs_write_wav.o(i.write_speex_file)
+    write_wav_file                           0x08018bc5   Thumb Code    48  fatfs_write_wav.o(i.write_wav_file)
+    SD_Driver                                0x08018c04   Data          20  sd_diskio.o(.constdata)
+    STORAGE_Inquirydata_FS                   0x08018c18   Data          36  usbd_storage_if.o(.constdata)
+    AHBPrescTable                            0x08018c44   Data          16  system_stm32f4xx.o(.constdata)
+    APBPrescTable                            0x08018c54   Data           8  system_stm32f4xx.o(.constdata)
+    memtblsize                               0x08033534   Data          12  malloc.o(.constdata)
+    memblksize                               0x08033540   Data          12  malloc.o(.constdata)
+    memsize                                  0x0803354c   Data          12  malloc.o(.constdata)
+    F6x8                                     0x08033558   Data         552  oled.o(.constdata)
+    F8X16                                    0x08033780   Data        1520  oled.o(.constdata)
+    TX_ADDRESS                               0x08033d70   Data           5  24l01.o(.constdata)
+    RX_ADDRESS                               0x08033d75   Data           5  24l01.o(.constdata)
+    reg                                      0x08033d7c   Data          27  inv_mpu.o(.constdata)
+    hw                                       0x08033d98   Data          12  inv_mpu.o(.constdata)
+    test                                     0x08033da4   Data          40  inv_mpu.o(.constdata)
+    exc_10_32_table                          0x080349c2   Data         320  exc_10_32_table.o(.constdata)
+    gain_cdbk_lbr                            0x08034b02   Data         128  gain_table_lbr.o(.constdata)
+    lag_window                               0x08034b82   Data          22  window.o(.constdata)
+    lpc_window                               0x08034b98   Data         400  window.o(.constdata)
+    shift_filt                               0x08034d28   Data          42  filters.o(.constdata)
+    speex_nb_mode                            0x08034f78   Data          52  modes.o(.constdata)
+    ol_gain_table                            0x08034fac   Data         128  nb_celp.o(.constdata)
+    exc_gain_quant_scal3_bound               0x0803502c   Data          14  nb_celp.o(.constdata)
+    exc_gain_quant_scal3                     0x0803503a   Data          16  nb_celp.o(.constdata)
+    exc_gain_quant_scal1_bound               0x0803504a   Data           2  nb_celp.o(.constdata)
+    exc_gain_quant_scal1                     0x0803504c   Data           4  nb_celp.o(.constdata)
+    attenuation                              0x08035050   Data          20  nb_celp.o(.constdata)
+    cdbk_nb                                  0x08035084   Data         640  lsp_tables_nb.o(.constdata)
+    cdbk_nb_low1                             0x08035304   Data         320  lsp_tables_nb.o(.constdata)
+    cdbk_nb_low2                             0x08035444   Data         320  lsp_tables_nb.o(.constdata)
+    cdbk_nb_high1                            0x08035584   Data         320  lsp_tables_nb.o(.constdata)
+    cdbk_nb_high2                            0x080356c4   Data         320  lsp_tables_nb.o(.constdata)
+    MSC_Page00_Inquiry_Data                  0x08035804   Data           7  usbd_msc_data.o(.constdata)
+    MSC_Mode_Sense6_data                     0x0803580b   Data           8  usbd_msc_data.o(.constdata)
+    MSC_Mode_Sense10_data                    0x08035813   Data           8  usbd_msc_data.o(.constdata)
+    __ctype_table                            0x0803581b   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x08035928   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08035948   Number         0  anon$$obj.o(Region$$Table)
     mem3base                                 0x10000000   Data       61440  malloc.o(.ARM.__AT_0x10000000)
     mem3mapbase                              0x1000f000   Data        3840  malloc.o(.ARM.__AT_0x1000F000)
     isPowerOn                                0x20000000   Data           1  main.o(.data)
@@ -5544,9 +5544,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000199
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00035b84, Max: 0x00040000, ABSOLUTE, COMPRESSED[0x00035a28])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00035b94, Max: 0x00040000, ABSOLUTE, COMPRESSED[0x00035a38])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00035938, Max: 0x00040000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00035948, Max: 0x00040000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -6162,167 +6162,167 @@ Memory Map of the image
     0x080108d4   0x080108d4   0x0000028c   Code   RO         8636    i.lsp_quant_lbr     quant_lsp.o
     0x08010b60   0x08010b60   0x00000358   Code   RO         7851    i.lsp_to_lpc        lsp.o
     0x08010eb8   0x08010eb8   0x000000b8   Code   RO         8639    i.lsp_unquant_lbr   quant_lsp.o
-    0x08010f70   0x08010f70   0x000011e8   Code   RO           38    i.main              main.o
-    0x08012158   0x08012158   0x0000006c   Code   RO         9645    i.malloc            mc_w.l(malloc.o)
-    0x080121c4   0x080121c4   0x00000024   Code   RO         5778    i.mem_cmp           ff.o
-    0x080121e8   0x080121e8   0x0000001a   Code   RO         5779    i.mem_cpy           ff.o
-    0x08012202   0x08012202   0x00000012   Code   RO         5780    i.mem_set           ff.o
-    0x08012214   0x08012214   0x00000034   Code   RO         5781    i.move_window       ff.o
-    0x08012248   0x08012248   0x00000070   Code   RO         6936    i.mpu_configure_fifo  inv_mpu.o
-    0x080122b8   0x080122b8   0x0000009c   Code   RO         6938    i.mpu_dmp_init      inv_mpu.o
-    0x08012354   0x08012354   0x0000004c   Code   RO         6939    i.mpu_get_accel_fsr  inv_mpu.o
-    0x080123a0   0x080123a0   0x00000054   Code   RO         6941    i.mpu_get_accel_sens  inv_mpu.o
-    0x080123f4   0x080123f4   0x00000010   Code   RO         6946    i.mpu_get_fifo_config  inv_mpu.o
-    0x08012404   0x08012404   0x00000044   Code   RO         6947    i.mpu_get_gyro_fsr  inv_mpu.o
-    0x08012448   0x08012448   0x00000060   Code   RO         6949    i.mpu_get_gyro_sens  inv_mpu.o
-    0x080124a8   0x080124a8   0x00000050   Code   RO         6951    i.mpu_get_lpf       inv_mpu.o
-    0x080124f8   0x080124f8   0x00000020   Code   RO         6953    i.mpu_get_sample_rate  inv_mpu.o
-    0x08012518   0x08012518   0x000001f0   Code   RO         6955    i.mpu_init          inv_mpu.o
-    0x08012708   0x08012708   0x000000b8   Code   RO         6956    i.mpu_load_firmware  inv_mpu.o
-    0x080127c0   0x080127c0   0x000000e0   Code   RO         6957    i.mpu_lp_accel_mode  inv_mpu.o
-    0x080128a0   0x080128a0   0x00000080   Code   RO         6961    i.mpu_read_mem      inv_mpu.o
-    0x08012920   0x08012920   0x000001c8   Code   RO         6964    i.mpu_reset_fifo    inv_mpu.o
-    0x08012ae8   0x08012ae8   0x0000011c   Code   RO         6965    i.mpu_run_self_test  inv_mpu.o
-    0x08012c04   0x08012c04   0x00000084   Code   RO         6967    i.mpu_set_accel_fsr  inv_mpu.o
-    0x08012c88   0x08012c88   0x0000014c   Code   RO         6968    i.mpu_set_bypass    inv_mpu.o
-    0x08012dd4   0x08012dd4   0x00000090   Code   RO         6970    i.mpu_set_dmp_state  inv_mpu.o
-    0x08012e64   0x08012e64   0x00000088   Code   RO         6971    i.mpu_set_gyro_fsr  inv_mpu.o
-    0x08012eec   0x08012eec   0x0000006c   Code   RO         6972    i.mpu_set_int_latched  inv_mpu.o
-    0x08012f58   0x08012f58   0x00000084   Code   RO         6974    i.mpu_set_lpf       inv_mpu.o
-    0x08012fdc   0x08012fdc   0x0000009c   Code   RO         6975    i.mpu_set_sample_rate  inv_mpu.o
-    0x08013078   0x08013078   0x000000d0   Code   RO         6976    i.mpu_set_sensors   inv_mpu.o
-    0x08013148   0x08013148   0x00000080   Code   RO         6977    i.mpu_write_mem     inv_mpu.o
-    0x080131c8   0x080131c8   0x000003b8   Code   RO         8243    i.multicomb         filters.o
-    0x08013580   0x08013580   0x0000006c   Code   RO         6456    i.my_mem_free       malloc.o
-    0x080135ec   0x080135ec   0x00000044   Code   RO         6457    i.my_mem_init       malloc.o
-    0x08013630   0x08013630   0x000000a8   Code   RO         6458    i.my_mem_malloc     malloc.o
-    0x080136d8   0x080136d8   0x00000040   Code   RO         6459    i.my_mem_perused    malloc.o
-    0x08013718   0x08013718   0x00000024   Code   RO         6460    i.myfree            malloc.o
-    0x0801373c   0x0801373c   0x00000028   Code   RO         6461    i.mymalloc          malloc.o
-    0x08013764   0x08013764   0x0000001a   Code   RO         6462    i.mymemcpy          malloc.o
-    0x0801377e   0x0801377e   0x00000014   Code   RO         6463    i.mymemset          malloc.o
-    0x08013792   0x08013792   0x00000002   PAD
-    0x08013794   0x08013794   0x00000044   Code   RO         6464    i.myrealloc         malloc.o
-    0x080137d8   0x080137d8   0x0000103e   Code   RO         8512    i.nb_decode         nb_celp.o
-    0x08014816   0x08014816   0x00000002   PAD
-    0x08014818   0x08014818   0x000001b8   Code   RO         8513    i.nb_decode_lost    nb_celp.o
-    0x080149d0   0x080149d0   0x00000200   Code   RO         8514    i.nb_decoder_ctl    nb_celp.o
-    0x08014bd0   0x08014bd0   0x00000032   Code   RO         8515    i.nb_decoder_destroy  nb_celp.o
-    0x08014c02   0x08014c02   0x00000002   PAD
-    0x08014c04   0x08014c04   0x0000012c   Code   RO         8516    i.nb_decoder_init   nb_celp.o
-    0x08014d30   0x08014d30   0x00000ee4   Code   RO         8517    i.nb_encode         nb_celp.o
-    0x08015c14   0x08015c14   0x000002a4   Code   RO         8518    i.nb_encoder_ctl    nb_celp.o
-    0x08015eb8   0x08015eb8   0x0000005e   Code   RO         8519    i.nb_encoder_destroy  nb_celp.o
-    0x08015f16   0x08015f16   0x00000002   PAD
-    0x08015f18   0x08015f18   0x00000178   Code   RO         8520    i.nb_encoder_init   nb_celp.o
-    0x08016090   0x08016090   0x00000074   Code   RO         7918    i.nb_mode_query     speex.o
-    0x08016104   0x08016104   0x0000005e   Code   RO         8174    i.noise_codebook_quant  cb_search.o
-    0x08016162   0x08016162   0x00000048   Code   RO         8244    i.normalize16       filters.o
-    0x080161aa   0x080161aa   0x0000033e   Code   RO         8372    i.open_loop_nbest_pitch  ltp.o
-    0x080164e8   0x080164e8   0x00000464   Code   RO         8373    i.pitch_gain_search_3tap  ltp.o
-    0x0801694c   0x0801694c   0x00000124   Code   RO         8374    i.pitch_gain_search_3tap_vq  ltp.o
-    0x08016a70   0x08016a70   0x0000029a   Code   RO         8375    i.pitch_search_3tap  ltp.o
-    0x08016d0a   0x08016d0a   0x000001e4   Code   RO         8376    i.pitch_unquant_3tap  ltp.o
-    0x08016eee   0x08016eee   0x00000034   Code   RO         8377    i.pitch_xcorr       ltp.o
-    0x08016f22   0x08016f22   0x00000138   Code   RO         5783    i.put_fat           ff.o
-    0x0801705a   0x0801705a   0x00000002   PAD
-    0x0801705c   0x0801705c   0x00000080   Code   RO         5784    i.put_lfn           ff.o
-    0x080170dc   0x080170dc   0x00000074   Code   RO         6243    i.recoder_new_pathname  fatfs_write_wav.o
-    0x08017150   0x08017150   0x0000004c   Code   RO         6214    i.recoder_wav_init  wav.o
-    0x0801719c   0x0801719c   0x0000000e   Code   RO         6215    i.recoder_wav_update  wav.o
-    0x080171aa   0x080171aa   0x0000009a   Code   RO         5788    i.remove_chain      ff.o
-    0x08017244   0x08017244   0x0000006e   Code   RO         8247    i.residue_percep_zero16  filters.o
-    0x080172b2   0x080172b2   0x0000009a   Code   RO         6978    i.run_self_test     inv_mpu.o
-    0x0801734c   0x0801734c   0x00000042   Code   RO         8248    i.sanitize_values32  filters.o
-    0x0801738e   0x0801738e   0x0000001c   Code   RO         8703    i.scal_quant        vq.o
-    0x080173aa   0x080173aa   0x0000001a   Code   RO         8704    i.scal_quant32      vq.o
-    0x080173c4   0x080173c4   0x00000090   Code   RO         6979    i.set_int_enable    inv_mpu.o
-    0x08017454   0x08017454   0x000000b2   Code   RO         8249    i.signal_div        filters.o
-    0x08017506   0x08017506   0x00000034   Code   RO         8250    i.signal_mul        filters.o
-    0x0801753a   0x0801753a   0x00000020   Code   RO         8521    i.speex_alloc       nb_celp.o
-    0x0801755a   0x0801755a   0x0000000e   Code   RO         8522    i.speex_alloc_scratch  nb_celp.o
-    0x08017568   0x08017568   0x00000034   Code   RO         7536    i.speex_bits_advance  bits.o
-    0x0801759c   0x0801759c   0x00000038   Code   RO         7539    i.speex_bits_init   bits.o
-    0x080175d4   0x080175d4   0x00000026   Code   RO         7541    i.speex_bits_insert_terminator  bits.o
-    0x080175fa   0x080175fa   0x00000002   PAD
-    0x080175fc   0x080175fc   0x00000120   Code   RO         7543    i.speex_bits_pack   bits.o
-    0x0801771c   0x0801771c   0x0000001a   Code   RO         7548    i.speex_bits_remaining  bits.o
-    0x08017736   0x08017736   0x00000010   Code   RO         7549    i.speex_bits_reset  bits.o
-    0x08017746   0x08017746   0x0000005a   Code   RO         7553    i.speex_bits_unpack_unsigned  bits.o
-    0x080177a0   0x080177a0   0x00000052   Code   RO         7554    i.speex_bits_write  bits.o
-    0x080177f2   0x080177f2   0x00000016   Code   RO         7921    i.speex_decoder_ctl  speex.o
-    0x08017808   0x08017808   0x0000000c   Code   RO         7923    i.speex_decoder_init  speex.o
-    0x08017814   0x08017814   0x00000024   Code   RO         8018    i.speex_default_user_handler  speex_callbacks.o
-    0x08017838   0x08017838   0x0000001a   Code   RO         7924    i.speex_encode_int  speex.o
-    0x08017852   0x08017852   0x00000016   Code   RO         7926    i.speex_encoder_ctl  speex.o
-    0x08017868   0x08017868   0x0000000c   Code   RO         7928    i.speex_encoder_init  speex.o
-    0x08017874   0x08017874   0x0000000e   Code   RO         8523    i.speex_free        nb_celp.o
-    0x08017882   0x08017882   0x0000000e   Code   RO         8524    i.speex_free_scratch  nb_celp.o
-    0x08017890   0x08017890   0x00000066   Code   RO         8019    i.speex_inband_handler  speex_callbacks.o
-    0x080178f6   0x080178f6   0x00000002   PAD
-    0x080178f8   0x080178f8   0x00000030   Code   RO         8525    i.speex_rand        nb_celp.o
-    0x08017928   0x08017928   0x00000012   Code   RO         7556    i.speex_realloc     bits.o
-    0x0801793a   0x0801793a   0x00000002   PAD
-    0x0801793c   0x0801793c   0x000005f8   Code   RO         8176    i.split_cb_search_shape_sign  cb_search.o
-    0x08017f34   0x08017f34   0x000000de   Code   RO         8177    i.split_cb_shape_sign_unquant  cb_search.o
-    0x08018012   0x08018012   0x00000056   Code   RO         7852    i.spx_acos          lsp.o
-    0x08018068   0x08018068   0x00000096   Code   RO         7853    i.spx_cos           lsp.o
-    0x080180fe   0x080180fe   0x0000008a   Code   RO         7854    i.spx_sqrt          lsp.o
-    0x08018188   0x08018188   0x0000008a   Code   RO         8251    i.spx_sqrt          filters.o
-    0x08018212   0x08018212   0x0000008a   Code   RO         8378    i.spx_sqrt          ltp.o
-    0x0801829c   0x0801829c   0x0000008a   Code   RO         8526    i.spx_sqrt          nb_celp.o
-    0x08018326   0x08018326   0x00000024   Code   RO         5789    i.st_clust          ff.o
-    0x0801834a   0x0801834a   0x00000018   Code   RO         5790    i.st_dword          ff.o
-    0x08018362   0x08018362   0x0000000c   Code   RO         5791    i.st_word           ff.o
-    0x0801836e   0x0801836e   0x00000002   PAD
-    0x08018370   0x08018370   0x00000044   Code   RO         6244    i.start_recoder     fatfs_write_wav.o
-    0x080183b4   0x080183b4   0x00000038   Code   RO         6245    i.stop_recoder      fatfs_write_wav.o
-    0x080183ec   0x080183ec   0x00000020   Code   RO         5792    i.sum_sfn           ff.o
-    0x0801840c   0x0801840c   0x00000090   Code   RO         5793    i.sync_fs           ff.o
-    0x0801849c   0x0801849c   0x00000052   Code   RO         5794    i.sync_window       ff.o
-    0x080184ee   0x080184ee   0x00000002   PAD
-    0x080184f0   0x080184f0   0x0000026c   Code   RO         6246    i.tick_recoder      fatfs_write_wav.o
-    0x0801875c   0x0801875c   0x0000003c   Code   RO         5795    i.validate          ff.o
-    0x08018798   0x08018798   0x000000c8   Code   RO           39    i.wav_recorder      main.o
-    0x08018860   0x08018860   0x000000cc   Code   RO           40    i.wifi_link_check   main.o
-    0x0801892c   0x0801892c   0x00000128   Code   RO           41    i.wifi_update_bindname  main.o
-    0x08018a54   0x08018a54   0x0000011e   Code   RO         6397    i.write_buffer_data  ringbuffer.o
-    0x08018b72   0x08018b72   0x00000002   PAD
-    0x08018b74   0x08018b74   0x00000040   Code   RO         6247    i.write_speex_file  fatfs_write_wav.o
-    0x08018bb4   0x08018bb4   0x00000040   Code   RO         6248    i.write_wav_file    fatfs_write_wav.o
-    0x08018bf4   0x08018bf4   0x00000014   Data   RO          592    .constdata          sd_diskio.o
-    0x08018c08   0x08018c08   0x00000024   Data   RO         1061    .constdata          usbd_storage_if.o
-    0x08018c2c   0x08018c2c   0x00000008   Data   RO         4846    .constdata          stm32f4xx_hal_dma.o
-    0x08018c34   0x08018c34   0x00000018   Data   RO         5639    .constdata          system_stm32f4xx.o
-    0x08018c4c   0x08018c4c   0x0000002a   Data   RO         5797    .constdata          ff.o
-    0x08018c76   0x08018c76   0x0001a8ae   Data   RO         6187    .constdata          cc950.o
-    0x08033524   0x08033524   0x00000024   Data   RO         6470    .constdata          malloc.o
-    0x08033548   0x08033548   0x00000818   Data   RO         6563    .constdata          oled.o
-    0x08033d60   0x08033d60   0x0000000a   Data   RO         6752    .constdata          24l01.o
-    0x08033d6a   0x08033d6a   0x00000002   PAD
-    0x08033d6c   0x08033d6c   0x00000050   Data   RO         6981    .constdata          inv_mpu.o
-    0x08033dbc   0x08033dbc   0x00000bf6   Data   RO         7295    .constdata          inv_mpu_dmp_motion_driver.o
-    0x080349b2   0x080349b2   0x00000140   Data   RO         7784    .constdata          exc_10_32_table.o
-    0x08034af2   0x08034af2   0x00000080   Data   RO         7791    .constdata          gain_table_lbr.o
-    0x08034b72   0x08034b72   0x000001a6   Data   RO         8152    .constdata          window.o
-    0x08034d18   0x08034d18   0x0000006a   Data   RO         8253    .constdata          filters.o
-    0x08034d82   0x08034d82   0x00000002   PAD
-    0x08034d84   0x08034d84   0x00000100   Data   RO         8379    .constdata          ltp.o
-    0x08034e84   0x08034e84   0x00000118   Data   RO         8454    .constdata          modes.o
-    0x08034f9c   0x08034f9c   0x000000d8   Data   RO         8527    .constdata          nb_celp.o
-    0x08035074   0x08035074   0x00000780   Data   RO         8742    .constdata          lsp_tables_nb.o
-    0x080357f4   0x080357f4   0x00000017   Data   RO         9204    .constdata          usbd_msc_data.o
-    0x0803580b   0x0803580b   0x00000081   Data   RO         9785    .constdata          mc_w.l(ctype_o.o)
-    0x0803588c   0x0803588c   0x00000004   Data   RO         9786    .constdata          mc_w.l(ctype_o.o)
-    0x08035890   0x08035890   0x0000002c   Data   RO           43    .conststring        main.o
-    0x080358bc   0x080358bc   0x0000004d   Data   RO         6982    .conststring        inv_mpu.o
-    0x08035909   0x08035909   0x00000003   PAD
-    0x0803590c   0x0803590c   0x0000000b   Data   RO         8455    .conststring        modes.o
-    0x08035917   0x08035917   0x00000001   PAD
-    0x08035918   0x08035918   0x00000020   Data   RO         9820    Region$$Table       anon$$obj.o
+    0x08010f70   0x08010f70   0x000011f8   Code   RO           38    i.main              main.o
+    0x08012168   0x08012168   0x0000006c   Code   RO         9645    i.malloc            mc_w.l(malloc.o)
+    0x080121d4   0x080121d4   0x00000024   Code   RO         5778    i.mem_cmp           ff.o
+    0x080121f8   0x080121f8   0x0000001a   Code   RO         5779    i.mem_cpy           ff.o
+    0x08012212   0x08012212   0x00000012   Code   RO         5780    i.mem_set           ff.o
+    0x08012224   0x08012224   0x00000034   Code   RO         5781    i.move_window       ff.o
+    0x08012258   0x08012258   0x00000070   Code   RO         6936    i.mpu_configure_fifo  inv_mpu.o
+    0x080122c8   0x080122c8   0x0000009c   Code   RO         6938    i.mpu_dmp_init      inv_mpu.o
+    0x08012364   0x08012364   0x0000004c   Code   RO         6939    i.mpu_get_accel_fsr  inv_mpu.o
+    0x080123b0   0x080123b0   0x00000054   Code   RO         6941    i.mpu_get_accel_sens  inv_mpu.o
+    0x08012404   0x08012404   0x00000010   Code   RO         6946    i.mpu_get_fifo_config  inv_mpu.o
+    0x08012414   0x08012414   0x00000044   Code   RO         6947    i.mpu_get_gyro_fsr  inv_mpu.o
+    0x08012458   0x08012458   0x00000060   Code   RO         6949    i.mpu_get_gyro_sens  inv_mpu.o
+    0x080124b8   0x080124b8   0x00000050   Code   RO         6951    i.mpu_get_lpf       inv_mpu.o
+    0x08012508   0x08012508   0x00000020   Code   RO         6953    i.mpu_get_sample_rate  inv_mpu.o
+    0x08012528   0x08012528   0x000001f0   Code   RO         6955    i.mpu_init          inv_mpu.o
+    0x08012718   0x08012718   0x000000b8   Code   RO         6956    i.mpu_load_firmware  inv_mpu.o
+    0x080127d0   0x080127d0   0x000000e0   Code   RO         6957    i.mpu_lp_accel_mode  inv_mpu.o
+    0x080128b0   0x080128b0   0x00000080   Code   RO         6961    i.mpu_read_mem      inv_mpu.o
+    0x08012930   0x08012930   0x000001c8   Code   RO         6964    i.mpu_reset_fifo    inv_mpu.o
+    0x08012af8   0x08012af8   0x0000011c   Code   RO         6965    i.mpu_run_self_test  inv_mpu.o
+    0x08012c14   0x08012c14   0x00000084   Code   RO         6967    i.mpu_set_accel_fsr  inv_mpu.o
+    0x08012c98   0x08012c98   0x0000014c   Code   RO         6968    i.mpu_set_bypass    inv_mpu.o
+    0x08012de4   0x08012de4   0x00000090   Code   RO         6970    i.mpu_set_dmp_state  inv_mpu.o
+    0x08012e74   0x08012e74   0x00000088   Code   RO         6971    i.mpu_set_gyro_fsr  inv_mpu.o
+    0x08012efc   0x08012efc   0x0000006c   Code   RO         6972    i.mpu_set_int_latched  inv_mpu.o
+    0x08012f68   0x08012f68   0x00000084   Code   RO         6974    i.mpu_set_lpf       inv_mpu.o
+    0x08012fec   0x08012fec   0x0000009c   Code   RO         6975    i.mpu_set_sample_rate  inv_mpu.o
+    0x08013088   0x08013088   0x000000d0   Code   RO         6976    i.mpu_set_sensors   inv_mpu.o
+    0x08013158   0x08013158   0x00000080   Code   RO         6977    i.mpu_write_mem     inv_mpu.o
+    0x080131d8   0x080131d8   0x000003b8   Code   RO         8243    i.multicomb         filters.o
+    0x08013590   0x08013590   0x0000006c   Code   RO         6456    i.my_mem_free       malloc.o
+    0x080135fc   0x080135fc   0x00000044   Code   RO         6457    i.my_mem_init       malloc.o
+    0x08013640   0x08013640   0x000000a8   Code   RO         6458    i.my_mem_malloc     malloc.o
+    0x080136e8   0x080136e8   0x00000040   Code   RO         6459    i.my_mem_perused    malloc.o
+    0x08013728   0x08013728   0x00000024   Code   RO         6460    i.myfree            malloc.o
+    0x0801374c   0x0801374c   0x00000028   Code   RO         6461    i.mymalloc          malloc.o
+    0x08013774   0x08013774   0x0000001a   Code   RO         6462    i.mymemcpy          malloc.o
+    0x0801378e   0x0801378e   0x00000014   Code   RO         6463    i.mymemset          malloc.o
+    0x080137a2   0x080137a2   0x00000002   PAD
+    0x080137a4   0x080137a4   0x00000044   Code   RO         6464    i.myrealloc         malloc.o
+    0x080137e8   0x080137e8   0x0000103e   Code   RO         8512    i.nb_decode         nb_celp.o
+    0x08014826   0x08014826   0x00000002   PAD
+    0x08014828   0x08014828   0x000001b8   Code   RO         8513    i.nb_decode_lost    nb_celp.o
+    0x080149e0   0x080149e0   0x00000200   Code   RO         8514    i.nb_decoder_ctl    nb_celp.o
+    0x08014be0   0x08014be0   0x00000032   Code   RO         8515    i.nb_decoder_destroy  nb_celp.o
+    0x08014c12   0x08014c12   0x00000002   PAD
+    0x08014c14   0x08014c14   0x0000012c   Code   RO         8516    i.nb_decoder_init   nb_celp.o
+    0x08014d40   0x08014d40   0x00000ee4   Code   RO         8517    i.nb_encode         nb_celp.o
+    0x08015c24   0x08015c24   0x000002a4   Code   RO         8518    i.nb_encoder_ctl    nb_celp.o
+    0x08015ec8   0x08015ec8   0x0000005e   Code   RO         8519    i.nb_encoder_destroy  nb_celp.o
+    0x08015f26   0x08015f26   0x00000002   PAD
+    0x08015f28   0x08015f28   0x00000178   Code   RO         8520    i.nb_encoder_init   nb_celp.o
+    0x080160a0   0x080160a0   0x00000074   Code   RO         7918    i.nb_mode_query     speex.o
+    0x08016114   0x08016114   0x0000005e   Code   RO         8174    i.noise_codebook_quant  cb_search.o
+    0x08016172   0x08016172   0x00000048   Code   RO         8244    i.normalize16       filters.o
+    0x080161ba   0x080161ba   0x0000033e   Code   RO         8372    i.open_loop_nbest_pitch  ltp.o
+    0x080164f8   0x080164f8   0x00000464   Code   RO         8373    i.pitch_gain_search_3tap  ltp.o
+    0x0801695c   0x0801695c   0x00000124   Code   RO         8374    i.pitch_gain_search_3tap_vq  ltp.o
+    0x08016a80   0x08016a80   0x0000029a   Code   RO         8375    i.pitch_search_3tap  ltp.o
+    0x08016d1a   0x08016d1a   0x000001e4   Code   RO         8376    i.pitch_unquant_3tap  ltp.o
+    0x08016efe   0x08016efe   0x00000034   Code   RO         8377    i.pitch_xcorr       ltp.o
+    0x08016f32   0x08016f32   0x00000138   Code   RO         5783    i.put_fat           ff.o
+    0x0801706a   0x0801706a   0x00000002   PAD
+    0x0801706c   0x0801706c   0x00000080   Code   RO         5784    i.put_lfn           ff.o
+    0x080170ec   0x080170ec   0x00000074   Code   RO         6243    i.recoder_new_pathname  fatfs_write_wav.o
+    0x08017160   0x08017160   0x0000004c   Code   RO         6214    i.recoder_wav_init  wav.o
+    0x080171ac   0x080171ac   0x0000000e   Code   RO         6215    i.recoder_wav_update  wav.o
+    0x080171ba   0x080171ba   0x0000009a   Code   RO         5788    i.remove_chain      ff.o
+    0x08017254   0x08017254   0x0000006e   Code   RO         8247    i.residue_percep_zero16  filters.o
+    0x080172c2   0x080172c2   0x0000009a   Code   RO         6978    i.run_self_test     inv_mpu.o
+    0x0801735c   0x0801735c   0x00000042   Code   RO         8248    i.sanitize_values32  filters.o
+    0x0801739e   0x0801739e   0x0000001c   Code   RO         8703    i.scal_quant        vq.o
+    0x080173ba   0x080173ba   0x0000001a   Code   RO         8704    i.scal_quant32      vq.o
+    0x080173d4   0x080173d4   0x00000090   Code   RO         6979    i.set_int_enable    inv_mpu.o
+    0x08017464   0x08017464   0x000000b2   Code   RO         8249    i.signal_div        filters.o
+    0x08017516   0x08017516   0x00000034   Code   RO         8250    i.signal_mul        filters.o
+    0x0801754a   0x0801754a   0x00000020   Code   RO         8521    i.speex_alloc       nb_celp.o
+    0x0801756a   0x0801756a   0x0000000e   Code   RO         8522    i.speex_alloc_scratch  nb_celp.o
+    0x08017578   0x08017578   0x00000034   Code   RO         7536    i.speex_bits_advance  bits.o
+    0x080175ac   0x080175ac   0x00000038   Code   RO         7539    i.speex_bits_init   bits.o
+    0x080175e4   0x080175e4   0x00000026   Code   RO         7541    i.speex_bits_insert_terminator  bits.o
+    0x0801760a   0x0801760a   0x00000002   PAD
+    0x0801760c   0x0801760c   0x00000120   Code   RO         7543    i.speex_bits_pack   bits.o
+    0x0801772c   0x0801772c   0x0000001a   Code   RO         7548    i.speex_bits_remaining  bits.o
+    0x08017746   0x08017746   0x00000010   Code   RO         7549    i.speex_bits_reset  bits.o
+    0x08017756   0x08017756   0x0000005a   Code   RO         7553    i.speex_bits_unpack_unsigned  bits.o
+    0x080177b0   0x080177b0   0x00000052   Code   RO         7554    i.speex_bits_write  bits.o
+    0x08017802   0x08017802   0x00000016   Code   RO         7921    i.speex_decoder_ctl  speex.o
+    0x08017818   0x08017818   0x0000000c   Code   RO         7923    i.speex_decoder_init  speex.o
+    0x08017824   0x08017824   0x00000024   Code   RO         8018    i.speex_default_user_handler  speex_callbacks.o
+    0x08017848   0x08017848   0x0000001a   Code   RO         7924    i.speex_encode_int  speex.o
+    0x08017862   0x08017862   0x00000016   Code   RO         7926    i.speex_encoder_ctl  speex.o
+    0x08017878   0x08017878   0x0000000c   Code   RO         7928    i.speex_encoder_init  speex.o
+    0x08017884   0x08017884   0x0000000e   Code   RO         8523    i.speex_free        nb_celp.o
+    0x08017892   0x08017892   0x0000000e   Code   RO         8524    i.speex_free_scratch  nb_celp.o
+    0x080178a0   0x080178a0   0x00000066   Code   RO         8019    i.speex_inband_handler  speex_callbacks.o
+    0x08017906   0x08017906   0x00000002   PAD
+    0x08017908   0x08017908   0x00000030   Code   RO         8525    i.speex_rand        nb_celp.o
+    0x08017938   0x08017938   0x00000012   Code   RO         7556    i.speex_realloc     bits.o
+    0x0801794a   0x0801794a   0x00000002   PAD
+    0x0801794c   0x0801794c   0x000005f8   Code   RO         8176    i.split_cb_search_shape_sign  cb_search.o
+    0x08017f44   0x08017f44   0x000000de   Code   RO         8177    i.split_cb_shape_sign_unquant  cb_search.o
+    0x08018022   0x08018022   0x00000056   Code   RO         7852    i.spx_acos          lsp.o
+    0x08018078   0x08018078   0x00000096   Code   RO         7853    i.spx_cos           lsp.o
+    0x0801810e   0x0801810e   0x0000008a   Code   RO         7854    i.spx_sqrt          lsp.o
+    0x08018198   0x08018198   0x0000008a   Code   RO         8251    i.spx_sqrt          filters.o
+    0x08018222   0x08018222   0x0000008a   Code   RO         8378    i.spx_sqrt          ltp.o
+    0x080182ac   0x080182ac   0x0000008a   Code   RO         8526    i.spx_sqrt          nb_celp.o
+    0x08018336   0x08018336   0x00000024   Code   RO         5789    i.st_clust          ff.o
+    0x0801835a   0x0801835a   0x00000018   Code   RO         5790    i.st_dword          ff.o
+    0x08018372   0x08018372   0x0000000c   Code   RO         5791    i.st_word           ff.o
+    0x0801837e   0x0801837e   0x00000002   PAD
+    0x08018380   0x08018380   0x00000044   Code   RO         6244    i.start_recoder     fatfs_write_wav.o
+    0x080183c4   0x080183c4   0x00000038   Code   RO         6245    i.stop_recoder      fatfs_write_wav.o
+    0x080183fc   0x080183fc   0x00000020   Code   RO         5792    i.sum_sfn           ff.o
+    0x0801841c   0x0801841c   0x00000090   Code   RO         5793    i.sync_fs           ff.o
+    0x080184ac   0x080184ac   0x00000052   Code   RO         5794    i.sync_window       ff.o
+    0x080184fe   0x080184fe   0x00000002   PAD
+    0x08018500   0x08018500   0x0000026c   Code   RO         6246    i.tick_recoder      fatfs_write_wav.o
+    0x0801876c   0x0801876c   0x0000003c   Code   RO         5795    i.validate          ff.o
+    0x080187a8   0x080187a8   0x000000c8   Code   RO           39    i.wav_recorder      main.o
+    0x08018870   0x08018870   0x000000cc   Code   RO           40    i.wifi_link_check   main.o
+    0x0801893c   0x0801893c   0x00000128   Code   RO           41    i.wifi_update_bindname  main.o
+    0x08018a64   0x08018a64   0x0000011e   Code   RO         6397    i.write_buffer_data  ringbuffer.o
+    0x08018b82   0x08018b82   0x00000002   PAD
+    0x08018b84   0x08018b84   0x00000040   Code   RO         6247    i.write_speex_file  fatfs_write_wav.o
+    0x08018bc4   0x08018bc4   0x00000040   Code   RO         6248    i.write_wav_file    fatfs_write_wav.o
+    0x08018c04   0x08018c04   0x00000014   Data   RO          592    .constdata          sd_diskio.o
+    0x08018c18   0x08018c18   0x00000024   Data   RO         1061    .constdata          usbd_storage_if.o
+    0x08018c3c   0x08018c3c   0x00000008   Data   RO         4846    .constdata          stm32f4xx_hal_dma.o
+    0x08018c44   0x08018c44   0x00000018   Data   RO         5639    .constdata          system_stm32f4xx.o
+    0x08018c5c   0x08018c5c   0x0000002a   Data   RO         5797    .constdata          ff.o
+    0x08018c86   0x08018c86   0x0001a8ae   Data   RO         6187    .constdata          cc950.o
+    0x08033534   0x08033534   0x00000024   Data   RO         6470    .constdata          malloc.o
+    0x08033558   0x08033558   0x00000818   Data   RO         6563    .constdata          oled.o
+    0x08033d70   0x08033d70   0x0000000a   Data   RO         6752    .constdata          24l01.o
+    0x08033d7a   0x08033d7a   0x00000002   PAD
+    0x08033d7c   0x08033d7c   0x00000050   Data   RO         6981    .constdata          inv_mpu.o
+    0x08033dcc   0x08033dcc   0x00000bf6   Data   RO         7295    .constdata          inv_mpu_dmp_motion_driver.o
+    0x080349c2   0x080349c2   0x00000140   Data   RO         7784    .constdata          exc_10_32_table.o
+    0x08034b02   0x08034b02   0x00000080   Data   RO         7791    .constdata          gain_table_lbr.o
+    0x08034b82   0x08034b82   0x000001a6   Data   RO         8152    .constdata          window.o
+    0x08034d28   0x08034d28   0x0000006a   Data   RO         8253    .constdata          filters.o
+    0x08034d92   0x08034d92   0x00000002   PAD
+    0x08034d94   0x08034d94   0x00000100   Data   RO         8379    .constdata          ltp.o
+    0x08034e94   0x08034e94   0x00000118   Data   RO         8454    .constdata          modes.o
+    0x08034fac   0x08034fac   0x000000d8   Data   RO         8527    .constdata          nb_celp.o
+    0x08035084   0x08035084   0x00000780   Data   RO         8742    .constdata          lsp_tables_nb.o
+    0x08035804   0x08035804   0x00000017   Data   RO         9204    .constdata          usbd_msc_data.o
+    0x0803581b   0x0803581b   0x00000081   Data   RO         9785    .constdata          mc_w.l(ctype_o.o)
+    0x0803589c   0x0803589c   0x00000004   Data   RO         9786    .constdata          mc_w.l(ctype_o.o)
+    0x080358a0   0x080358a0   0x0000002c   Data   RO           43    .conststring        main.o
+    0x080358cc   0x080358cc   0x0000004d   Data   RO         6982    .conststring        inv_mpu.o
+    0x08035919   0x08035919   0x00000003   PAD
+    0x0803591c   0x0803591c   0x0000000b   Data   RO         8455    .conststring        modes.o
+    0x08035927   0x08035927   0x00000001   PAD
+    0x08035928   0x08035928   0x00000020   Data   RO         9820    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08035938, Size: 0x0001e390, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x000000f0])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08035948, Size: 0x0001e390, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x000000f0])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -6438,7 +6438,7 @@ Image component sizes
       2196         12          0          0          0       9365   lsp.o
          0          0       1920          0          0        680   lsp_tables_nb.o
       4160         10        256          0          0      15399   ltp.o
-     12788       1842         44         71       4648     516994   main.o
+     12804       1840         44         71       4648     517010   main.o
        598         64         36         36    1153280       8533   malloc.o
          0          0        291          0          0       6879   modes.o
        608          0          0          0          0       6287   mpu6050.o
@@ -6489,7 +6489,7 @@ Image component sizes
          0          0        422          0          0        676   window.o
 
     ----------------------------------------------------------------------
-     98560       4752     118359        568    1232964    1123425   Object Totals
+     98576       4750     118359        568    1232964    1123441   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         98          0          8         17          4          0   (incl. Padding)
 
@@ -6550,15 +6550,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-    100956       4866     118492        588    1232964    1060841   Grand Totals
-    100956       4866     118492        240    1232964    1060841   ELF Image Totals (compressed)
-    100956       4866     118492        240          0          0   ROM Totals
+    100972       4864     118492        588    1232964    1060857   Grand Totals
+    100972       4864     118492        240    1232964    1060857   ELF Image Totals (compressed)
+    100972       4864     118492        240          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)               219448 ( 214.30kB)
+    Total RO  Size (Code + RO Data)               219464 ( 214.32kB)
     Total RW  Size (RW Data + ZI Data)           1233552 (1204.64kB)
-    Total ROM Size (Code + RO Data + RW Data)     219688 ( 214.54kB)
+    Total ROM Size (Code + RO Data + RW Data)     219704 ( 214.55kB)
 
 ==============================================================================
 

@@ -1522,6 +1522,10 @@ int main(void)
 	//////////////////////////////////////////////////
 	//wifi
 	wifi:
+	recv_wifi[0] = 0;
+	recv_pass[0] = 0;
+	recv_ip[0] = 0;
+	recv_port[0] = 0;
 	OLED_Clear( );
 	HAL_Delay(10);
 	OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
