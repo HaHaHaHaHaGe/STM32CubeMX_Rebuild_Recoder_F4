@@ -2368,7 +2368,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 		else if(WavFlag == 0x80 && GadFlag == 0x80)    //正在录音提示
 		{
 			timecnt++;
-			if((timecnt%8000)==0)
+			if((timecnt%10)==0)
 			{
 					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
 

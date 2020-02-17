@@ -95,8 +95,7 @@ unsigned char create_speex_file(char*filename)
 unsigned char write_speex_file(unsigned char*wavdata,unsigned int len)
 {
 	retSD = f_write(&speex_file, wavdata, len, &bw);
-	f_close(&speex_file);
-	retSD = f_open(&speex_file, filepath2,  FA_OPEN_APPEND | FA_WRITE | FA_READ);
+	f_sync(&speex_file);
 	return retSD;
 }
 unsigned char close_speex_file()
