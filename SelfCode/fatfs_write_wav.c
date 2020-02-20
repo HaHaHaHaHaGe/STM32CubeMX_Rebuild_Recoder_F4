@@ -125,16 +125,16 @@ unsigned char initial_recoder(char*filename,unsigned int fs)
 	while(*filename)
 		*(file_ptr++) = *(filename++);
 	*(file_ptr++) = '.';
-	*(file_ptr++) = 'w';
-	*(file_ptr++) = 'a';
-	*(file_ptr++) = 'v';
-	*(file_ptr) = 0;
-	htim3.Instance->ARR = (96000000/fs) - 1;
+//	*(file_ptr++) = 'w';
+//	*(file_ptr++) = 'a';
+//	*(file_ptr++) = 'v';
+//	*(file_ptr) = 0;
+//	htim3.Instance->ARR = (96000000/fs) - 1;
 	initial_buffer(&buffer,YES,25*1024);
-	retSD = create_wav_file(init_file,fs);
-	if(retSD != FR_OK)
-		return retSD;
-	file_ptr -= 3;
+//	retSD = create_wav_file(init_file,fs);
+//	if(retSD != FR_OK)
+//		return retSD;
+//	file_ptr -= 3;
 	*(file_ptr++) = 'w';
 	*(file_ptr++) = 'z';
 	*(file_ptr++) = 'r';
@@ -150,10 +150,10 @@ u8 stop_recoder()
 	u8 wav_res,speex_res;
 	HAL_ADC_Stop_DMA(&hadc1);
 	HAL_TIM_Base_Stop(&htim3);
-	wav_res = close_wav_file();
+	//wav_res = close_wav_file();
 	speex_res = close_speex_file();
 	deinitial_buffer(&buffer);
-	return wav_res || speex_res;
+	return speex_res;
 }
 
 
@@ -205,7 +205,7 @@ void tick_recoder()
 //			speex_encode_int(enc_state, (spx_int16_t*)data_1, &bits);
 //			/* Copy the bits to an array of char that can be decoded */
 //			speex_bits_write(&bits, (char *)out_bytes, ENCODED_FRAME_SIZE);
-			write_wav_file(data_1,data1_len);
+			//write_wav_file(data_1,data1_len);
 		}
 		if(data2_len != 0)
 		{
@@ -222,7 +222,7 @@ void tick_recoder()
 //			speex_encode_int(enc_state, (spx_int16_t*)data_2, &bits);
 //			/* Copy the bits to an array of char that can be decoded */
 //			speex_bits_write(&bits, (char *)out_bytes, ENCODED_FRAME_SIZE);
-			write_wav_file(data_2,data2_len);
+			//write_wav_file(data_2,data2_len);
 		}
 		Encoder_Flag = 0;
 		//speex_bits_reset(&bits);
@@ -266,7 +266,7 @@ void recoder_new_pathname(char *pname)
 	u16 index=0;
 	while(index<0XFFFF)
 	{
-		sprintf((char*)pname,"0:RECORDER/REC%05d.wav",index);
+		sprintf((char*)pname,"0:RECORDER/REC%05d.wzr",index);
 		res=f_open(&wav_file,(const TCHAR*)pname,FA_READ);//尝试打开这个文件
 		f_close(&wav_file);
 		if(res==FR_NO_FILE)
