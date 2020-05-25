@@ -56,6 +56,7 @@
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
 #include "wav.h"
+#include "gt20.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -966,7 +967,8 @@ void RF_Command_Check()
 				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 				OLED_ShowString(0,4,"Name:",16);
 					if(FLASH_DATA.BIND_NAME[0] != 0xff)
-						OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+						display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+						//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			}
 			ClearBuffer(Buffer,sizeof(Buffer));
 			return;
@@ -1168,7 +1170,8 @@ void RF_Command_Check()
 				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 				OLED_ShowString(0,4,"Name:",16);
 			if(FLASH_DATA.BIND_NAME[0] != 0xff)
-				OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+				display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+				//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			ClearBuffer(Buffer,sizeof(Buffer));
 			return;
 		}
@@ -1218,7 +1221,8 @@ void RF_Command_Check()
 				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 				OLED_ShowString(0,4,"Name:",16);
 				if(FLASH_DATA.BIND_NAME[0] != 0xff)
-					OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+					display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+					//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 			}
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 		}
@@ -1320,8 +1324,13 @@ int main(void)
 	USART2_UART_Init(921600);
 	HAL_UART_Receive_IT(&huart2,UART_BUFFER,sizeof(UART_BUFFER));
 	//HAL_UART_Transmit(&huart2,"AT+CIPSTATUS\r\n",14,100);
+	GT20_Init();
 	OLED_Init( );	 
 	OLED_Clear( );
+	
+	//display_GB2312_string(2,56,"АЁет");
+	//while(1);
+	
 	OLED_ShowString(0,0,(unsigned char*)"Check NRF24L01..",16);
 	NRF24L01_Init();
 	while(NRF24L01_Check())
@@ -2135,7 +2144,8 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	OLED_ShowString(0,4,"Name:",16);
 
 	if(FLASH_DATA.BIND_NAME[0] != 0xff)
-		OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+		display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+		//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
 	
 	
 	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
@@ -2249,7 +2259,8 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 						OLED_ShowString(0,2,"ID:",16);
 						OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 						OLED_ShowString(0,4,"Name:",16);
-						OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+						//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+						display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
 					}
 				}
 				if(*(str1 + 6)=='B' && *(str1 + 7)=='e' && *(str1 + 8)=='g' && *(str1 + 9)=='i' && *(str1 + 10)=='n')
@@ -2325,7 +2336,8 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				OLED_ShowString(0,2,"ID:",16);
 				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
 				OLED_ShowString(0,4,"Name:",16);
-				OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
+				//OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
+				display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
 				MX_USB_DEVICE_Init();
 			}
 		}
@@ -2776,6 +2788,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, LED1_Pin|LED2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GT20_CSN_GPIO_Port, GT20_CSN_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, PWR_CTL_Pin|OLED_SCL_Pin|OLED_SDA_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
@@ -2793,6 +2808,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(KEY_FLAG_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : GT20_CSN_Pin */
+  GPIO_InitStruct.Pin = GT20_CSN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(GT20_CSN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PWR_CTL_Pin OLED_SCL_Pin OLED_SDA_Pin */
   GPIO_InitStruct.Pin = PWR_CTL_Pin|OLED_SCL_Pin|OLED_SDA_Pin;

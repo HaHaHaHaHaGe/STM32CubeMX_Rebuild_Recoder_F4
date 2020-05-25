@@ -73,3 +73,4 @@ radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\mpu6050.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\IIC\myiic.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\eMPL\inv_mpu.h
 radio_rebuild_stm32cubemx\main.o: ..\SelfCode\MPU6050\eMPL\inv_mpu_dmp_motion_driver.h
+radio_rebuild_stm32cubemx\main.o: ..\SelfCode\GT20\gt20.h

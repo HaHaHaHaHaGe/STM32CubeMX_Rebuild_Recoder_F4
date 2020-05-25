@@ -86,6 +86,8 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 #define KEY_FLAG_GPIO_Port GPIOA
 #define MIC_Pin GPIO_PIN_1
 #define MIC_GPIO_Port GPIOA
+#define GT20_CSN_Pin GPIO_PIN_4
+#define GT20_CSN_GPIO_Port GPIOA
 #define NRF_SCK_Pin GPIO_PIN_5
 #define NRF_SCK_GPIO_Port GPIOA
 #define NRF_MOSI_Pin GPIO_PIN_7
