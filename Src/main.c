@@ -1251,6 +1251,20 @@ void RF_Command_Check()
 		}
 }
 
+void PVD_Init(void)
+{
+	__HAL_RCC_PWR_CLK_ENABLE();
+	PWR_PVDTypeDef PWR_PVDStruct;
+	
+	PWR_PVDStruct.PVDLevel = PWR_PVDLEVEL_7; // 2.9V
+	PWR_PVDStruct.Mode = PWR_PVD_MODE_IT_RISING_FALLING; //降至阈值电压时触发
+
+	HAL_PWR_ConfigPVD(&PWR_PVDStruct);
+	
+	HAL_NVIC_SetPriority(PVD_IRQn,4,0);
+  HAL_NVIC_EnableIRQ(PVD_IRQn);
+	HAL_PWR_EnablePVD();
+}
 
 
 
@@ -1312,6 +1326,7 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+	PVD_Init();
 	my_mem_init(0);
 	Speex_Init();
 	HAL_TIM_Base_Start_IT(&htim2);
