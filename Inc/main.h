@@ -74,7 +74,8 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position);
+int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position);
+unsigned char wifi_link_server();
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

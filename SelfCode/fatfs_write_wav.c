@@ -130,7 +130,7 @@ unsigned char initial_recoder(char*filename,unsigned int fs)
 //	*(file_ptr++) = 'v';
 //	*(file_ptr) = 0;
 //	htim3.Instance->ARR = (96000000/fs) - 1;
-	initial_buffer(&buffer,YES,25*1024);
+	initial_buffer(&buffer,YES,20*1024);
 //	retSD = create_wav_file(init_file,fs);
 //	if(retSD != FR_OK)
 //		return retSD;
@@ -157,12 +157,13 @@ u8 stop_recoder()
 }
 
 
-unsigned char rdata[1024*20];
+unsigned char rdata[1024*10];
 unsigned int rdata_len = 0;
 unsigned int wdata_len = 0;
 
-unsigned char recoder_outdata[1024*10];
+unsigned char recoder_outdata[1024*34];
 unsigned int recoder_out_data_loc = 0;
+
 
 unsigned int rd_i;
 
@@ -172,8 +173,21 @@ unsigned char Encoder_Flag = 0;
 unsigned char AM_Factor = 0;
 
 
+unsigned char speexdata_30kb_flag = 0;
+unsigned char speexdata_60kb_flag = 0;
+unsigned char speexdata_wifisend_flag = 0;
+unsigned char wifi_send_buffer[1024];
+unsigned int wifi_send_location = 0;
+unsigned int wifi_send_end = 0;
+int wifi_send_NoErrorPackeg_num = 0;
 void start_recoder()
 {
+	wifi_send_NoErrorPackeg_num = 0;
+	speexdata_wifisend_flag = 0;
+	wifi_send_end = 0;
+	wifi_send_location = 0;
+	speexdata_60kb_flag = 0;
+	speexdata_30kb_flag = 0;
 	speexdata_len = 0;
 	rdata_len = 0;
 	wdata_len = 0;
@@ -247,12 +261,140 @@ void tick_recoder()
 
 			wdata_len = (wdata_len - rdata_len);
 			rdata_len = 0;
-			SendspeexData_and_FixWifiData(recoder_outdata,recoder_out_data_loc,speexdata_len);
-			speexdata_len += recoder_out_data_loc;
-			write_speex_file(recoder_outdata,recoder_out_data_loc);
-			recoder_out_data_loc = 0;
+			
+//			SendspeexData_and_FixWifiData(recoder_outdata,recoder_out_data_loc,speexdata_len);
+//			speexdata_len += recoder_out_data_loc;
+//			write_speex_file(recoder_outdata,recoder_out_data_loc);
+//			recoder_out_data_loc = 0;
 			
 		}
+		if(recoder_out_data_loc >= 30*1024)
+		{
+			if(speexdata_30kb_flag == 0)
+			{
+				speexdata_30kb_flag = 1;
+			}
+			else
+			{
+				speexdata_60kb_flag = 1;
+				speexdata_30kb_flag = 0;
+				wifi_send_location = speexdata_len - 30*1024;
+				wifi_send_end = speexdata_len + 30*1024;
+				
+			}
+			write_speex_file(recoder_outdata,recoder_out_data_loc);
+			speexdata_len += recoder_out_data_loc;
+			recoder_out_data_loc = 0;
+			
+//			SendspeexData_and_FixWifiData(recoder_outdata,recoder_out_data_loc,speexdata_len);
+//			speexdata_len += recoder_out_data_loc;
+//			write_speex_file(recoder_outdata,recoder_out_data_loc);
+//			recoder_out_data_loc = 0;
+		}
+		if(speexdata_60kb_flag == 1)
+		{
+			if(wifi_link_server() == 1)
+			{
+				speexdata_60kb_flag = 0;
+				speexdata_wifisend_flag = 1;
+			}
+		}
+		if(speexdata_wifisend_flag == 1)
+		{
+			f_lseek(&speex_file,wifi_send_location);
+			f_read(&speex_file,wifi_send_buffer,1024,&br);
+			unsigned char flag;
+			if(wifi_send_location < wifi_send_end)
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+			else
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
+			if(flag == 1)
+			{
+				wifi_send_NoErrorPackeg_num = 0;
+				wifi_send_location+=1024;
+			}
+			else if(flag == 2)
+				wifi_send_NoErrorPackeg_num++;
+			else
+				wifi_send_NoErrorPackeg_num = 0;
+			f_lseek(&speex_file,speexdata_len);
+			
+			if(wifi_send_location >= wifi_send_end && wifi_send_NoErrorPackeg_num >= 10000)
+			{
+				speexdata_wifisend_flag = 0;
+			}
+		}
+		
+}
+
+
+void end_recoder()
+{
+	wifi_send_NoErrorPackeg_num = 0;
+	while(wifi_link_server() != 1);
+		while(speexdata_wifisend_flag == 1)
+		{
+			f_lseek(&speex_file,wifi_send_location);
+			f_read(&speex_file,wifi_send_buffer,1024,&br);
+			unsigned char flag;
+			if(wifi_send_location < wifi_send_end)
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+			else
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
+			if(flag == 1)
+			{
+				wifi_send_NoErrorPackeg_num = 0;
+				wifi_send_location+=1024;
+			}
+			else if(flag == 2)
+				wifi_send_NoErrorPackeg_num++;
+			else
+				wifi_send_NoErrorPackeg_num = 0;
+			f_lseek(&speex_file,speexdata_len);
+			
+			if(wifi_send_location >= wifi_send_end && wifi_send_NoErrorPackeg_num >= 10000)
+			{
+				speexdata_wifisend_flag = 0;
+			}
+		}
+	
+	
+	
+	
+	
+	write_speex_file(recoder_outdata,recoder_out_data_loc);
+	speexdata_len += recoder_out_data_loc;
+	if(speexdata_30kb_flag == 0)
+	{
+		wifi_send_location = speexdata_len - recoder_out_data_loc;
+	}
+	if(speexdata_30kb_flag == 1)
+	{
+		wifi_send_location = speexdata_len - (recoder_out_data_loc + 30 * 1024);
+	}
+	//while(wifi_link_server() != 1);
+	wifi_send_NoErrorPackeg_num = 0;
+	while(wifi_send_NoErrorPackeg_num < 10000)
+	{
+		f_lseek(&speex_file,wifi_send_location);
+		f_read(&speex_file,wifi_send_buffer,1024,&br);
+		unsigned char flag;
+		if(wifi_send_location < speexdata_len)
+			flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+		else
+			flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
+		if(flag == 1)
+		{
+			wifi_send_NoErrorPackeg_num = 0;
+			wifi_send_location+=1024;
+		}
+		else if(flag == 2)
+			wifi_send_NoErrorPackeg_num++;
+		else
+			wifi_send_NoErrorPackeg_num = 0;
+	}
+	f_lseek(&speex_file,speexdata_len);
+	
 }
 
 

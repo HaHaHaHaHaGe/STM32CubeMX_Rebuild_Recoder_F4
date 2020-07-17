@@ -334,9 +334,27 @@ void wifi_link_check()
 	else
 		wifi_link_check_int = 0;
 }
-					
+
+unsigned char wifi_link_server()
+{
+
+		if(wifi_link_check_int % 3000 == 0)
+		{
+			printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",FLASH_DATA.SERVER_IP,FLASH_DATA.SERVER_PORT);
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+		}
+		if(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) != -1)
+		{
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+			wifi_link_check_int = 0;
+			return 1;
+		}
+		
+		wifi_link_check_int++;
+		return 0;
+}
 	//录音 I2S_DMA接收中断服务函数.在中断里面写入数据
-void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position) 
+int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,unsigned int begin_position) 
 {    
 	u16 bw;
 	u8 res;
@@ -433,6 +451,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					UARTSendData(&((u8*)&datasum)[0],1);
 					
 					UARTSendData(BordID,12);
+					 
 					
 					UARTSendData(&((u8*)&PackegStart)[3],1);
 					UARTSendData(&((u8*)&PackegStart)[2],1);
@@ -466,7 +485,15 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					datasum = 0;
 					ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 					f_lseek(&speex_file,speexdata_len);
-					return;
+					
+					i = 0;
+					while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 80)
+					{
+						HAL_Delay(5);
+						i++;
+					}
+					
+					return 0;
 				}
 			}
 		}
@@ -474,7 +501,7 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 		
 		
 		
-		if(wifi_link_check_int == 0)
+		if(wifi_link_check_int == 0 && writesize > 0)
 		{
 			//writesize = secondcache_write_loc - secondcache_read_loc;
 			//res=f_write(f_rec,&secondcache[secondcache_read_loc],writesize,(UINT*)&bw);//写入文件
@@ -528,12 +555,26 @@ void SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,un
 					UARTSendData(&((u8*)&Real_Time_Millise_STOP)[0],1);
 			
 			UARTSendData(data,writesize);
-
+			
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+			i = 0;
+			while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 80)
+			{
+				HAL_Delay(5);
+				i++;
+			}
+			return 1;
 		}
 
 	} 
+	return 2;
 
 }				
+
+void DataTransform()
+{
+	
+}
 
 
 
@@ -732,6 +773,7 @@ u8 wav_recorder(u8 key,u32 fs)
 					if(rec_sta&0X80)//有录音
 					{
 						rec_sta=0;	//关闭录音
+						end_recoder();
 						DataCheck();
 						stop_recoder();
 					}
@@ -2183,7 +2225,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		wifi_link_check();
+		//wifi_link_check();   //20200705
 		if(NRF24L01_RxPacket(Buffer)==0)
 		{
 			str1 = (u8*)strstr((char *)Buffer,(char *)"CALIB");

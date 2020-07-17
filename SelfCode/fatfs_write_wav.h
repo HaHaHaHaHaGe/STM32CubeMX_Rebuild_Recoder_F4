@@ -13,3 +13,4 @@ void Speex_Init(void);
 unsigned char wav_recorder(unsigned char key,unsigned int fs);
 unsigned char gad_recorder(unsigned char key,unsigned int time,unsigned int fs);
 void recoder_new_pathname(char *pname);
+void end_recoder();
