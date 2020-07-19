@@ -1,0 +1,545 @@
+<html>
+<body>
+<pre>
+<h1>�Vision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.31.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: w zr, none, LIC=GMZI6-DSWTQ-VEAHA-1D0ZA-RG799-XL7GV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.31.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.31.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      Segger\JL2CM3.dll V2.99.38.0
+Dialog DLL:      TCM.DLL V1.46.0.0
+ 
+<h2>Project:</h2>
+D:\github_project\STM32CubeMX_Rebuild_Recoder_F4\MDK-ARM\Radio_Rebuild_Stm32CubeMX.uvprojx
+Project File Date:  07/04/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Radio_Rebuild_Stm32CubeMX'
+assembling startup_stm32f411xe.s...
+compiling usb_device.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/usb_device.c: 1 warning, 0 errors
+compiling stm32f4xx_hal_pcd_ex.c...
+compiling stm32f4xx_hal_msp.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/stm32f4xx_hal_msp.c: 1 warning, 0 errors
+compiling fatfs.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/fatfs.c: 1 warning, 0 errors
+compiling stm32f4xx_hal_mmc.c...
+compiling bsp_driver_sd.c...
+../Src/bsp_driver_sd.c(125): warning:  #223-D: function "Error_Handler" declared implicitly
+        Error_Handler();
+../Src/bsp_driver_sd.c(167): warning:  #223-D: function "Error_Handler" declared implicitly
+        Error_Handler();
+../Src/bsp_driver_sd.c: 2 warnings, 0 errors
+compiling stm32f4xx_hal_pcd.c...
+compiling usbd_storage_if.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/usbd_storage_if.c: 1 warning, 0 errors
+compiling stm32f4xx_it.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/stm32f4xx_it.c(524): warning:  #550-D: variable "rec"  was set but never used
+  	HAL_StatusTypeDef rec;
+../Src/stm32f4xx_it.c(541): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,0);
+../Src/stm32f4xx_it.c: 3 warnings, 0 errors
+compiling usbd_desc.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/usbd_desc.c: 1 warning, 0 errors
+compiling sd_diskio.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/sd_diskio.c: 1 warning, 0 errors
+compiling usbd_conf.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Src/usbd_conf.c: 1 warning, 0 errors
+compiling stm32f4xx_hal_adc.c...
+compiling stm32f4xx_ll_usb.c...
+compiling main.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\fatfs_write_wav.h(16): warning:  #1295-D: Deprecated declaration end_recoder - give arg types
+  void end_recoder();
+../Src/main.c(236): warning:  #186-D: pointless comparison of unsigned integer with zero
+  	if(ch >= 0 && ch <= 9)
+../Src/main.c(298): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,0);
+../Src/main.c(453): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  					UARTSendData(BordID,12);
+../Src/main.c(540): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  			UARTSendData(BordID,12);
+../Src/main.c(359): warning:  #177-D: variable "bw"  was declared but never referenced
+  	u16 bw;
+../Src/main.c(360): warning:  #177-D: variable "res"  was declared but never referenced
+  	u8 res;
+../Src/main.c(591): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(592): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(619): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  			UARTSendData(BordID,12);
+../Src/main.c(724): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  					UARTSendData(BordID,12);
+../Src/main.c(588): warning:  #177-D: variable "end"  was declared but never referenced
+  	int start,end;
+../Src/main.c(1158): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1160): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+../Src/main.c(1191): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1193): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(1352): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,1);
+../Src/main.c(1482): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1483): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+../Src/main.c(1533): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1534): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+../Src/main.c(1680): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1682): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+../Src/main.c(1704): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1706): warning:  #188-D: enumerated type mixed with another type
+  		HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(1744): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1745): warning:  #188-D: enumerated type mixed with another type
+  	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+../Src/main.c(1801): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(1802): warning:  #188-D: enumerated type mixed with another type
+  					HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1836): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+../Src/main.c(1837): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1856): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(1857): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1866): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+../Src/main.c(1867): warning:  #188-D: enumerated type mixed with another type
+  						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+../Src/main.c(1961): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  			UARTSendData(BordID,12);
+../Src/main.c(1982): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+  					sprintf(String_Windows_Time,"%0.2d",Real_Time_Month);
+../Src/main.c(1986): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+  				sprintf(String_Windows_Time,"%0.2d",Real_Time_Day);
+../Src/main.c(1990): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+  				sprintf(String_Windows_Time,"%0.2d",Real_Time_Hour);
+../Src/main.c(1995): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+  				sprintf(String_Windows_Time,"%0.2d",Real_Time_Minute);
+../Src/main.c(1999): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+  				sprintf(String_Windows_Time,"%0.2d",Real_Time_Second);
+../Src/main.c(2026): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+  					UARTSendData(BordID,12);
+../Src/main.c(1322): warning:  #177-D: variable "bw2"  was declared but never referenced
+  	UINT bw2;
+../Src/main.c(1323): warning:  #177-D: variable "presskeyvalue"  was declared but never referenced
+  	u8 presskeyvalue = 1;
+../Src/main.c(1326): warning:  #177-D: variable "connectstate"  was declared but never referenced
+  	u8 connectstate = 0;
+../Src/main.c(1333): warning:  #177-D: variable "config"  was declared but never referenced
+  	FIL config;
+../Src/main.c(1334): warning:  #177-D: variable "conres"  was declared but never referenced
+  	FRESULT conres;
+../Src/main.c(1724): warning:  #177-D: label "main_start"  was declared but never referenced
+  	main_start:
+../Src/main.c(2307): warning:  #177-D: function "MX_USART2_UART_Init"  was declared but never referenced
+  static void MX_USART2_UART_Init(void)
+../Src/main.c: 50 warnings, 0 errors
+compiling stm32f4xx_ll_sdmmc.c...
+compiling stm32f4xx_hal_adc_ex.c...
+compiling stm32f4xx_hal_sd.c...
+compiling stm32f4xx_hal_tim_ex.c...
+compiling stm32f4xx_hal_spi.c...
+compiling stm32f4xx_hal_gpio.c...
+compiling stm32f4xx_hal_flash_ramfunc.c...
+compiling stm32f4xx_hal_tim.c...
+compiling stm32f4xx_hal_uart.c...
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling stm32f4xx_hal_flash_ex.c...
+compiling stm32f4xx_hal_dma.c...
+compiling stm32f4xx_hal_flash.c...
+compiling wav.c...
+compiling basic_function.c...
+compiling stm32f4xx_hal_dma_ex.c...
+compiling ringbuffer.c...
+compiling malloc.c...
+compiling stm32f4xx_hal_rcc.c...
+compiling stm32f4xx_hal_pwr.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal_pwr_ex.c...
+compiling stm32f4xx_hal.c...
+compiling stm32f4xx_hal_exti.c...
+compiling diskio.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/Third_Party/FatFs/src/diskio.c: 1 warning, 0 errors
+compiling oled.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\OLED\oled.c(54): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SCLK_Set();		
+..\SelfCode\OLED\oled.c(56): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SDIN_Set();
+..\SelfCode\OLED\oled.c(58): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SDIN_Clr();
+..\SelfCode\OLED\oled.c(60): warning:  #188-D: enumerated type mixed with another type
+    OLED_SCLK_Clr();
+..\SelfCode\OLED\oled.c(69): warning:  #188-D: enumerated type mixed with another type
+  OLED_SCLK_Set() ;
+..\SelfCode\OLED\oled.c(72): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SDIN_Clr();
+..\SelfCode\OLED\oled.c(74): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SDIN_Set();
+..\SelfCode\OLED\oled.c(98): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SCLK_Set() ;
+..\SelfCode\OLED\oled.c(100): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SCLK_Clr();
+..\SelfCode\OLED\oled.c(112): warning:  #188-D: enumerated type mixed with another type
+  	OLED_SCLK_Clr();
+..\SelfCode\OLED\oled.c(120): warning:  #188-D: enumerated type mixed with another type
+  		{OLED_SDIN_Set();}
+..\SelfCode\OLED\oled.c(121): warning:  #188-D: enumerated type mixed with another type
+  		else OLED_SDIN_Clr();
+..\SelfCode\OLED\oled.c(124): warning:  #188-D: enumerated type mixed with another type
+  		OLED_SCLK_Set();
+..\SelfCode\OLED\oled.c(126): warning:  #188-D: enumerated type mixed with another type
+  		OLED_SCLK_Clr();
+..\SelfCode\OLED\oled.c: 15 warnings, 0 errors
+compiling syscall.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/Third_Party/FatFs/src/option/syscall.c: 1 warning, 0 errors
+compiling system_stm32f4xx.c...
+compiling stmflash.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\STMFLASH\stmflash.c(38): warning:  #550-D: variable "recv"  was set but never used
+  	HAL_StatusTypeDef recv;
+..\SelfCode\STMFLASH\stmflash.c: 2 warnings, 0 errors
+compiling exc_10_32_table.c...
+compiling gain_table_lbr.c...
+compiling 24l01.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\NRF24L01\24l01.c(35): warning:  #188-D: enumerated type mixed with another type
+  	NRF24L01_CE(0); 			//ʹ��24L01
+..\SelfCode\NRF24L01\24l01.c(36): warning:  #188-D: enumerated type mixed with another type
+  	NRF24L01_CSN(1);			//SPIƬѡȡ��	 		 	 
+..\SelfCode\NRF24L01\24l01.c(66): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(0);                 //ʹ��SPI����
+..\SelfCode\NRF24L01\24l01.c(69): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(1);                 //��ֹSPI����	   
+..\SelfCode\NRF24L01\24l01.c(77): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(0);          //ʹ��SPI����		
+..\SelfCode\NRF24L01\24l01.c(80): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(1);          //��ֹSPI����		    
+..\SelfCode\NRF24L01\24l01.c(91): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(0);           //ʹ��SPI����
+..\SelfCode\NRF24L01\24l01.c(94): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(1);       //����SPI����
+..\SelfCode\NRF24L01\24l01.c(105): warning:  #188-D: enumerated type mixed with another type
+   	NRF24L01_CSN(0);          //ʹ��SPI����
+..\SelfCode\NRF24L01\24l01.c(108): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CSN(1);       //����SPI����
+..\SelfCode\NRF24L01\24l01.c(118): warning:  #188-D: enumerated type mixed with another type
+  	NRF24L01_CE(0);
+..\SelfCode\NRF24L01\24l01.c(120): warning:  #188-D: enumerated type mixed with another type
+   	NRF24L01_CE(1);//��������	   
+..\SelfCode\NRF24L01\24l01.c(157): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CE(0);	  
+..\SelfCode\NRF24L01\24l01.c(166): warning:  #188-D: enumerated type mixed with another type
+    NRF24L01_CE(1); //CEΪ��,��������ģʽ 
+..\SelfCode\NRF24L01\24l01.c(175): warning:  #188-D: enumerated type mixed with another type
+  	NRF24L01_CE(0);	    
+..\SelfCode\NRF24L01\24l01.c(185): warning:  #188-D: enumerated type mixed with another type
+  	NRF24L01_CE(1);//CEΪ��,10us����������
+..\SelfCode\NRF24L01\24l01.c: 17 warnings, 0 errors
+compiling ff_gen_drv.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c: 1 warning, 0 errors
+compiling high_lsp_tables.c...
+compiling cc950.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/Third_Party/FatFs/src/option/cc950.c: 1 warning, 0 errors
+compiling fatfs_write_wav.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\fatfs_write_wav.h(16): warning:  #1295-D: Deprecated declaration end_recoder - give arg types
+  void end_recoder();
+..\SelfCode\fatfs_write_wav.c(150): warning:  #177-D: variable "wav_res"  was declared but never referenced
+  	u8 wav_res,speex_res;
+..\SelfCode\fatfs_write_wav.c: 3 warnings, 0 errors
+compiling ff.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/Third_Party/FatFs/src/ff.c: 1 warning, 0 errors
+compiling mpu6050.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\MPU6050\mpu6050.c: 1 warning, 0 errors
+compiling inv_mpu.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\MPU6050\eMPL\inv_mpu.c: 1 warning, 0 errors
+compiling myiic.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\IIC\myiic.c(24): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1);
+..\SelfCode\IIC\myiic.c(25): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(1);
+..\SelfCode\IIC\myiic.c(33): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(1);	  	  
+..\SelfCode\IIC\myiic.c(34): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1);
+..\SelfCode\IIC\myiic.c(36): warning:  #188-D: enumerated type mixed with another type
+   	IIC_SDA(0);//START:when CLK is high,DATA change form high to low 
+..\SelfCode\IIC\myiic.c(38): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);//ǯסI2C������׼���������������� 
+..\SelfCode\IIC\myiic.c(44): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);
+..\SelfCode\IIC\myiic.c(45): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(0);//STOP:when CLK is high DATA change form low to high
+..\SelfCode\IIC\myiic.c(47): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1); 
+..\SelfCode\IIC\myiic.c(48): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(1);//����I2C������������
+..\SelfCode\IIC\myiic.c(58): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(1);delay_us_iic(1);	   
+..\SelfCode\IIC\myiic.c(59): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1);delay_us_iic(1);	 
+..\SelfCode\IIC\myiic.c(69): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);//ʱ������0 	   
+..\SelfCode\IIC\myiic.c(75): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);
+..\SelfCode\IIC\myiic.c(77): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(0);
+..\SelfCode\IIC\myiic.c(79): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1);
+..\SelfCode\IIC\myiic.c(81): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);
+..\SelfCode\IIC\myiic.c(86): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);
+..\SelfCode\IIC\myiic.c(88): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SDA(1);
+..\SelfCode\IIC\myiic.c(90): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(1);
+..\SelfCode\IIC\myiic.c(92): warning:  #188-D: enumerated type mixed with another type
+  	IIC_SCL(0);
+..\SelfCode\IIC\myiic.c(102): warning:  #188-D: enumerated type mixed with another type
+      IIC_SCL(0);//����ʱ����ʼ��������
+..\SelfCode\IIC\myiic.c(105): warning:  #188-D: enumerated type mixed with another type
+          IIC_SDA((txd&0x80)>>7);
+..\SelfCode\IIC\myiic.c(108): warning:  #188-D: enumerated type mixed with another type
+  		IIC_SCL(1);
+..\SelfCode\IIC\myiic.c(110): warning:  #188-D: enumerated type mixed with another type
+  		IIC_SCL(0);	
+..\SelfCode\IIC\myiic.c(121): warning:  #188-D: enumerated type mixed with another type
+          IIC_SCL(0); 
+..\SelfCode\IIC\myiic.c(123): warning:  #188-D: enumerated type mixed with another type
+  		IIC_SCL(1);
+..\SelfCode\IIC\myiic.c: 28 warnings, 0 errors
+compiling gt20.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\GT20\gt20.c(13): warning:  #188-D: enumerated type mixed with another type
+  	GT20_CE(1);
+..\SelfCode\GT20\gt20.c(19): warning:  #188-D: enumerated type mixed with another type
+  	GT20_CE(0);
+..\SelfCode\GT20\gt20.c(26): warning:  #188-D: enumerated type mixed with another type
+  	GT20_CE(1);
+..\SelfCode\GT20\gt20.c(50): warning:  #223-D: function "OLED_ShowCHinese" declared implicitly
+  			OLED_ShowCHinese(x,y,fontbuf);
+..\SelfCode\GT20\gt20.c(68): warning:  #223-D: function "OLED_ShowCHinese" declared implicitly
+  			OLED_ShowCHinese(x,y,fontbuf);
+..\SelfCode\GT20\gt20.c(93): warning:  #1-D: last line of file ends without a newline
+  }
+..\SelfCode\GT20\gt20.c: 7 warnings, 0 errors
+compiling inv_mpu_dmp_motion_driver.c...
+compiling bits.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\bits.c: 1 warning, 0 errors
+compiling window.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\window.c: 1 warning, 0 errors
+compiling lsp_tables_nb.c...
+compiling lpc.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\lpc.c: 1 warning, 0 errors
+compiling lsp.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\lsp.c: 1 warning, 0 errors
+compiling buffer.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\buffer.c: 1 warning, 0 errors
+compiling speex_header.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\speex_header.c: 1 warning, 0 errors
+compiling cb_search.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\cb_search.c: 1 warning, 0 errors
+compiling speex_callbacks.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\speex_callbacks.c: 1 warning, 0 errors
+compiling filters.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\filters.c: 1 warning, 0 errors
+compiling speex.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\libspeex\speex.c: 1 warning, 0 errors
+compiling ltp.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\ltp.c: 1 warning, 0 errors
+compiling modes.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\modes.c: 1 warning, 0 errors
+compiling usbd_msc.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc.c: 1 warning, 0 errors
+compiling quant_lsp.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\quant_lsp.c: 1 warning, 0 errors
+compiling usbd_msc_scsi.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_scsi.c: 1 warning, 0 errors
+compiling nb_celp.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(175): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        st->old_lsp[i]= DIV32(MULT16_16(QCONST16(3.1415927f, LSP_SHIFT), i+1), st->lpcSize+1);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(920): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+        bw_lpc(QCONST16(0.93f,15), st->interp_qlpc, lpc, st->lpcSize);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1098): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 signal_mul(innov2, innov2, MULT16_32_Q15(QCONST16(0.454545f,15),ener), st->subframeSize);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1098): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 signal_mul(innov2, innov2, MULT16_32_Q15(QCONST16(0.454545f,15),ener), st->subframeSize);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1117): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              g=MULT16_16_P14(QCONST16(1.5f,14),(g-QCONST16(.2f,6)));
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1117): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              g=MULT16_16_P14(QCONST16(1.5f,14),(g-QCONST16(.2f,6)));
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1137): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 exc[i]= ADD16(ADD16(MULT16_16_Q15(QCONST16(.7f,15),exc[i]) , MULT16_16_Q15(QCONST16(.3f,15),st->voc_m1)),
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1137): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 exc[i]= ADD16(ADD16(MULT16_16_Q15(QCONST16(.7f,15),exc[i]) , MULT16_16_Q15(QCONST16(.3f,15),st->voc_m1)),
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1137): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 exc[i]= ADD16(ADD16(MULT16_16_Q15(QCONST16(.7f,15),exc[i]) , MULT16_16_Q15(QCONST16(.3f,15),st->voc_m1)),
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1137): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 exc[i]= ADD16(ADD16(MULT16_16_Q15(QCONST16(.7f,15),exc[i]) , MULT16_16_Q15(QCONST16(.3f,15),st->voc_m1)),
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 st->voc_mean = EXTRACT16(PSHR32(ADD32(MULT16_16(QCONST16(.8f,15),st->voc_mean), MULT16_16(QCONST16(.2f,15),exc[i])), 15));
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                 st->voc_mean = EXTRACT16(PSHR32(ADD32(MULT16_16(QCONST16(.8f,15),st->voc_mean), MULT16_16(QCONST16(.2f,15),exc[i])), 15));
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1231): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+     st->max_level = MAX16(MULT16_16_Q15(QCONST16(.99f,15), st->max_level), st->level);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1231): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+     st->max_level = MAX16(MULT16_16_Q15(QCONST16(.99f,15), st->max_level), st->level);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1232): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+     st->min_level = MIN16(ADD16(1,MULT16_16_Q14(QCONST16(1.01f,14), st->min_level)), st->level);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1232): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+     st->min_level = MIN16(ADD16(1,MULT16_16_Q14(QCONST16(1.01f,14), st->min_level)), st->level);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c(1385): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              st->old_lsp[i]= DIV32(MULT16_16(QCONST16(3.1415927f, LSP_SHIFT), i+1), st->lpcSize+1);
+..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c: 18 warnings, 0 errors
+compiling vq.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+..\SelfCode\Speex_Lib\STM32\libspeex\vq.c: 1 warning, 0 errors
+compiling usbd_msc_data.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_data.c: 1 warning, 0 errors
+compiling usbd_ctlreq.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c: 1 warning, 0 errors
+compiling usbd_msc_bot.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Src/usbd_msc_bot.c: 1 warning, 0 errors
+compiling usbd_ioreq.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c: 1 warning, 0 errors
+compiling usbd_core.c...
+../Inc/main.h(78): warning:  #1295-D: Deprecated declaration wifi_link_server - give arg types
+  unsigned char wifi_link_server();
+../Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c: 1 warning, 0 errors
+linking...
+Program Size: Code=102264 RO-data=118492 RW-data=612 ZI-data=1237452  
+FromELF: creating hex file...
+"Radio_Rebuild_Stm32CubeMX\Radio_Rebuild_Stm32CubeMX.axf" - 0 Error(s), 180 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.14.0.pack
+                Keil.STM32F4xx_DFP.2.14.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Radio_Rebuild_Stm32CubeMX
+  D:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  D:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+Build Time Elapsed:  00:00:23
+</pre>
+</body>
+</html>

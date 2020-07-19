@@ -227,7 +227,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>264</SubType>
-          <ItemText>UART_BUFFER</ItemText>
+          <ItemText>0x08060000</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>

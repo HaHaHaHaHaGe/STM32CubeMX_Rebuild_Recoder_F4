@@ -272,6 +272,7 @@ void tick_recoder()
 		{
 			if(speexdata_30kb_flag == 0)
 			{
+				speexdata_wifisend_flag = 0;
 				speexdata_30kb_flag = 1;
 			}
 			else
