@@ -335,6 +335,7 @@ void end_recoder()
 	while(wifi_link_server() != 1);
 		while(speexdata_wifisend_flag == 1)
 		{
+			wifi_link_check();
 			f_lseek(&speex_file,wifi_send_location);
 			f_read(&speex_file,wifi_send_buffer,1024,&br);
 			unsigned char flag;
@@ -377,6 +378,7 @@ void end_recoder()
 	wifi_send_NoErrorPackeg_num = 0;
 	while(wifi_send_NoErrorPackeg_num < 10000)
 	{
+		wifi_link_check();
 		f_lseek(&speex_file,wifi_send_location);
 		f_read(&speex_file,wifi_send_buffer,1024,&br);
 		unsigned char flag;

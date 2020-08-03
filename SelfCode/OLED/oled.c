@@ -402,16 +402,16 @@ void OLED_Init(void)
 	OLED_WR_Byte(0x3F,OLED_CMD);//--1/32 duty
 	OLED_WR_Byte(0xC0,OLED_CMD);//Com scan direction
 	OLED_WR_Byte(0xD3,OLED_CMD);//-set display offset
-	OLED_WR_Byte(0x00,OLED_CMD);//
+	OLED_WR_Byte(0x10,OLED_CMD);//
 	
 	OLED_WR_Byte(0xD5,OLED_CMD);//set osc division
-	OLED_WR_Byte(0x80,OLED_CMD);//
+	OLED_WR_Byte(0xb1,OLED_CMD);//
 	
 	OLED_WR_Byte(0xD8,OLED_CMD);//set area color mode off
 	OLED_WR_Byte(0x05,OLED_CMD);//
 	
 	OLED_WR_Byte(0xD9,OLED_CMD);//Set Pre-Charge Period
-	OLED_WR_Byte(0xF1,OLED_CMD);//
+	OLED_WR_Byte(0x62,OLED_CMD);//
 	
 	OLED_WR_Byte(0xDA,OLED_CMD);//set com pin configuartion
 	OLED_WR_Byte(0x12,OLED_CMD);//

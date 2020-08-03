@@ -1,10 +1,10 @@
 Dependencies for Project 'Radio_Rebuild_Stm32CubeMX', Target 'Radio_Rebuild_Stm32CubeMX': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
 F (startup_stm32f411xe.s)(0x5EFF1710)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 531" --pd "_RTE_ SETA 1" --pd "STM32F411xE SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f411xe.lst --xref -o radio_rebuild_stm32cubemx\startup_stm32f411xe.o --depend radio_rebuild_stm32cubemx\startup_stm32f411xe.d)
-F (../Src/main.c)(0x5F12E305)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\main.o --omf_browse radio_rebuild_stm32cubemx\main.crf --depend radio_rebuild_stm32cubemx\main.d)
+F (../Src/main.c)(0x5F183E87)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\main.o --omf_browse radio_rebuild_stm32cubemx\main.crf --depend radio_rebuild_stm32cubemx\main.d)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -79,7 +79,7 @@ I (..\SelfCode\GT20\gt20.h)(0x5EFF1710)
 F (../Src/bsp_driver_sd.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\bsp_driver_sd.o --omf_browse radio_rebuild_stm32cubemx\bsp_driver_sd.crf --depend radio_rebuild_stm32cubemx\bsp_driver_sd.d)
 I (../Inc/bsp_driver_sd.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -125,7 +125,7 @@ I (../Middlewares/Third_Party/FatFs/src/ff.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -172,7 +172,7 @@ I (../Middlewares/Third_Party/FatFs/src/integer.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -226,7 +226,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5EFF170F)
@@ -279,7 +279,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5EFF170F)
@@ -324,7 +324,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -376,7 +376,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -420,7 +420,7 @@ I (../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc/usbd_msc_scsi.h)(0x5
 F (../Src/stm32f4xx_it.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_it.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_it.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_it.d)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -461,7 +461,7 @@ I (../Inc/stm32f4xx_it.h)(0x5EFF170F)
 F (../Src/stm32f4xx_hal_msp.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_msp.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_msp.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_msp.d)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -500,7 +500,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_mmc.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_mmc.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_mmc.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_mmc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -539,7 +539,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -578,7 +578,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_pcd_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -617,7 +617,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_ll_usb.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_ll_usb.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_ll_usb.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -656,7 +656,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_adc.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_adc.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_adc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -695,7 +695,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_adc_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_adc_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_adc_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -734,7 +734,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_ll_sdmmc.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_ll_sdmmc.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_ll_sdmmc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -773,7 +773,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_sd.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_sd.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_sd.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -812,7 +812,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_spi.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_spi.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_spi.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -851,7 +851,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_tim.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_tim.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_tim.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -890,7 +890,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_tim_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_tim_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_tim_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -929,7 +929,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_uart.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_uart.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_uart.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -968,7 +968,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1007,7 +1007,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_rcc_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1046,7 +1046,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_flash.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_flash.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_flash.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1085,7 +1085,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1124,7 +1124,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ramfunc.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ramfunc.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_flash_ramfunc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1163,7 +1163,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_gpio.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_gpio.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_gpio.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1202,7 +1202,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_dma_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_dma_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_dma_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1241,7 +1241,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_dma.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_dma.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_dma.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1280,7 +1280,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1319,7 +1319,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr_ex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr_ex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_pwr_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1358,7 +1358,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_cortex.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_cortex.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_cortex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1397,7 +1397,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1436,7 +1436,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x5EFF170F)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c)(0x5EFF170F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\stm32f4xx_hal_exti.o --omf_browse radio_rebuild_stm32cubemx\stm32f4xx_hal_exti.crf --depend radio_rebuild_stm32cubemx\stm32f4xx_hal_exti.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1484,7 +1484,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5EFF170F)
@@ -1520,7 +1520,7 @@ I (../Middlewares/Third_Party/FatFs/src/ff.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1565,7 +1565,7 @@ I (../Middlewares/Third_Party/FatFs/src/integer.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1614,7 +1614,7 @@ I (../Middlewares/Third_Party/FatFs/src/ff.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1659,7 +1659,7 @@ I (../Middlewares/Third_Party/FatFs/src/option/../integer.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1704,7 +1704,7 @@ I (../Middlewares/Third_Party/FatFs/src/option/../integer.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1745,7 +1745,7 @@ I (../Inc/bsp_driver_sd.h)(0x5EFF170F)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 F (..\SelfCode\wav.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\wav.o --omf_browse radio_rebuild_stm32cubemx\wav.crf --depend radio_rebuild_stm32cubemx\wav.d)
 I (..\SelfCode\wav.h)(0x5EFF1710)
-F (..\SelfCode\fatfs_write_wav.c)(0x5F13108B)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\fatfs_write_wav.o --omf_browse radio_rebuild_stm32cubemx\fatfs_write_wav.crf --depend radio_rebuild_stm32cubemx\fatfs_write_wav.d)
+F (..\SelfCode\fatfs_write_wav.c)(0x5F16CCFB)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\fatfs_write_wav.o --omf_browse radio_rebuild_stm32cubemx\fatfs_write_wav.crf --depend radio_rebuild_stm32cubemx\fatfs_write_wav.d)
 I (..\SelfCode\fatfs_write_wav.h)(0x5F092E26)
 I (..\SelfCode\wav.h)(0x5EFF1710)
 I (../Inc/fatfs.h)(0x5EFF170F)
@@ -1754,7 +1754,7 @@ I (../Middlewares/Third_Party/FatFs/src/integer.h)(0x5EFF1710)
 I (../Inc/ffconf.h)(0x5EFF170F)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1839,11 +1839,11 @@ I (..\SelfCode\Source\Factory\inc\../inc/../basic_type.h)(0x5EFF1710)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
-F (..\SelfCode\OLED\oled.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\oled.o --omf_browse radio_rebuild_stm32cubemx\oled.crf --depend radio_rebuild_stm32cubemx\oled.d)
+F (..\SelfCode\OLED\oled.c)(0x5F15B094)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FatFs/src -I ..\SelfCode -I ..\SelfCode\Source\Factory -I ..\SelfCode\Source\Factory\inc -I ..\SelfCode\Source\BasicDataStream\inc -I ..\SelfCode\Speex_Lib\include -I ..\SelfCode\Speex_Lib\libspeex -I ..\SelfCode\Speex_Lib\STM32 -I ..\SelfCode\Speex_Lib\STM32\include -I ..\SelfCode\Speex_Lib\STM32\libspeex -I ..\SelfCode\Speex_Lib\STM32\libspeex\arm -I ..\SelfCode\OLED -I ..\SelfCode\STMFLASH -I ..\SelfCode\NRF24L01 -I ..\SelfCode\MPU6050 -I ..\SelfCode\MPU6050\eMPL -I ..\SelfCode\IIC -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc -I ..\SelfCode\GT20-I.\RTE\_Radio_Rebuild_Stm32CubeMX-ID:\Keil_v5\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Keil_v5\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F411xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F411xE -DHAVE_CONFIG_H-o radio_rebuild_stm32cubemx\oled.o --omf_browse radio_rebuild_stm32cubemx\oled.crf --depend radio_rebuild_stm32cubemx\oled.d)
 I (..\SelfCode\OLED\oled.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1886,7 +1886,7 @@ F (..\SelfCode\STMFLASH\stmflash.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -
 I (..\SelfCode\STMFLASH\stmflash.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1927,7 +1927,7 @@ F (..\SelfCode\NRF24L01\24l01.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__
 I (..\SelfCode\NRF24L01\24l01.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -1968,7 +1968,7 @@ F (..\SelfCode\MPU6050\mpu6050.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D_
 I (..\SelfCode\MPU6050\mpu6050.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2022,7 +2022,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5EFF170F)
@@ -2070,7 +2070,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5EFF170F)
@@ -2105,7 +2105,7 @@ F (..\SelfCode\IIC\myiic.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICRO
 I (..\SelfCode\IIC\myiic.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2146,7 +2146,7 @@ F (..\SelfCode\GT20\gt20.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICRO
 I (..\SelfCode\GT20\gt20.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2187,7 +2187,7 @@ F (..\SelfCode\Speex_Lib\libspeex\bits.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.f
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2242,7 +2242,7 @@ F (..\SelfCode\Speex_Lib\libspeex\buffer.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2300,7 +2300,7 @@ F (..\SelfCode\Speex_Lib\libspeex\lpc.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2346,7 +2346,7 @@ F (..\SelfCode\Speex_Lib\libspeex\lsp.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.fp
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2395,7 +2395,7 @@ F (..\SelfCode\Speex_Lib\libspeex\speex.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4.
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2453,7 +2453,7 @@ F (..\SelfCode\Speex_Lib\libspeex\speex_callbacks.c)(0x5EFF1710)(--c99 -c --cpu 
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2510,7 +2510,7 @@ F (..\SelfCode\Speex_Lib\libspeex\speex_header.c)(0x5EFF1710)(--c99 -c --cpu Cor
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2567,7 +2567,7 @@ F (..\SelfCode\Speex_Lib\libspeex\window.c)(0x5EFF1710)(--c99 -c --cpu Cortex-M4
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2612,7 +2612,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\cb_search.c)(0x5EFF1710)(--c99 -c --cpu 
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2673,7 +2673,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\filters.c)(0x5EFF1710)(--c99 -c --cpu Co
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2725,7 +2725,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\ltp.c)(0x5EFF1710)(--c99 -c --cpu Cortex
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2786,7 +2786,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\modes.c)(0x5EFF1710)(--c99 -c --cpu Cort
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2843,7 +2843,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\nb_celp.c)(0x5EFF1710)(--c99 -c --cpu Co
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2913,7 +2913,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\quant_lsp.c)(0x5EFF1710)(--c99 -c --cpu 
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -2970,7 +2970,7 @@ F (..\SelfCode\Speex_Lib\STM32\libspeex\vq.c)(0x5EFF1710)(--c99 -c --cpu Cortex-
 I (..\SelfCode\Speex_Lib\STM32\config.h)(0x5EFF1710)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3023,7 +3023,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3072,7 +3072,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3120,7 +3120,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3169,7 +3169,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3219,7 +3219,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3269,7 +3269,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)
@@ -3315,7 +3315,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5EC775FC)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x5EC77604)
 I (../Inc/main.h)(0x5F019759)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5EFF170F)
-I (../Inc/stm32f4xx_hal_conf.h)(0x5EFF170F)
+I (../Inc/stm32f4xx_hal_conf.h)(0x5F15B4F2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5EFF170F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5EFF170F)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5EFF170F)

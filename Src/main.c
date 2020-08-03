@@ -583,6 +583,7 @@ void DataTransform()
 void DataCheck()
 {
 	unsigned char delay_loop = 0;
+	int count = 0;
 	u32 i = 0;
 	u32 datasum = 0;
 	int start,end;
@@ -593,7 +594,8 @@ void DataCheck()
 	do
 	{
 		delay_loop++;
-		
+		count++;
+		wifi_link_check();
 		
 		if(delay_loop == 15 && wifi_link_check_int == 0)
 		{
@@ -685,7 +687,7 @@ void DataCheck()
 					}
 					
 					
-					
+					count = 0;
 					PackegStart = ErrorS;
 					
 					ErrorS = i;
@@ -751,7 +753,7 @@ void DataCheck()
 			}
 		}
 		
-		if(HAL_GPIO_ReadPin(KEY_FLAG_GPIO_Port,KEY_FLAG_Pin) == 0)
+		if(count == 100)
 			return;
 	}while(StrEqual(UART_BUFFER,"Device is Idle\r\n",sizeof(UART_BUFFER),strlen("Device is Idle\r\n")) == -1);
 }
@@ -774,7 +776,7 @@ u8 wav_recorder(u8 key,u32 fs)
 					{
 						rec_sta=0;	//¹Ø±ÕÂ¼Òô
 						end_recoder();
-						DataCheck();
+						//DataCheck();
 						stop_recoder();
 					}
 					else
@@ -1670,6 +1672,10 @@ int main(void)
 	///////////////////////////////////////////////////
 	//ESP8266 Init
 	printf("AT+CWMODE=1\r\n");
+	HAL_Delay(500);
+	printf("AT+SLEEP=1\r\n");
+	HAL_Delay(500);
+	printf("AT+GSLP=3600000\r\n");
 	HAL_Delay(1000);
 	i = 0;
 	do
@@ -2059,10 +2065,10 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 192;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ = 8;
+  RCC_OscInitStruct.PLL.PLLM = 13;
+  RCC_OscInitStruct.PLL.PLLN = 96;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
