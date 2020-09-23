@@ -123,7 +123,8 @@ char recv_ip[20] = {0};
 char recv_port[20] = {0};
 unsigned char Binding_Bool = 1;
 char *recv_A = "WIFI CONNECTED\r\nWIFI GOT IP\r\n\r\nOK\r\n";
-char *recv_B = "CONNECT";
+char *recv_B = "CONNECT\r\n";
+char *recv_C = "ALREADY CONNECTED";
 //u8 initfilename[20] = {0};
 
 int RecvComLoc1 = 0;
@@ -257,8 +258,8 @@ void check_firstrun()
 	{
 		OLED_Init( );	 
 		OLED_Clear( );
-		OLED_ShowString(0,0,(unsigned char*)"Initialization..",16);
-		OLED_ShowString(0,2,(unsigned char*)"Do Not Turn off",16);
+		OLED_ShowString(0,0,(unsigned char*)"Initialization..",8);
+		OLED_ShowString(0,2,(unsigned char*)"Do Not Turn off",8);
 		
 		srand(HAL_GetUIDw0());
 		rand_i += rand();
@@ -292,12 +293,15 @@ void check_firstrun()
 		USART2_UART_Init(115200);
 		HAL_UART_Receive_IT(&huart2,UART_BUFFER,sizeof(UART_BUFFER));
 		HAL_Delay(2000);	
+		HAL_UART_Transmit(&huart2,(unsigned char*)"AT+CWMODE=1\r\n",13,100);
+		HAL_Delay(2000);	
 		HAL_UART_Transmit(&huart2,(unsigned char*)"AT+UART=921600,8,1,0,0\r\n",24,100);
+		
 		//printf("AT+UART=921600,8,1,0,0\r\n");
 		HAL_Delay(2000);	
-		HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,0);
+		HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
 		OLED_Clear( );
-		OLED_ShowString(0,0,(unsigned char*)"Please turn off",16);
+		OLED_ShowString(0,0,(unsigned char*)"Please turn off",8);
 		while(1);
 	}
 }
@@ -337,11 +341,17 @@ void wifi_link_check()
 
 unsigned char wifi_link_server()
 {
-
+		
 		if(wifi_link_check_int % 3000 == 0)
 		{
 			printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",FLASH_DATA.SERVER_IP,FLASH_DATA.SERVER_PORT);
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+		}
+		if(StrEqual(UART_BUFFER,(unsigned char*)recv_C,sizeof(UART_BUFFER),strlen(recv_C)) != -1)
+		{
+			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
+			wifi_link_check_int = 0;
+			return 1;
 		}
 		if(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) != -1)
 		{
@@ -401,11 +411,11 @@ int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,uns
 				if(ErrorE > ErrorS && ErrorE < speexdata_len && ErrorS < speexdata_len && ErrorE > 0 && (ErrorS > 0 || ErrorS == 0))
 				{
 					f_lseek(&speex_file,ErrorS);
-					if((ErrorE - ErrorS) > 1020)
+					if((ErrorE - ErrorS) > 1000)
 					{
-						f_read(&speex_file,ErrorRecData,1020,&br);
-						i = 1020;
-						PackegEnd = ErrorS + 1020;
+						f_read(&speex_file,ErrorRecData,1000,&br);
+						i = 1000;
+						PackegEnd = ErrorS + 1000;
 					}
 					else
 					{
@@ -487,7 +497,7 @@ int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,uns
 					f_lseek(&speex_file,speexdata_len);
 					
 					i = 0;
-					while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 80)
+					while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 25)
 					{
 						HAL_Delay(5);
 						i++;
@@ -558,7 +568,7 @@ int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,uns
 			
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 			i = 0;
-			while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 80)
+			while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 25)
 			{
 				HAL_Delay(5);
 				i++;
@@ -571,9 +581,37 @@ int SendspeexData_and_FixWifiData(unsigned char* data,unsigned int writesize,uns
 
 }				
 
-void DataTransform()
+void SendDeviceIDLE()
 {
-	
+	int i,sendlen;
+			printf("AT+CIPSEND=%d\r\n",37);
+					HAL_Delay(10);
+			printf("Device is Idle\r\n");
+			sendlen = 1;
+			UARTSendData(&((u8*)&sendlen)[3],1);
+			UARTSendData(&((u8*)&sendlen)[2],1);
+			UARTSendData(&((u8*)&sendlen)[1],1);
+			UARTSendData(&((u8*)&sendlen)[0],1);
+			sendlen = 0;
+			for(i = 0;i<strlen("Device is Idle\r\n");i++)
+				sendlen+="Device is Idle\r\n"[i];
+			for(i = 0;i<12;i++)
+				sendlen+=BordID[i];
+			sendlen+=5;
+			UARTSendData(&((u8*)&sendlen)[3],1);
+			UARTSendData(&((u8*)&sendlen)[2],1);
+			UARTSendData(&((u8*)&sendlen)[1],1);
+			UARTSendData(&((u8*)&sendlen)[0],1);
+			UARTSendData(BordID,12);
+			sendlen = 5;
+			UARTSendData(&((u8*)&sendlen)[0],1);
+			
+			i = 0;
+					while(StrEqual(UART_BUFFER,"SEND OK",sizeof(UART_BUFFER),strlen("SEND OK")) == -1 && i < 80)
+					{
+						HAL_Delay(5);
+						i++;
+					}
 }
 
 
@@ -981,10 +1019,10 @@ void RF_Command_Check()
 				
 				
 				OLED_Clear( );
-				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+				//OLED_ShowString(0,2,(unsigned char*)"Request from:",8);
 				//OLED_ShowString(0,4,(u8*)&Buffer[RecvComLoc1 + 1],1);
-				OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],16);
-				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+				//OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],8);
+				//OLED_ShowString(0,6,(unsigned char*)"Connect?",8);
 				if(PressKey() == 0)
 				{
 					//sum = Send24L01Data("AB","00000000");
@@ -992,27 +1030,27 @@ void RF_Command_Check()
 					FLASH_DATA.GROUP = SoftID;
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
-					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+					//OLED_ShowString(0,0,(unsigned char*)"Connection",8);
+					//OLED_ShowString(0,2,(unsigned char*)"Succeeded!",8);
 					//OLED_ShowString(0,4,(u8*)&FLASH_DATA.GROUP,1);
 					HAL_Delay(2000);
 					OLED_Clear( );
 					HAL_Delay(10);
-					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",8);
 					STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					
 					
 					
 				}
 				OLED_Clear( );
-				OLED_ShowString(0,0,"Wait Recording",16);
-				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-				OLED_ShowString(0,2,"ID:",16);
-				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-				OLED_ShowString(0,4,"Name:",16);
+				OLED_ShowString(0,0,"Wait Recording",8);
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
+				OLED_ShowString(0,2,"ID:",8);
+				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,8);
+				OLED_ShowString(0,4,"Name:",8);
 					if(FLASH_DATA.BIND_NAME[0] != 0xff)
 						display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
-						//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+						//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,8);
 			}
 			ClearBuffer(Buffer,sizeof(Buffer));
 			return;
@@ -1144,8 +1182,9 @@ void RF_Command_Check()
 			recv_port[0] = 0;
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Connect WIFI",16);
-				OLED_ShowString(0,2,(unsigned char*)"...",16);
+				display_GB2312_string(0,0,"连接网络中");
+	OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,8);
+	OLED_ShowString(0,3,(u8*)FLASH_DATA.WIFI_PASS,8);
 				
 				///////////////////////////////////////////////////
 				//ESP8266 Init
@@ -1168,8 +1207,7 @@ void RF_Command_Check()
 						
 						OLED_Clear( );
 						HAL_Delay(10);
-						OLED_ShowString(0,0,(unsigned char*)"Connect Faild",16);
-						OLED_ShowString(0,2,(unsigned char*)"...",16);
+						display_GB2312_string(0,0,"连接网络失败");
 						HAL_Delay(1000);
 						ClearBuffer(Buffer,sizeof(Buffer));
 						return;
@@ -1182,8 +1220,9 @@ void RF_Command_Check()
 				
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
-				OLED_ShowString(0,2,(unsigned char*)"...",16);
+				display_GB2312_string(0,0,"连接服务器中");
+				OLED_ShowString(0,2,(u8*)FLASH_DATA.SERVER_IP,8);
+				OLED_ShowString(0,3,(u8*)FLASH_DATA.SERVER_PORT,8);
 				
 				i = 0;
 				do
@@ -1199,23 +1238,19 @@ void RF_Command_Check()
 					{
 						OLED_Clear( );
 						HAL_Delay(10);
-						OLED_ShowString(0,0,(unsigned char*)"Connect Faild",16);
-						OLED_ShowString(0,2,(unsigned char*)"...",16);
+						display_GB2312_string(0,0,"连接服务器失败");
 						HAL_Delay(1000);
 						ClearBuffer(Buffer,sizeof(Buffer));
 						return;
 					}
 				}while(StrEqual(UART_BUFFER,(unsigned char*)recv_B,sizeof(UART_BUFFER),strlen(recv_B)) == -1);
 			STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
-				OLED_Clear( );
-				OLED_ShowString(0,0,"Wait Recording",16);
-				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-				OLED_ShowString(0,2,"ID:",16);
-				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-				OLED_ShowString(0,4,"Name:",16);
+			OLED_Clear( );
+			display_GB2312_string(0,0,"等待录音");
+			OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
 			if(FLASH_DATA.BIND_NAME[0] != 0xff)
-				display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
-				//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+				display_GB2312_string(2,0,(unsigned char*)FLASH_DATA.BIND_NAME);
+				//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,8);
 			ClearBuffer(Buffer,sizeof(Buffer));
 			return;
 		}
@@ -1259,14 +1294,11 @@ void RF_Command_Check()
 				STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				
 				OLED_Clear( );
-				OLED_ShowString(0,0,(unsigned char*)"Wait Recording",16);
-				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-				OLED_ShowString(0,2,"ID:",16);
-				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-				OLED_ShowString(0,4,"Name:",16);
+				display_GB2312_string(0,0,"等待录音");
+				OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
 				if(FLASH_DATA.BIND_NAME[0] != 0xff)
-					display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
-					//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+					display_GB2312_string(2,0,(unsigned char*)FLASH_DATA.BIND_NAME);
+					//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,8);
 			}
 			ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
 		}
@@ -1319,7 +1351,7 @@ void PVD_Init(void)
   * @retval int
   */
 int main(void)
-{
+ {
   /* USER CODE BEGIN 1 */
 	UINT bw2;
 	u8 presskeyvalue = 1;
@@ -1351,8 +1383,8 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 	MX_GPIO_Init();
 	isPowerOn = 0;
-	HAL_GPIO_WritePin(GPIOB,PWR_CTL_Pin,1);
-	while(!HAL_GPIO_ReadPin(GPIOB,PWR_FLAG_Pin))
+	HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,1);
+	while(!HAL_GPIO_ReadPin(PWR_FLAG_GPIO_Port,PWR_FLAG_Pin))
 	{
 		HAL_Delay(50);
 	}
@@ -1370,6 +1402,7 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+	HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,1);
 	PVD_Init();
 	my_mem_init(0);
 	Speex_Init();
@@ -1386,15 +1419,25 @@ int main(void)
 	GT20_Init();
 	OLED_Init( );	 
 	OLED_Clear( );
+
+
+	
+		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 1)
+		{
+			display_GB2312_string(0,0,"电量低");
+			HAL_Delay(2000);
+			HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
+			while(1);
+		}
 	
 	//display_GB2312_string(2,56,"啊这");
 	//while(1);
-	
-	OLED_ShowString(0,0,(unsigned char*)"Check NRF24L01..",16);
+	display_GB2312_string(0,0,"开机中");
+	//OLED_ShowString(0,0,(unsigned char*)"Check NRF24L01..",8);
 	NRF24L01_Init();
 	while(NRF24L01_Check())
 	{
-		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 		HAL_Delay(200);
 	}
 	HAL_Delay(100);
@@ -1402,32 +1445,37 @@ int main(void)
 	HAL_Delay(100);
 	
 	
-	OLED_ShowString(0,2,(unsigned char*)"Check MPU6050..",16);
+	//OLED_ShowString(0,2,(unsigned char*)"Check MPU6050..",8);
 	MPU_Init();
 	HAL_Delay(200);
 	while(mpu_dmp_init())
 	{
-		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
  		HAL_Delay(200);
 	}
 	
 	
 	
-	OLED_ShowString(0,4,(unsigned char*)"Check SDCard..",16);
+	//OLED_ShowString(0,4,(unsigned char*)"Check SDCard..",8);
 	MX_FATFS_Init();
 	if(retSD != FR_OK)
+	{
+		OLED_Clear( );
+		HAL_Delay(500);
+		display_GB2312_string(0,0,"存储卡错误！");
 		while(1);
+	}
   MX_USB_DEVICE_Init();
 	
 	while(f_opendir(&dir,"0:/RECORDER"))//打开录音文件夹
 	{	 			  
-		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 		HAL_Delay(200);				  
 		f_mkdir("0:/RECORDER");				//创建该目录   
 	}
 
-	
-	OLED_ShowString(0,6,(unsigned char*)"Check Over!",16);
+	printf("AT+CWMODE_DEF=1\r\n");
+	//OLED_ShowString(0,6,(unsigned char*)"Check Over!",8);
 	HAL_Delay(2000);
 	OLED_Clear( );
 	HAL_Delay(500);
@@ -1455,7 +1503,7 @@ int main(void)
 //			{
 //				OLED_Clear( );
 //				HAL_Delay(10);
-//				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+//				OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",8);
 //			}
 	}
 	
@@ -1480,13 +1528,13 @@ int main(void)
 	recv_port[0] = 0;
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
-	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
-	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+	display_GB2312_string(0,0,"等待连接网络中");
+	HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
+	HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
 	while(1)
 	{
-		HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-		HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+		HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
 		HAL_Delay(25);
 		NRF24L01_RX_Mode();
 		HAL_Delay(25);
@@ -1510,10 +1558,10 @@ int main(void)
 				
 				
 				
-				OLED_ShowString(0,2,(unsigned char*)"Request from:",16);
+				//OLED_ShowString(0,2,(unsigned char*)"Request from:",8);
 				//OLED_ShowString(0,4,(u8*)&Buffer[RecvComLoc1 + 1],1);
-				OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],16);
-				OLED_ShowString(0,6,(unsigned char*)"Connect?",16);
+				//OLED_ShowChar(0,4,Buffer[RecvComLoc1 + 1],8);
+				//OLED_ShowString(0,6,(unsigned char*)"Connect?",8);
 				if(PressKey() == 0)
 				{
 					//sum = Send24L01Data("AB","00000000");
@@ -1521,19 +1569,20 @@ int main(void)
 					FLASH_DATA.GROUP = SoftID;
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Connection",16);
-					OLED_ShowString(0,2,(unsigned char*)"Succeeded!",16);
+					//OLED_ShowString(0,0,(unsigned char*)"Connection",8);
+					//OLED_ShowString(0,2,(unsigned char*)"Succeeded!",8);
 					//OLED_ShowString(0,4,(u8*)&FLASH_DATA.GROUP,1);
 					HAL_Delay(2000);
 					OLED_Clear( );
 					HAL_Delay(10);
-					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
+					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",8);
 					STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					OLED_Clear( );
 					HAL_Delay(10);
-					OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",16);
-					HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
-					HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+					display_GB2312_string(0,0,"等待连接网络中");
+					//OLED_ShowString(0,0,(unsigned char*)"Waiting WIFI",8);
+					HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
+					HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
 				}
 				continue;
 				
@@ -1666,26 +1715,26 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,(unsigned char*)"Connect WIFI",16);
-	OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,16);
-	
+	display_GB2312_string(0,0,"连接网络中");
+	OLED_ShowString(0,2,(u8*)FLASH_DATA.WIFI_NAME,8);
+	OLED_ShowString(0,3,(u8*)FLASH_DATA.WIFI_PASS,8);
 	///////////////////////////////////////////////////
 	//ESP8266 Init
-	printf("AT+CWMODE=1\r\n");
-	HAL_Delay(500);
-	printf("AT+SLEEP=1\r\n");
-	HAL_Delay(500);
-	printf("AT+GSLP=3600000\r\n");
-	HAL_Delay(1000);
+//	printf("AT+CWMODE=1\r\n");
+//	HAL_Delay(500);
+//	printf("AT+SLEEP=1\r\n");
+//	HAL_Delay(500);
+//	printf("AT+GSLP=3600000\r\n");
+//	HAL_Delay(1000);
 	i = 0;
 	do
 	{
 		//printf("AT+CWJAP=\"CU_kh2m\",\"m9svhdhq\"\r\n");
-		printf("AT+CWJAP=\"%s\",\"%s\"\r\n",recv_wifi,recv_pass);
+		printf("AT+CWJAP=\"%s\",\"%s\"\r\n",FLASH_DATA.WIFI_NAME,FLASH_DATA.WIFI_PASS);
 		ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
-		HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+		HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 		HAL_Delay(5000);
-		HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+		HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
 		HAL_Delay(5000);
 		i++;
 		if(i == 3)
@@ -1699,17 +1748,17 @@ int main(void)
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,(unsigned char*)"Connect Server",16);
-	OLED_ShowString(0,2,(u8*)FLASH_DATA.SERVER_IP,16);
-	OLED_ShowString(0,4,(u8*)FLASH_DATA.SERVER_PORT,16);
+	display_GB2312_string(0,0,"连接服务器中");
+	OLED_ShowString(0,2,(u8*)FLASH_DATA.SERVER_IP,8);
+	OLED_ShowString(0,3,(u8*)FLASH_DATA.SERVER_PORT,8);
 	i = 0;
 	do
 	{
-		printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",recv_ip,recv_port);
+		printf("AT+CIPSTART=\"TCP\",\"%s\",%s\r\n",FLASH_DATA.SERVER_IP,FLASH_DATA.SERVER_PORT);
 		ClearBuffer(UART_BUFFER,sizeof(UART_BUFFER));
-		HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
+		HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
 		HAL_Delay(2500);
-		HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
+		HAL_GPIO_WritePin(LED2_GPIO_Port,LED1_Pin,0);
 		HAL_Delay(2500);
 		i++;
 		if(i == 6)
@@ -1736,21 +1785,26 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 	
 	OLED_Clear( );
 	HAL_Delay(10);
-	OLED_ShowString(0,0,"Wait Recording",16);
-	OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-	OLED_ShowString(0,2,"ID:",16);
-	OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-	OLED_ShowString(0,4,"Name:",16);
-
+	display_GB2312_string(0,0,"等待录音");
+	OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
 	if(FLASH_DATA.BIND_NAME[0] != 0xff)
-		display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
-		//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
+		display_GB2312_string(2,0,(unsigned char*)FLASH_DATA.BIND_NAME);
+		//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,8);
 	
 	
-	HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
-	HAL_GPIO_WritePin(GPIOC,LED2_Pin,0);
+	HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
+	HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,0);
 	
-
+	printf("AT+CWMODE=1\r\n");
+	HAL_Delay(200);
+	printf("AT+SLEEP=1\r\n");
+	HAL_Delay(200);
+//	printf("AT+CWMODE=1\r\n");
+//	HAL_Delay(200);
+//	printf("AT+SLEEP=1\r\n");
+//	HAL_Delay(200);
+//	printf("AT+GSLP=3600000\r\n");
+//	HAL_Delay(500);
 	
   /* USER CODE END 2 */
 
@@ -1759,6 +1813,13 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
   while (1)
   {
 		//wifi_link_check();   //20200705
+		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 1)
+		{
+			display_GB2312_string(0,0,"电量低");
+			HAL_Delay(2000);
+			HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
+			while(1);
+		}
 		if(NRF24L01_RxPacket(Buffer)==0)
 		{
 			str1 = (u8*)strstr((char *)Buffer,(char *)"CALIB");
@@ -1776,8 +1837,8 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 						sum = 1;
 					if(sum == 0)
 					{
-						HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-						HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+						HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+						HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
 						Real_Time_Year = *(str1 + 6);
 						Real_Time_Month = *(str1 + 7);
 						Real_Time_Day = *(str1 + 8);
@@ -1804,8 +1865,8 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				if(*(str1 + 6)=='B' && *(str1 + 7)=='l' && *(str1 + 8)=='i' && *(str1 + 9)=='n' && *(str1 + 10)=='k')
 				{
 					state = (~state & COMMAND_Blink) | (state & ~COMMAND_Blink);
-					HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
-					HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+					HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
+					HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 				}
 				if(*(str1 + 6)=='I' && *(str1 + 7)=='n' && *(str1 + 8)=='i' && *(str1 + 9)=='t')
 				{
@@ -1839,38 +1900,39 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 					{
 						state &= ~COMMAND_Blink;
 						state |= COMMAND_Init;
-						HAL_GPIO_WritePin(GPIOC,LED1_Pin,1);
-						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+						HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,1);
+						HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 						
 						OLED_Clear( );
 						HAL_Delay(10);
-						OLED_ShowString(0,0,"Recording...",16);
-						OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-						OLED_ShowString(0,2,"ID:",16);
-						OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-						OLED_ShowString(0,4,"Name:",16);
-						//OLED_ShowString(56,4,(unsigned char*)FLASH_DATA.BIND_NAME,16);
-						display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+						display_GB2312_string(0,0,"正在录音");
+						OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
+						if(FLASH_DATA.BIND_NAME[0] != 0xff)
+							display_GB2312_string(2,0,(unsigned char*)FLASH_DATA.BIND_NAME);
 					}
 				}
 				if(*(str1 + 6)=='B' && *(str1 + 7)=='e' && *(str1 + 8)=='g' && *(str1 + 9)=='i' && *(str1 + 10)=='n')
 				{
 					if(GadFlag == 0xab && WavFlag == 0xab)
 					{
+						printf("AT+GSLP=3600000\r\n");
 						state &= ~COMMAND_Blink;
 						state |= COMMAND_Begin;
-						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
-						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+						HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
+						HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 					}
 				}
 				if(*(str1 + 6)=='E' && *(str1 + 7)=='n' && *(str1 + 8)=='d')
 				{
 					if(GadFlag == 0x80 && WavFlag == 0x80)
 					{
+						HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,0);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,1);
 						state &= ~COMMAND_Blink;
 						state |= COMMAND_End;
-						HAL_GPIO_WritePin(GPIOC,LED1_Pin,0);
-						HAL_GPIO_WritePin(GPIOC,LED2_Pin,1);
+						HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
+						HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 					}
 				}
 				*str1 = 0x30;
@@ -1921,13 +1983,10 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 				WavFlag = wav_recorder(1,0);       //停止
 				OLED_Clear( );
 				HAL_Delay(10);
-				OLED_ShowString(0,0,"Wait Recording",16);
-				OLED_ShowChar(120,0,FLASH_DATA.GROUP,16);
-				OLED_ShowString(0,2,"ID:",16);
-				OLED_ShowString(24,2,FLASH_DATA.DEVICE_ID,16);
-				OLED_ShowString(0,4,"Name:",16);
-				//OLED_ShowString(56,4,FLASH_DATA.BIND_NAME,16);
-				display_GB2312_string(4,56,(unsigned char*)FLASH_DATA.BIND_NAME);
+						display_GB2312_string(0,0,"等待录音");
+						OLED_ShowChar(120,0,FLASH_DATA.GROUP,8);
+						if(FLASH_DATA.BIND_NAME[0] != 0xff)
+							display_GB2312_string(2,0,(unsigned char*)FLASH_DATA.BIND_NAME);
 				MX_USB_DEVICE_Init();
 			}
 		}
@@ -1935,15 +1994,15 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 
 		if((state&COMMAND_Blink) && (GadFlag == 0xff) && (WavFlag == 0xff))
 		{
-			HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-			HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+			HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
 			HAL_Delay(250);
 			//printf("State"); //告诉服务器目前待机
 		}
 		if(WavFlag == 0xab && GadFlag == 0xab)    //可以录音提示
 		{
-			HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
-			HAL_GPIO_TogglePin(GPIOC,LED2_Pin);
+			HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+			HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
 			HAL_Delay(100);
 			//printf("State"); //告诉服务器目前待机
 			//printf("Begin Create Wave File!File Name=%s%s&&&End",SessID,initfilename);
@@ -1972,7 +2031,7 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 			timecnt++;
 			if((timecnt%100)==0)
 			{
-					HAL_GPIO_TogglePin(GPIOC,LED1_Pin);
+					HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
 
 					//printf("State is Idle!"); //告诉服务器目前待机
 			}
@@ -1980,30 +2039,31 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 		else
 		{
 			RF_Command_Check();
+			wifi_link_check();
 			timecnt++;
 			if((timecnt%1000)==0) //告诉服务器目前待机
 			{
 				
 				
-					sprintf(String_Windows_Time,"%0.2d",Real_Time_Month);
-					OLED_ShowString(0,6,String_Windows_Time,16);
-				OLED_ShowString(16,6,"-",16);
-				
-				sprintf(String_Windows_Time,"%0.2d",Real_Time_Day);
-					OLED_ShowString(24,6,String_Windows_Time,16);
-				OLED_ShowString(40,6," ",16);
-				
-				sprintf(String_Windows_Time,"%0.2d",Real_Time_Hour);
-					OLED_ShowString(48,6,String_Windows_Time,16);
-				
-				OLED_ShowString(64,6,":",16);
-				
-				sprintf(String_Windows_Time,"%0.2d",Real_Time_Minute);
-					OLED_ShowString(72,6,String_Windows_Time,16);
-				OLED_ShowString(88,6,":",16);
-				
-				sprintf(String_Windows_Time,"%0.2d",Real_Time_Second);
-					OLED_ShowString(96,6,String_Windows_Time,16);
+//					sprintf(String_Windows_Time,"%0.2d",Real_Time_Month);
+//					OLED_ShowString(0,6,String_Windows_Time,8);
+//				OLED_ShowString(16,6,"-",8);
+//				
+//				sprintf(String_Windows_Time,"%0.2d",Real_Time_Day);
+//					OLED_ShowString(24,6,String_Windows_Time,8);
+//				OLED_ShowString(40,6," ",8);
+//				
+//				sprintf(String_Windows_Time,"%0.2d",Real_Time_Hour);
+//					OLED_ShowString(48,6,String_Windows_Time,8);
+//				
+//				OLED_ShowString(64,6,":",8);
+//				
+//				sprintf(String_Windows_Time,"%0.2d",Real_Time_Minute);
+//					OLED_ShowString(72,6,String_Windows_Time,8);
+//				OLED_ShowString(88,6,":",8);
+//				
+//				sprintf(String_Windows_Time,"%0.2d",Real_Time_Second);
+//					OLED_ShowString(96,6,String_Windows_Time,8);
 				
 				if(wifi_link_check_int == 0)
 				{
@@ -2375,19 +2435,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LED1_Pin|LED2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, CHG_Pin|LED1_Pin|LED2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GT20_CSN_GPIO_Port, GT20_CSN_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, PWR_CTL_Pin|OLED_SCL_Pin|OLED_SDA_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PWR_CTL_Pin|LVD_Pin|I2C_SDA_Pin|I2C_SCL_Pin 
+                          |WIFI_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, NRF_CE_Pin|NRF_CSN_Pin|I2C_SCL_Pin|I2C_SDA_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, NRF_CE_Pin|NRF_CSN_Pin|OLED_SDA_Pin|OLED_SCL_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : LED1_Pin LED2_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(WIFI_WK_GPIO_Port, WIFI_WK_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : CHG_Pin LED1_Pin LED2_Pin */
+  GPIO_InitStruct.Pin = CHG_Pin|LED1_Pin|LED2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -2406,8 +2470,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GT20_CSN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PWR_CTL_Pin OLED_SCL_Pin OLED_SDA_Pin */
-  GPIO_InitStruct.Pin = PWR_CTL_Pin|OLED_SCL_Pin|OLED_SDA_Pin;
+  /*Configure GPIO pins : PWR_CTL_Pin LVD_Pin I2C_SDA_Pin I2C_SCL_Pin 
+                           WIFI_RST_Pin */
+  GPIO_InitStruct.Pin = PWR_CTL_Pin|LVD_Pin|I2C_SDA_Pin|I2C_SCL_Pin 
+                          |WIFI_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -2425,12 +2491,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(NRF_IRQ_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : NRF_CE_Pin NRF_CSN_Pin I2C_SCL_Pin I2C_SDA_Pin */
-  GPIO_InitStruct.Pin = NRF_CE_Pin|NRF_CSN_Pin|I2C_SCL_Pin|I2C_SDA_Pin;
+  /*Configure GPIO pins : NRF_CE_Pin NRF_CSN_Pin OLED_SDA_Pin OLED_SCL_Pin */
+  GPIO_InitStruct.Pin = NRF_CE_Pin|NRF_CSN_Pin|OLED_SDA_Pin|OLED_SCL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : WIFI_WK_Pin */
+  GPIO_InitStruct.Pin = WIFI_WK_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(WIFI_WK_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);

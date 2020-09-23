@@ -28,17 +28,17 @@
 #define XLevelL		0x00
 #define XLevelH		0x10
 #define Max_Column	128
-#define Max_Row		64
+#define Max_Row		32
 #define	Brightness	0xFF 
 #define X_WIDTH 	128
-#define Y_WIDTH 	64	    						  
+#define Y_WIDTH 	32    						  
 //-----------------OLED IIC端口定义----------------  					   
 
-#define OLED_SCLK_Clr() HAL_GPIO_WritePin(GPIOB,OLED_SCL_Pin,0) //SDA IIC接口的时钟信号
-#define OLED_SCLK_Set() HAL_GPIO_WritePin(GPIOB,OLED_SCL_Pin,1)
+#define OLED_SCLK_Clr() HAL_GPIO_WritePin(OLED_SCL_GPIO_Port,OLED_SCL_Pin,0) //SDA IIC接口的时钟信号
+#define OLED_SCLK_Set() HAL_GPIO_WritePin(OLED_SCL_GPIO_Port,OLED_SCL_Pin,1)
 
-#define OLED_SDIN_Clr() HAL_GPIO_WritePin(GPIOB,OLED_SDA_Pin,0)//SCL IIC接口的数据信号
-#define OLED_SDIN_Set() HAL_GPIO_WritePin(GPIOB,OLED_SDA_Pin,1)
+#define OLED_SDIN_Clr() HAL_GPIO_WritePin(OLED_SDA_GPIO_Port,OLED_SDA_Pin,0)//SCL IIC接口的数据信号
+#define OLED_SDIN_Set() HAL_GPIO_WritePin(OLED_SDA_GPIO_Port,OLED_SDA_Pin,1)
 
  		     
 #define OLED_CMD  0	//写命令

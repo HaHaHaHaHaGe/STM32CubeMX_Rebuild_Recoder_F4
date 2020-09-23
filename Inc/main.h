@@ -79,9 +79,11 @@ unsigned char wifi_link_server();
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED1_Pin GPIO_PIN_13
+#define CHG_Pin GPIO_PIN_13
+#define CHG_GPIO_Port GPIOC
+#define LED1_Pin GPIO_PIN_14
 #define LED1_GPIO_Port GPIOC
-#define LED2_Pin GPIO_PIN_14
+#define LED2_Pin GPIO_PIN_15
 #define LED2_GPIO_Port GPIOC
 #define KEY_FLAG_Pin GPIO_PIN_0
 #define KEY_FLAG_GPIO_Port GPIOA
@@ -102,18 +104,24 @@ unsigned char wifi_link_server();
 #define NRF_IRQ_GPIO_Port GPIOB
 #define NRF_CE_Pin GPIO_PIN_10
 #define NRF_CE_GPIO_Port GPIOB
-#define OLED_SCL_Pin GPIO_PIN_12
-#define OLED_SCL_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_13
-#define OLED_SDA_GPIO_Port GPIOB
+#define LVD_Pin GPIO_PIN_12
+#define LVD_GPIO_Port GPIOB
+#define I2C_SDA_Pin GPIO_PIN_13
+#define I2C_SDA_GPIO_Port GPIOB
+#define I2C_SCL_Pin GPIO_PIN_14
+#define I2C_SCL_GPIO_Port GPIOB
+#define WIFI_WK_Pin GPIO_PIN_15
+#define WIFI_WK_GPIO_Port GPIOA
+#define WIFI_RST_Pin GPIO_PIN_3
+#define WIFI_RST_GPIO_Port GPIOB
 #define NRF_MISO_Pin GPIO_PIN_4
 #define NRF_MISO_GPIO_Port GPIOB
 #define NRF_CSN_Pin GPIO_PIN_6
 #define NRF_CSN_GPIO_Port GPIOB
-#define I2C_SCL_Pin GPIO_PIN_8
-#define I2C_SCL_GPIO_Port GPIOB
-#define I2C_SDA_Pin GPIO_PIN_9
-#define I2C_SDA_GPIO_Port GPIOB
+#define OLED_SDA_Pin GPIO_PIN_8
+#define OLED_SDA_GPIO_Port GPIOB
+#define OLED_SCL_Pin GPIO_PIN_9
+#define OLED_SCL_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

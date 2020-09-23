@@ -15,12 +15,12 @@
 ////////////////////////////////////////////////////////////////////////////////// 	
    	   		   
 //IO方向设置
-#define SDA_IN()  {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=0<<9*2;}	//PB9输入模式
-#define SDA_OUT() {GPIOB->MODER&=~(3<<(9*2));GPIOB->MODER|=1<<9*2;} //PB9输出模式
+#define SDA_IN()  {I2C_SDA_GPIO_Port->MODER&=~(3<<(13*2));I2C_SDA_GPIO_Port->MODER|=0<<13*2;}	//PB9输入模式
+#define SDA_OUT() {I2C_SDA_GPIO_Port->MODER&=~(3<<(13*2));I2C_SDA_GPIO_Port->MODER|=1<<13*2;} //PB9输出模式
 //IO操作函数	 
-#define IIC_SCL(x)    HAL_GPIO_WritePin(GPIOB,I2C_SCL_Pin,x) //SCL
-#define IIC_SDA(x)    HAL_GPIO_WritePin(GPIOB,I2C_SDA_Pin,x) //SDA	 
-#define READ_SDA   HAL_GPIO_ReadPin(GPIOB,I2C_SDA_Pin)  //输入SDA 
+#define IIC_SCL(x)    HAL_GPIO_WritePin(I2C_SCL_GPIO_Port,I2C_SCL_Pin,x) //SCL
+#define IIC_SDA(x)    HAL_GPIO_WritePin(I2C_SDA_GPIO_Port,I2C_SDA_Pin,x) //SDA	 
+#define READ_SDA   HAL_GPIO_ReadPin(I2C_SDA_GPIO_Port,I2C_SDA_Pin)  //输入SDA 
 #define u8 unsigned char
 #define u16 unsigned short int
 

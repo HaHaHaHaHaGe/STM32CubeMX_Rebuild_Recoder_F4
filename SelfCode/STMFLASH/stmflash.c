@@ -44,7 +44,10 @@ void STMFLASH_Write(u32 *pBuffer,u32 NumToWrite)
 	f.Sector = FLASH_SECTOR_7;
 	f.NbSectors = 1;
 	
-	recv = HAL_FLASHEx_Erase(&f,&serror);
+	while(HAL_FLASHEx_Erase(&f,&serror))
+	{
+		HAL_Delay(100);
+	}
 
 	while(NumToWrite--)
 	{

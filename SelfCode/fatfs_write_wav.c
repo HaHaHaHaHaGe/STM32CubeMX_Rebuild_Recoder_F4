@@ -22,7 +22,7 @@ char out_bytes[ENCODED_FRAME_SIZE];
 
 extern TIM_HandleTypeDef htim3;
 extern ADC_HandleTypeDef hadc1;
-
+extern int wifi_link_check_int;
 
 
 SpeexBits bits;/* Holds bits so they can be read and written by the Speex routines */
@@ -180,6 +180,7 @@ unsigned char wifi_send_buffer[1024];
 unsigned int wifi_send_location = 0;
 unsigned int wifi_send_end = 0;
 int wifi_send_NoErrorPackeg_num = 0;
+int speexdata_30kb_last_num;
 void start_recoder()
 {
 	wifi_send_NoErrorPackeg_num = 0;
@@ -209,7 +210,7 @@ void tick_recoder()
 			for(rd_i = 0;rd_i<data1_len;rd_i+=2)
 			{
 				wav16bits = data_1[rd_i] | (data_1[rd_i + 1] << 8);
-				*(u16*)&data_1[rd_i] = (wav16bits - 1894) << AM_Factor; //4
+				*(u16*)&data_1[rd_i] = (wav16bits - 2110) << AM_Factor; //4
 				rdata[wdata_len++] = data_1[rd_i];
 				rdata[wdata_len++] = data_1[rd_i + 1];
 			}
@@ -226,7 +227,7 @@ void tick_recoder()
 			for(rd_i = 0;rd_i<data2_len;rd_i+=2)
 			{
 				wav16bits = data_2[rd_i] | (data_2[rd_i + 1] << 8);
-				*(u16*)&data_2[rd_i] = (wav16bits - 1984) << AM_Factor;
+				*(u16*)&data_2[rd_i] = (wav16bits - 2110) << AM_Factor;
 				rdata[wdata_len++] = data_2[rd_i];
 				rdata[wdata_len++] = data_2[rd_i + 1];
 			}
@@ -268,20 +269,23 @@ void tick_recoder()
 //			recoder_out_data_loc = 0;
 			
 		}
-		if(recoder_out_data_loc >= 30*1024)
+		if(recoder_out_data_loc >= 30*1000)
 		{
 			if(speexdata_30kb_flag == 0)
 			{
 				speexdata_wifisend_flag = 0;
 				speexdata_30kb_flag = 1;
+				speexdata_30kb_last_num = recoder_out_data_loc;
 			}
 			else
 			{
 				speexdata_60kb_flag = 1;
 				speexdata_30kb_flag = 0;
-				wifi_send_location = speexdata_len - 30*1024;
-				wifi_send_end = speexdata_len + 30*1024;
-				
+				wifi_send_location = speexdata_len - speexdata_30kb_last_num;
+				wifi_send_end = speexdata_len + recoder_out_data_loc;
+//				HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,0);
+//				HAL_Delay(200);
+//				HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,1);
 			}
 			write_speex_file(recoder_outdata,recoder_out_data_loc);
 			speexdata_len += recoder_out_data_loc;
@@ -292,6 +296,17 @@ void tick_recoder()
 //			write_speex_file(recoder_outdata,recoder_out_data_loc);
 //			recoder_out_data_loc = 0;
 		}
+		
+		if(recoder_out_data_loc >= 27*1000 && recoder_out_data_loc < 28*1000 && speexdata_30kb_flag == 1)
+		{
+			HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,0);
+		}else
+		{
+			HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,1);
+		}
+		
+		
+		
 		if(speexdata_60kb_flag == 1)
 		{
 			if(wifi_link_server() == 1)
@@ -302,17 +317,25 @@ void tick_recoder()
 		}
 		if(speexdata_wifisend_flag == 1)
 		{
-			f_lseek(&speex_file,wifi_send_location);
-			f_read(&speex_file,wifi_send_buffer,1024,&br);
+//			int read_number = 1000;
+//			if(wifi_send_end - wifi_send_location < 1000){
+//				read_number = wifi_send_end - wifi_send_location;
+//				f_read(&speex_file,wifi_send_buffer,read_number,&br);
+//			}
+//			else
+			
 			unsigned char flag;
-			if(wifi_send_location < wifi_send_end)
-				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+			if(wifi_send_location < wifi_send_end){
+				f_lseek(&speex_file,wifi_send_location);
+				f_read(&speex_file,wifi_send_buffer,1000,&br);
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1000,wifi_send_location);
+			}
 			else
 				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
 			if(flag == 1)
 			{
 				wifi_send_NoErrorPackeg_num = 0;
-				wifi_send_location+=1024;
+				wifi_send_location+=1000;
 			}
 			else if(flag == 2)
 				wifi_send_NoErrorPackeg_num++;
@@ -323,6 +346,7 @@ void tick_recoder()
 			if(wifi_send_location >= wifi_send_end && wifi_send_NoErrorPackeg_num >= 10000)
 			{
 				speexdata_wifisend_flag = 0;
+				printf("AT+GSLP=3600000\r\n");
 			}
 		}
 		
@@ -337,16 +361,22 @@ void end_recoder()
 		{
 			wifi_link_check();
 			f_lseek(&speex_file,wifi_send_location);
-			f_read(&speex_file,wifi_send_buffer,1024,&br);
+			int read_number = 1000;
+			if(wifi_send_end - wifi_send_location < 1000){
+				read_number = wifi_send_end - wifi_send_location;
+				f_read(&speex_file,wifi_send_buffer,read_number,&br);
+			}
+			else
+				f_read(&speex_file,wifi_send_buffer,1000,&br);
 			unsigned char flag;
 			if(wifi_send_location < wifi_send_end)
-				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,read_number,wifi_send_location);
 			else
 				flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
 			if(flag == 1)
 			{
 				wifi_send_NoErrorPackeg_num = 0;
-				wifi_send_location+=1024;
+				wifi_send_location+=read_number;
 			}
 			else if(flag == 2)
 				wifi_send_NoErrorPackeg_num++;
@@ -372,29 +402,41 @@ void end_recoder()
 	}
 	if(speexdata_30kb_flag == 1)
 	{
-		wifi_send_location = speexdata_len - (recoder_out_data_loc + 30 * 1024);
+		wifi_send_location = speexdata_len - (recoder_out_data_loc + 30 * 1000);
 	}
 	//while(wifi_link_server() != 1);
 	wifi_send_NoErrorPackeg_num = 0;
-	while(wifi_send_NoErrorPackeg_num < 10000)
+	while(wifi_send_NoErrorPackeg_num < 20)
 	{
 		wifi_link_check();
 		f_lseek(&speex_file,wifi_send_location);
-		f_read(&speex_file,wifi_send_buffer,1024,&br);
+		f_read(&speex_file,wifi_send_buffer,1000,&br);
 		unsigned char flag;
 		if(wifi_send_location < speexdata_len)
-			flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1024,wifi_send_location);
+			flag = SendspeexData_and_FixWifiData(wifi_send_buffer,1000,wifi_send_location);
 		else
 			flag = SendspeexData_and_FixWifiData(wifi_send_buffer,0,0);
 		if(flag == 1)
 		{
 			wifi_send_NoErrorPackeg_num = 0;
-			wifi_send_location+=1024;
+			wifi_send_location+=1000;
 		}
 		else if(flag == 2)
-			wifi_send_NoErrorPackeg_num++;
+		{
+			if(wifi_link_check_int != 0)
+				wifi_send_NoErrorPackeg_num = 0;
+			else
+			{
+				SendDeviceIDLE();
+				wifi_send_NoErrorPackeg_num++;
+			}
+		}
 		else
+		{
 			wifi_send_NoErrorPackeg_num = 0;
+		}
+		
+		
 	}
 	f_lseek(&speex_file,speexdata_len);
 	
