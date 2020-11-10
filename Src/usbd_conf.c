@@ -67,7 +67,7 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status);
 
 void HAL_PCD_MspInit(PCD_HandleTypeDef* pcdHandle)
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   if(pcdHandle->Instance==USB_OTG_FS)
   {
   /* USER CODE BEGIN USB_OTG_FS_MspInit 0 */
@@ -549,7 +549,7 @@ USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev, uint8_t dev_a
   * @param  size: Data size    
   * @retval USBD status
   */
-USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)
+USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint32_t size)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBD_StatusTypeDef usb_status = USBD_OK;
@@ -569,7 +569,7 @@ USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr, u
   * @param  size: Data size
   * @retval USBD status
   */
-USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint16_t size)
+USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, uint8_t ep_addr, uint8_t *pbuf, uint32_t size)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBD_StatusTypeDef usb_status = USBD_OK;

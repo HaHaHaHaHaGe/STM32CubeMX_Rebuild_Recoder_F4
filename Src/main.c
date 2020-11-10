@@ -1079,14 +1079,25 @@ void RF_Command_Check()
 					ClearBuffer(Buffer,sizeof(Buffer));
 					return;
 				}
+				sum = 0;
 				for(i = 0;i<RecvComLoc2 - RecvComLoc1 - 1;i++)
 				{
+					if(FLASH_DATA.WIFI_NAME[i] != Buffer[i + RecvComLoc1 + 1])
+						sum = 1;
 					recv_wifi[i] = Buffer[i + RecvComLoc1 + 1];
 					FLASH_DATA.WIFI_NAME[i] = recv_wifi[i];
 				}
 				FLASH_DATA.WIFI_NAME[i] = 0;
 			}
 			ClearBuffer(Buffer,sizeof(Buffer));
+			if(sum == 0)
+			{
+				recv_wifi[0] = 0;
+				recv_pass[0] = 0;
+				recv_ip[0] = 0;
+				recv_port[0] = 0;
+				return;
+			}
 		}
 		else if (RecvComLoc2 != -1)
 		{
@@ -1351,12 +1362,12 @@ void PVD_Init(void)
   * @retval int
   */
 int main(void)
- {
+{
   /* USER CODE BEGIN 1 */
 	UINT bw2;
 	u8 presskeyvalue = 1;
 	u32 timecnt = 0;
-	
+	u32 LVD_Count = 0;
 	u8 connectstate = 0;
 	u8 i,sum = 0;
 	u8 *str1;
@@ -1422,7 +1433,7 @@ int main(void)
 
 
 	
-		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 1)
+		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 0)
 		{
 			display_GB2312_string(0,0,"电量低");
 			HAL_Delay(2000);
@@ -1446,13 +1457,13 @@ int main(void)
 	
 	
 	//OLED_ShowString(0,2,(unsigned char*)"Check MPU6050..",8);
-	MPU_Init();
-	HAL_Delay(200);
-	while(mpu_dmp_init())
-	{
-		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
- 		HAL_Delay(200);
-	}
+//	MPU_Init();
+//	HAL_Delay(200);
+//	while(mpu_dmp_init())
+//	{
+//		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+// 		HAL_Delay(200);
+//	}
 	
 	
 	
@@ -1813,12 +1824,20 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
   while (1)
   {
 		//wifi_link_check();   //20200705
-		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 1)
+		if(HAL_GPIO_ReadPin(LVD_GPIO_Port,LVD_Pin) == 0)
 		{
-			display_GB2312_string(0,0,"电量低");
-			HAL_Delay(2000);
-			HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
-			while(1);
+			LVD_Count++;
+		}
+		else
+			LVD_Count = 0;
+		if(LVD_Count >= 400*10)
+		{
+//			OLED_Clear( );
+			LVD_Count = 0;
+			display_GB2312_string(2,80,"电量低");
+//			HAL_Delay(5000);
+//			HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
+//			while(1);
 		}
 		if(NRF24L01_RxPacket(Buffer)==0)
 		{
@@ -2403,6 +2422,7 @@ static void MX_USART2_UART_Init(void)
   */
 static void MX_DMA_Init(void) 
 {
+
   /* DMA controller clock enable */
   __HAL_RCC_DMA2_CLK_ENABLE();
 
@@ -2441,8 +2461,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GT20_CSN_GPIO_Port, GT20_CSN_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, PWR_CTL_Pin|LVD_Pin|I2C_SDA_Pin|I2C_SCL_Pin 
-                          |WIFI_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PWR_CTL_Pin|I2C_SDA_Pin|I2C_SCL_Pin|WIFI_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, NRF_CE_Pin|NRF_CSN_Pin|OLED_SDA_Pin|OLED_SCL_Pin, GPIO_PIN_SET);
@@ -2470,10 +2489,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(GT20_CSN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PWR_CTL_Pin LVD_Pin I2C_SDA_Pin I2C_SCL_Pin 
-                           WIFI_RST_Pin */
-  GPIO_InitStruct.Pin = PWR_CTL_Pin|LVD_Pin|I2C_SDA_Pin|I2C_SCL_Pin 
-                          |WIFI_RST_Pin;
+  /*Configure GPIO pins : PWR_CTL_Pin I2C_SDA_Pin I2C_SCL_Pin WIFI_RST_Pin */
+  GPIO_InitStruct.Pin = PWR_CTL_Pin|I2C_SDA_Pin|I2C_SCL_Pin|WIFI_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -2485,11 +2502,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(PWR_FLAG_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : NRF_IRQ_Pin */
-  GPIO_InitStruct.Pin = NRF_IRQ_Pin;
+  /*Configure GPIO pins : NRF_IRQ_Pin LVD_Pin */
+  GPIO_InitStruct.Pin = NRF_IRQ_Pin|LVD_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(NRF_IRQ_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : NRF_CE_Pin NRF_CSN_Pin OLED_SDA_Pin OLED_SCL_Pin */
   GPIO_InitStruct.Pin = NRF_CE_Pin|NRF_CSN_Pin|OLED_SDA_Pin|OLED_SCL_Pin;

@@ -1,5 +1,4 @@
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Src/sd_diskio.c
-radio_rebuild_stm32cubemx\sd_diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Middlewares/Third_Party/FatFs/src/integer.h
@@ -48,3 +47,4 @@ radio_rebuild_stm32cubemx\sd_diskio.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Inc/bsp_driver_sd.h
 radio_rebuild_stm32cubemx\sd_diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 radio_rebuild_stm32cubemx\sd_diskio.o: ../Inc/sd_diskio.h
+radio_rebuild_stm32cubemx\sd_diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

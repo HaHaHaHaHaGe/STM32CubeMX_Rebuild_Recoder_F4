@@ -273,7 +273,11 @@ void tick_recoder()
 		{
 			if(speexdata_30kb_flag == 0)
 			{
-				speexdata_wifisend_flag = 0;
+				if(speexdata_wifisend_flag == 1)
+				{
+					speexdata_wifisend_flag = 0;
+					printf("AT+GSLP=3600000\r\n");
+				}
 				speexdata_30kb_flag = 1;
 				speexdata_30kb_last_num = recoder_out_data_loc;
 			}
@@ -406,9 +410,14 @@ void end_recoder()
 	}
 	//while(wifi_link_server() != 1);
 	wifi_send_NoErrorPackeg_num = 0;
-	while(wifi_send_NoErrorPackeg_num < 20)
+	while(wifi_send_NoErrorPackeg_num < 400)
 	{
 		wifi_link_check();
+		if(wifi_link_check_int != 0)
+		{
+			wifi_send_NoErrorPackeg_num = 0;
+			continue;
+		}
 		f_lseek(&speex_file,wifi_send_location);
 		f_read(&speex_file,wifi_send_buffer,1000,&br);
 		unsigned char flag;
@@ -423,9 +432,6 @@ void end_recoder()
 		}
 		else if(flag == 2)
 		{
-			if(wifi_link_check_int != 0)
-				wifi_send_NoErrorPackeg_num = 0;
-			else
 			{
 				SendDeviceIDLE();
 				wifi_send_NoErrorPackeg_num++;

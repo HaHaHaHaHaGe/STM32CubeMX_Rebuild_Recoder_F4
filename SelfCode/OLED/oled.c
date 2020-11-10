@@ -382,32 +382,66 @@ void OLED_Init(void)
 //	delay_ms(200);
 	//Delay(20);
 	
+//	OLED_WR_Byte(0xAE,OLED_CMD); /*display off*/
+//	OLED_WR_Byte(0x00,OLED_CMD); /*set lower column address*/ 
+//	OLED_WR_Byte(0x10,OLED_CMD); /*set higher column address*/
+//	OLED_WR_Byte(0x00,OLED_CMD); /*set display start line*/ 
+//	OLED_WR_Byte(0xB0,OLED_CMD); /*set page address*/ 
+//	OLED_WR_Byte(0x81,OLED_CMD); /*contract control*/ 
+//	OLED_WR_Byte(0xff,OLED_CMD); /*128*/ 
+//	OLED_WR_Byte(0xA1,OLED_CMD); /*set segment remap*/ 
+//	OLED_WR_Byte(0xA6,OLED_CMD); /*normal / reverse*/ 
+//	OLED_WR_Byte(0xA8,OLED_CMD); /*multiplex ratio*/ 
+//	OLED_WR_Byte(0x1F,OLED_CMD); /*duty = 1/32*/ 
+//	OLED_WR_Byte(0xC8,OLED_CMD); /*Com scan direction*/ 
+//	OLED_WR_Byte(0xD3,OLED_CMD); /*set display offset*/ 
+//	OLED_WR_Byte(0x00,OLED_CMD); 
+//	OLED_WR_Byte(0xD5,OLED_CMD); /*set osc division*/ 
+//	OLED_WR_Byte(0x80,OLED_CMD); 
+//	OLED_WR_Byte(0xD9,OLED_CMD); /*set pre-charge period*/ 
+//	OLED_WR_Byte(0x1f,OLED_CMD); 
+//	OLED_WR_Byte(0xDA,OLED_CMD); /*set COM pins*/ 
+//	OLED_WR_Byte(0x00,OLED_CMD); 
+//	OLED_WR_Byte(0xdb,OLED_CMD); /*set vcomh*/ 
+//	OLED_WR_Byte(0x40,OLED_CMD); 
+//	OLED_WR_Byte(0x8d,OLED_CMD); /*set charge pump enable*/ 
+//	OLED_WR_Byte(0x14,OLED_CMD);
+//	
+//	OLED_WR_Byte(0xAF,OLED_CMD);//--turn on oled panel
+
+
+
 	OLED_WR_Byte(0xAE,OLED_CMD); /*display off*/
-	OLED_WR_Byte(0x00,OLED_CMD); /*set lower column address*/ 
+	OLED_WR_Byte(0x00,OLED_CMD); /*set lower column address*/
 	OLED_WR_Byte(0x10,OLED_CMD); /*set higher column address*/
-	OLED_WR_Byte(0x00,OLED_CMD); /*set display start line*/ 
-	OLED_WR_Byte(0xB0,OLED_CMD); /*set page address*/ 
-	OLED_WR_Byte(0x81,OLED_CMD); /*contract control*/ 
-	OLED_WR_Byte(0xff,OLED_CMD); /*128*/ 
-	OLED_WR_Byte(0xA1,OLED_CMD); /*set segment remap*/ 
-	OLED_WR_Byte(0xA6,OLED_CMD); /*normal / reverse*/ 
-	OLED_WR_Byte(0xA8,OLED_CMD); /*multiplex ratio*/ 
-	OLED_WR_Byte(0x1F,OLED_CMD); /*duty = 1/32*/ 
-	OLED_WR_Byte(0xC8,OLED_CMD); /*Com scan direction*/ 
-	OLED_WR_Byte(0xD3,OLED_CMD); /*set display offset*/ 
-	OLED_WR_Byte(0x00,OLED_CMD); 
-	OLED_WR_Byte(0xD5,OLED_CMD); /*set osc division*/ 
-	OLED_WR_Byte(0x80,OLED_CMD); 
-	OLED_WR_Byte(0xD9,OLED_CMD); /*set pre-charge period*/ 
-	OLED_WR_Byte(0x1f,OLED_CMD); 
-	OLED_WR_Byte(0xDA,OLED_CMD); /*set COM pins*/ 
-	OLED_WR_Byte(0x00,OLED_CMD); 
-	OLED_WR_Byte(0xdb,OLED_CMD); /*set vcomh*/ 
-	OLED_WR_Byte(0x40,OLED_CMD); 
-	OLED_WR_Byte(0x8d,OLED_CMD); /*set charge pump enable*/ 
-	OLED_WR_Byte(0x14,OLED_CMD);
-	
-	OLED_WR_Byte(0xAF,OLED_CMD);//--turn on oled panel
+	OLED_WR_Byte(0x40,OLED_CMD); /*set display start line*/
+	OLED_WR_Byte(0xB0,OLED_CMD); /*set page address*/
+	OLED_WR_Byte(0x81,OLED_CMD); /*contract control*/
+	OLED_WR_Byte(0x4D,OLED_CMD); /*128*/
+	OLED_WR_Byte(0x82,OLED_CMD);
+	OLED_WR_Byte(0x00,OLED_CMD);
+	OLED_WR_Byte(0xA1,OLED_CMD); /*set segment remap*/
+	OLED_WR_Byte(0xA2,OLED_CMD);
+	OLED_WR_Byte(0xA4,OLED_CMD);
+	OLED_WR_Byte(0xA6,OLED_CMD); /*normal / reverse*/
+	OLED_WR_Byte(0xA8,OLED_CMD); /*multiplex ratio*/
+	OLED_WR_Byte(0x1F,OLED_CMD); /*duty = 1/32*/
+	OLED_WR_Byte(0xC8,OLED_CMD); /*Com scan direction*/
+	OLED_WR_Byte(0xD3,OLED_CMD); /*set display offset*/
+	OLED_WR_Byte(0x10,OLED_CMD);
+	OLED_WR_Byte(0xD5,OLED_CMD); /*set osc division*/
+	OLED_WR_Byte(0xB1,OLED_CMD);
+	OLED_WR_Byte(0xD9,OLED_CMD); /*set pre-charge period*/
+	OLED_WR_Byte(0x62,OLED_CMD);
+	OLED_WR_Byte(0xDB,OLED_CMD); /*set COM pins*/
+	OLED_WR_Byte(0x3F,OLED_CMD);
+	OLED_WR_Byte(0xdb,OLED_CMD); /*set vcomh*/
+	OLED_WR_Byte(0x3F,OLED_CMD);
+	OLED_WR_Byte(0x32,OLED_CMD); /*set charge pump enable*/
+	OLED_WR_Byte(0xAD,OLED_CMD);
+	OLED_WR_Byte(0x8B,OLED_CMD);
+	//OLED_Clear();
+	OLED_WR_Byte(0xAF,OLED_CMD); /*display ON*/ 
 }  
 
 

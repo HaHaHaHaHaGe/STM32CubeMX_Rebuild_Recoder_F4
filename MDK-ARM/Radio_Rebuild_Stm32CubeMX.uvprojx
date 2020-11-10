@@ -14,7 +14,7 @@
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F411CEUx</Device>
+          <Device>STM32F411CCUx</Device>
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
@@ -110,11 +110,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments> -REMAP -MPU</SimDllArguments>
+          <SimDllArguments>-REMAP -MPU</SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments> -MPU</TargetDllArguments>
+          <TargetDllArguments>-MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
         </DllOption>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F411xE,HAVE_CONFIG_H</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;  ../Drivers/CMSIS/Include;  ../Middlewares/Third_Party/FatFs/src;  ..\SelfCode;  ..\SelfCode\Source\Factory;  ..\SelfCode\Source\Factory\inc;  ..\SelfCode\Source\BasicDataStream\inc;  ..\SelfCode\Speex_Lib\include;  ..\SelfCode\Speex_Lib\libspeex;  ..\SelfCode\Speex_Lib\STM32;  ..\SelfCode\Speex_Lib\STM32\include;  ..\SelfCode\Speex_Lib\STM32\libspeex;  ..\SelfCode\Speex_Lib\STM32\libspeex\arm;  ..\SelfCode\OLED;  ..\SelfCode\STMFLASH;  ..\SelfCode\NRF24L01;  ..\SelfCode\MPU6050;  ..\SelfCode\MPU6050\eMPL;  ..\SelfCode\IIC;  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;  ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc;  ..\SelfCode\GT20</IncludePath>
+              <IncludePath>../Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;   ../Drivers/CMSIS/Include;   ../Middlewares/Third_Party/FatFs/src;   ..\SelfCode;   ..\SelfCode\Source\Factory;   ..\SelfCode\Source\Factory\inc;   ..\SelfCode\Source\BasicDataStream\inc;   ..\SelfCode\Speex_Lib\include;   ..\SelfCode\Speex_Lib\libspeex;   ..\SelfCode\Speex_Lib\STM32;   ..\SelfCode\Speex_Lib\STM32\include;   ..\SelfCode\Speex_Lib\STM32\libspeex;   ..\SelfCode\Speex_Lib\STM32\libspeex\arm;   ..\SelfCode\OLED;   ..\SelfCode\STMFLASH;   ..\SelfCode\NRF24L01;   ..\SelfCode\MPU6050;   ..\SelfCode\MPU6050\eMPL;   ..\SelfCode\IIC;   ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;   ../Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc;   ..\SelfCode\GT20</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
