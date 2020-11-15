@@ -133,6 +133,7 @@ int RecvComLoc3 = 0;
 int RecvComLoc4 = 0;
 u8 Buffer[64];
 extern unsigned char AM_Factor;
+extern ringbuffer buffer;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -296,13 +297,30 @@ void check_firstrun()
 		HAL_UART_Transmit(&huart2,(unsigned char*)"AT+CWMODE=1\r\n",13,100);
 		HAL_Delay(2000);	
 		HAL_UART_Transmit(&huart2,(unsigned char*)"AT+UART=921600,8,1,0,0\r\n",24,100);
-		
-		//printf("AT+UART=921600,8,1,0,0\r\n");
-		HAL_Delay(2000);	
-		HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
 		OLED_Clear( );
-		OLED_ShowString(0,0,(unsigned char*)"Please turn off",8);
-		while(1);
+		initial_buffer(&buffer,YES,20*1024);
+		HAL_TIM_Base_Start(&htim3);
+		HAL_ADC_Start_DMA(&hadc1,(uint32_t*)Buffer,32);
+		
+		int j = 0;
+		while(1)
+		{
+			j = 0;
+			for(char i = 0;i<32;i++)
+				j += abs(((short*)Buffer)[i] - 2048);
+			j/=32;
+			sprintf(String_Windows_Time,"%d",j);
+			
+			OLED_Clear( );
+			OLED_ShowString(0,0,(unsigned char*)String_Windows_Time,8);
+			HAL_Delay(50);	
+		}
+		//printf("AT+UART=921600,8,1,0,0\r\n");
+//		HAL_Delay(2000);	
+//		HAL_GPIO_WritePin(PWR_CTL_GPIO_Port,PWR_CTL_Pin,0);
+//		OLED_Clear( );
+//		OLED_ShowString(0,0,(unsigned char*)"Please turn off",8);
+//		while(1);
 	}
 }
 
