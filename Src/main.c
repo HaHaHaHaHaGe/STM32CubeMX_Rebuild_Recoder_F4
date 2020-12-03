@@ -1972,6 +1972,22 @@ STMFLASH_Write((u32*)&FLASH_DATA,sizeof(FLASH_SAVE) / 4);
 						HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
 					}
 				}
+				if(*(str1 + 6)=='S' && *(str1 + 7)=='E')
+				{
+					for(char i = 0; i < 12; i++)
+						if(hex_to_char((*(str1 + 8 + i / 2) >> 4 * (((i % 2) * -1) + 1)) & 0x0f) != FLASH_DATA.DEVICE_ID[0])
+							break;
+					if(GadFlag == 0x80 && WavFlag == 0x80)
+					{
+						HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,0);
+						HAL_Delay(200);
+						HAL_GPIO_WritePin(WIFI_RST_GPIO_Port,WIFI_RST_Pin,1);
+						state &= ~COMMAND_Blink;
+						state |= COMMAND_End;
+						HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,0);
+						HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,1);
+					}
+				}
 				*str1 = 0x30;
 			}
 		}
